@@ -150,16 +150,13 @@ Periode.prototype.getHeureDebut=function (){
 /***************************
 ***** classe evenement ******
 ****************************/
-var evStatick={};
-var Evenement=(function(){
-	var lastID=0; //statick variable
-	if (lastID==0){
-		evStatick.setLastID=function(id){
-				lastID=id;
-		};		
-	}
-	return function(nom,periode,description,lieu){
+var Evenement;
+(function(){
+	//static private attribute
+	var lastID=0; 
+	Evenement=function(nom,periode,description,lieu){
 		lastID++;
+		//private attribute
 		var private={
 			 id:lastID,
 			 nom:nom,
@@ -172,58 +169,65 @@ var Evenement=(function(){
 			return private;
 		};	
 	};
+	//static public method
+	Evenement.setLastID=function(id){
+		lastID=id;	
+	}
+	
+	//methode public
+	Evenement.prototype.getId=function(){
+		var p=this.getPrivate();
+		return p.id;
+	}
+
+	Evenement.prototype.setId=function(identifiant){
+		var p=this.getPrivate();
+		p.id = identifiant;
+	}
+
+	Evenement.prototype.getNom=function(){
+		var p=this.getPrivate();
+		return p.nom;
+	}
+
+	Evenement.prototype.setNom=function(titre){
+		var p=this.getPrivate();
+		p.nom = titre;
+	}
+
+	Evenement.prototype.getPeriode=function(){
+		var p=this.getPrivate();
+		return p.periode;
+	}
+
+	Evenement.prototype.setPeriode=function(per){
+		var p=this.getPrivate();
+		p.periode = per;
+	}
+
+	Evenement.prototype.getDescription=function(){
+		var p=this.getPrivate();
+		return p.description;
+	}
+
+	Evenement.prototype.setDescription=function(desc){
+		var p=this.getPrivate();
+		p.description = desc;
+	}
+
+	Evenement.prototype.getLieu=function(){
+		var p=this.getPrivate();
+		return p.lieu;
+	}
+
+	Evenement.prototype.setLieu=function(lieu){
+		var p=this.getPrivate();
+		p.lieu = lieu;
+	}
 })()
-Evenement.setLastID=evStatick.setLastID;
-//methode public
- Evenement.prototype.getId=function(){
-	var p=this.getPrivate();
-	return p.id;
-}
 
-Evenement.prototype.setId=function(identifiant){
-	var p=this.getPrivate();
-	p.id = identifiant;
-}
 
-Evenement.prototype.getNom=function(){
-	var p=this.getPrivate();
-	return p.nom;
-}
 
-Evenement.prototype.setNom=function(titre){
-	var p=this.getPrivate();
-	p.nom = titre;
-}
-
-Evenement.prototype.getPeriode=function(){
-	var p=this.getPrivate();
-	return p.periode;
-}
-
-Evenement.prototype.setPeriode=function(per){
-	var p=this.getPrivate();
-	p.periode = per;
-}
-
-Evenement.prototype.getDescription=function(){
-	var p=this.getPrivate();
-	return p.description;
-}
-
-Evenement.prototype.setDescription=function(desc){
-	var p=this.getPrivate();
-	p.description = desc;
-}
-
-Evenement.prototype.getLieu=function(){
-	var p=this.getPrivate();
-	return p.lieu;
-}
-
-Evenement.prototype.setLieu=function(lieu){
-	var p=this.getPrivate();
-	p.lieu = lieu;
-}
 	
 /***************************
 ***** classe donnee ******
