@@ -1,0 +1,100 @@
+*{
+				margin:0;
+				padding:0;
+				box-sizing:border-box;
+				word-wrap: break-word;
+				overflow: hidden;
+			}
+			
+			body{
+			background: lightgrey;
+			}
+			
+			.col{
+				display:inline-block;
+				background:pink;
+				float:left;
+				width:100px;
+				position:relative;
+			}
+			.cell{
+				border:solid 1px black;
+				padding:5px;
+				height:50px;
+				width:100%;
+				
+			}
+			.tache{
+				position:absolute;
+				top:70px;
+				background:blue;			
+			}
+			
+			.optionInvisible {
+				margin-left: -9000px;
+				opacity: 0;
+				transition: margin-left 0s ease 1s, opacity 1s linear 0s;
+			}
+			.optionInvisible {
+				float: left;
+			}
+			.optionVisible {
+				float: left;
+			}
+			.optionVisible {
+				transition: margin-left 0s ease 0s, opacity 1.5s linear 0s;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: 1;
+			}
+			
+			.colum {
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.6);
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				text-align: center;
+			}
+
+			h1
+			{
+			text-align: center;
+			border: 2px solid black;
+			background: lightblue;
+			}
+			
+			#accueil{
+			top:0px;
+			bottom:0px;
+				position:absolute;
+				z-index:2;
+				background:white;
+				width: 100%;
+				height:100%;
+			text-align: center;
+			}
+			
+			.btnMode{
+			margin-top:10%;
+			margin:2px;
+			}
+			
+			#slogan{
+			margin-top:5%;
+			font-size: 25px;
+			text-decoration:underline;
+			}
+			
+			#creationPlanning{
+			border: 2px solid black;
+			}
+			
+			fieldset{
+			position: absolute;
+			width:10%;
+			left:45%;
+			top: 30%
+			}
