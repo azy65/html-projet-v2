@@ -8,28 +8,47 @@
 			
 			body{
 			background: lightgrey;
+			padding:10px;
 			}
+			#laTache{
+				padding:0px 10px;
 			
+			}
 			.col{
 				display:inline-block;
-				background:pink;
+				background:#F9F9F9;
 				float:left;
-				width:100px;
+				width:150px;
 				position:relative;
 			}
+			.col+.col{
+				margin-left:-1px;
+			}			
 			.cell{
-				border:solid 1px black;
+				border:solid 1px gray;
 				padding:5px;
 				height:50px;
-				width:100%;
-				
+				width:100%;				
+			}
+			.cell+.cell{
+				border-top:solid 0px gray;
+			}
+			h3{
+				color:white;
+				font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+				font-size:15px
 			}
 			.tache{
 				position:absolute;
 				top:70px;
-				background:blue;			
+				background:#ccb800;
+				border-top:1px gray solid!important;	
+				border-radius:10px;
 			}
-			
+			.tacheTexte{
+				color:white;
+				
+			}
 			.optionInvisible {
 				margin-left: -9000px;
 				opacity: 0;
@@ -89,7 +108,7 @@
 			}
 			
 			#creationPlanning{
-			border: 2px solid black;
+			border: 2px solid gray;
 			}
 			
 			fieldset{

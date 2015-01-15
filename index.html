@@ -29,14 +29,14 @@
 	   </div>
 		<div class="col">
 			<div class="cell" >planning</div>
-			<div ng-repeat="lig in ligne track by  $index"><div class="cell">{{$index+8 + "h" }}</div></div>
+			<div class="cell" ng-repeat="lig in ligne track by  $index">{{$index+8 + "h" }}</div>
 		</div>
 		
 		<div class="col" ng-repeat="sal in planning.getColonnes()" class="col">
 			<div class="cell">{{sal.getTitre()}}</div>
 			<!--case -->
 			<div class="cell" ng-repeat="lig in ligne track by $index" ng-click="afficherAjouterEvenement($index,'ajout')"></div>
-			<div ng-repeat="tache in sal.getTaches()" class="cell tache" >tegggggggggggggggggggsssffffffffffffst</div>
+			<div ng-repeat="tache in sal.getTaches()" class="cell tache" ><div id="laTache"><h3>Intro Agile Toulouse</h5><p class="tacheTexte">tegggggggggggggggggggsssffffffffffffst</p></div></div>
 		</div>
 		<!--dede-->
 		
