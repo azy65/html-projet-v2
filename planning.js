@@ -1,28 +1,26 @@
-//classe planning
+/***************************
+***** Classe planning ******
+****************************/
 var Planning=function(mode){
 	var private={
 		 mode:mode,
-		 titre:"",
 		 tabColonne:[]
 	}
 	this.getPrivate=function(){
 		return private;
 	};
 }
-
 //public
 Planning.prototype.getMode=function getMode(){
 	var p=this.getPrivate();
-	return this.getPrivate().mode;
+	return p.mode;
 };
-Planning.prototype.getTitre=function(){
+
+Planning.prototype.setMode=function(mode){
 	var p=this.getPrivate();
-	return p.titre;
+	p.mode=mode;
 }
-Planning.prototype.setTitre=function(titre){
-	var p=this.getPrivate();
-	p.titre=titre;
-}
+
 Planning.prototype.ajoutColonne=function(col2){
 	var p=this.getPrivate();
 	p.tabColonne.push(col2);
@@ -34,23 +32,24 @@ Planning.prototype.getColonnes=function(){
 
 
 
-//classe colonne
-var Colonne=function(titre,mode){
+/***************************
+***** Classe colonne ******
+****************************/
+var Colonne=function(id,titre,largeur){
 	
 	var private={
-		lastId:0,
+		lastId:id,
 		tabEvmt:[],
-		titre : titre,
-		mode: mode
+		titre:titre,
+		largeur:largeur
 	}
 	this.getPrivate=function(){
 		return private;
 	};
 }
 //public
-Colonne.prototype.ajoutEvenement=function(periode){
+Colonne.prototype.ajouterEvenement=function(evmt){
 		var p=this.getPrivate();
-		var evmt=new Evenement(p.lastId,periode);
 		p.tabEvmt.push(evmt);
 		p.lastId++;
 	}
@@ -58,34 +57,58 @@ Colonne.prototype.getTaches=function(){
 	var p=this.getPrivate();
 	return p.tabEvmt;
 }
+Colonne.prototype.setTaches=function(tabEvmt){
+	var p=this.getPrivate();
+	p.tabEvmt=tabEvmt;
+}
+Colonne.prototype.getId=function(){
+	var p=this.getPrivate();
+	return p.lastId;
+}
 Colonne.prototype.getTitre=function(){
 	var p=this.getPrivate();
 	return p.titre;
 }
+Colonne.prototype.setTitre=function(titre){
+	var p=this.getPrivate();
+	p.titre = titre;
+}
+Colonne.prototype.getLargeur=function(){
+	var p=this.getPrivate();
+	return p.largeur;
+}
+Colonne.prototype.setLargeur=function(largeur){
+	var p=this.getPrivate();
+	p.largeur = largeur;
+}
 	
 Colonne.prototype.supprimerEvenement=function(evmt){
-	var id = evmt.getID();
-	for(var i =0;i<tabEvmt.length;i++){
-		if(id==tabEvmt[i].getID()){
-			tabEvmt.splice(i, 1);
+	var p=this.getPrivate();
+	var id = evmt.getId();
+	for(var i =0;i<p.tabEvmt.length;i++){
+		if(id==p.tabEvmt[i].getId()){
+			p.tabEvmt.splice(i, 1);
 		}
 	}
 }
-//classe Periode
+
+/***************************
+***** Classe periode ******
+****************************/
 //public
 var Periode=function(P){
 	private ={
 	//journalier : attribut
-		heureDeb:P.heureDeb,
-		minuteDeb : P.minuteDeb,
-		heureFin : P.heureFin,
-		minuteFin: P.minuteFin,
-		jourDeb: P.jourDeb,
-		jourFin: P.jourFin,
-		moisDeb : P.moisDeb,
-		moisFin : P.moisFin,
-		anneeDeb : P.anneeDeb,
-		anneeFin : P.anneeFin,
+		heureDeb:P.heureDeb ||0,
+		minuteDeb : P.minuteDeb ||0,
+		heureFin : P.heureFin ||0,
+		minuteFin: P.minuteFin ||0,
+		jourDeb: P.jourDeb ||0,
+		jourFin: P.jourFin ||0,
+		moisDeb : P.moisDeb ||0,
+		moisFin : P.moisFin ||0,
+		anneeDeb : P.anneeDeb ||0,
+		anneeFin : P.anneeFin ||0,
 	}
 	this.getPrivate=function(){
 		return private;
@@ -124,18 +147,33 @@ Periode.prototype.getHeureDebut=function (){
 	
 
 
-//Classe Evenement
-var Evenement=function(id,nom,description,periode){
-	var private={
-		 id:id,
-		 nom:nom,
-		 periode:periode,
-		 description:description
+/***************************
+***** classe evenement ******
+****************************/
+var evStatick={};
+var Evenement=(function(){
+	var lastID=0; //statick variable
+	if (lastID==0){
+		evStatick.setLastID=function(id){
+				lastID=id;
+		};		
 	}
-	this.getPrivate=function(){
-		return private;
+	return function(nom,periode,description,lieu){
+		lastID++;
+		var private={
+			 id:lastID,
+			 nom:nom,
+			 periode:periode,
+			 description:description,
+			 lieu:lieu,
+			 tabEv:[] //facu
+		}
+		this.getPrivate=function(){
+			return private;
+		};	
 	};
-}
+})()
+Evenement.setLastID=evStatick.setLastID;
 //methode public
  Evenement.prototype.getId=function(){
 	var p=this.getPrivate();
@@ -144,7 +182,7 @@ var Evenement=function(id,nom,description,periode){
 
 Evenement.prototype.setId=function(identifiant){
 	var p=this.getPrivate();
-	id = p.identifiant;
+	p.id = identifiant;
 }
 
 Evenement.prototype.getNom=function(){
@@ -154,7 +192,7 @@ Evenement.prototype.getNom=function(){
 
 Evenement.prototype.setNom=function(titre){
 	var p=this.getPrivate();
-	nom = p.titre;
+	p.nom = titre;
 }
 
 Evenement.prototype.getPeriode=function(){
@@ -176,6 +214,27 @@ Evenement.prototype.setDescription=function(desc){
 	var p=this.getPrivate();
 	p.description = desc;
 }
+
+Evenement.prototype.getLieu=function(){
+	var p=this.getPrivate();
+	return p.lieu;
+}
+
+Evenement.prototype.setLieu=function(lieu){
+	var p=this.getPrivate();
+	p.lieu = lieu;
+}
 	
+/***************************
+***** classe donnee ******
+****************************/
+var Donnee=function(){
+	var private={
+		tabEv:[]
+	}
+	this.getPrivate=function(){
+		return private;
+	};
+}
 
 

@@ -7,6 +7,25 @@ mod.controller('planController', ['$scope',
 		$scope.t=function(){
 			alert("ddddd");
 		}
+		$scope.mode="null";
+		//$scope.mode="ajout";
+		$scope.ajoutEditEvmt=function(mode,jour){
+			var f=$scope.form;
+			if (mode=="ajout"){
+				var per= new Periode(
+					{
+						heureDeb:f.hDeb,
+						minuteDeb : f.mDeb,
+						heureFin : f.hFin,
+						minuteFin: f.mFin	,				
+					}
+				);			
+			}
+			/* Evenement=function(nom,periode,description,lieu){
+			 
+			 }*/
+			
+		}
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
 			$scope.form.hDeb=hDeb || 8;
 			$scope.form.hFin=hFin || 9;
@@ -26,9 +45,11 @@ mod.controller('planController', ['$scope',
 		};
 		
 		$scope.editEvnt = false;
-		$scope.afficherAjoutEvenement=function(ligneDeb){
-			$scope.editEvnt=true;
-			initHeureEvmt(ligneDeb+8,ligneDeb+9);
+		$scope.afficherAjouterEvenement=function(ligneDeb,mode){
+			if (mode=='ajout'){
+				$scope.editEvnt=true;
+				initHeureEvmt(ligneDeb+8,ligneDeb+9);
+			}		
 		}
 		
 		
@@ -38,9 +59,9 @@ mod.controller('planController', ['$scope',
 			var colonne2= new Colonne("rubis");
 			var periode=new Periode({heureDeb:8,heureFin:10})
 			var periode2=new Periode({heureDeb:8,heureFin:10})
-			colonne2.ajoutEvenement(periode2);
-			colonne.ajoutEvenement(periode);
-			colonne.ajoutEvenement(periode2);
+			colonne2.ajouterEvenement(periode2);
+			colonne.ajouterEvenement(periode);
+			colonne.ajouterEvenement(periode2);
 			planning.ajoutColonne(colonne);
 			planning.ajoutColonne(colonne2);
 		}
