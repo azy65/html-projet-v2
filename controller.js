@@ -55,8 +55,8 @@ mod.controller('planController', ['$scope',
 		
 		
 		function justepourexemple(){
-			var colonne= new Colonne("grenat");
-			var colonne2= new Colonne("rubis");
+			var colonne= new Colonne("rubis","rubis");
+			var colonne2= new Colonne("rubis","rubis2");
 			var periode=new Periode({heureDeb:8,heureFin:10})
 			var periode2=new Periode({heureDeb:8,heureFin:10})
 			colonne2.ajouterEvenement(periode2);

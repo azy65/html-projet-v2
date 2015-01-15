@@ -7,12 +7,14 @@
 			}
 			
 			body{
-			background: lightgrey;
 			padding:10px;
 			}
 			#laTache{
 				padding:0px 10px;
 			
+			}
+			.bordPlanning{
+				color:#08C;
 			}
 			.col{
 				display:inline-block;
@@ -25,7 +27,7 @@
 				margin-left:-1px;
 			}			
 			.cell{
-				border:solid 1px gray;
+				border:solid 1px #C2C2C2;
 				padding:5px;
 				height:50px;
 				width:100%;				
@@ -36,7 +38,8 @@
 			h3{
 				color:white;
 				font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-				font-size:15px
+				font-size:15px;
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
 			}
 			.tache{
 				position:absolute;
