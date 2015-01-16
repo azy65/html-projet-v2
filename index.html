@@ -1,67 +1,23 @@
 ﻿<!DOCTYPE html>
-
-
-
 <html>
   <head>
 		<title>Planificat'heure</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="style.css"> 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
-			<script src="planning.js"></script>
+		<script type="text/javascript" src="js/planning.js"> </script>
+		<script type="text/javascript" src="js/Colonne.js"> </script>
+		<script type="text/javascript" src="js/Donnee.js"> </script>
+		<script type="text/javascript" src="js/Evenement.js"> </script>
+		<script type="text/javascript" src="js/Periode.js"> </script>
 		<script src="controller.js"></script>
-
-		<script type="text/javascript" src="loader.js"> </script>
   </head>
-
-  <body>
-  
+  <body>  
   <!--accueil-->
 	<div ng-controller="planController" ng-app="planning">
-		<div ng-if="mode=='1null'" ng-class="accueilVisible" id="accueil">
-		<h1>LE PLANNIFICAT'HEURE</h1>
-		<p id="slogan">Plannifier votre journée à toutes heures</p>
-		<fieldset>
-			<LEGEND align="left">Mode</LEGEND>
-			<button class="btnMode" ng-click="switchVisibiliteAccueil()">Journalier</button>
-				<button class="btnMode" ng-click="switchVisibiliteAccueil()">Hebdomadaire</button>
-		</fieldset>
-	   </div>
-	   
-	  <!-- journalier-->
-		<div class="col">
-			<div class="cell" >planning</div>
-			<div class="cell bordPlanning" ng-repeat="lig in ligne track by  $index">{{$index+8 + "h" }}</div>
-		</div>
-		
-		<div class="col bordPlanning" ng-repeat="sal in planning.getColonnes()" class="col">
-			<div class="cell">{{sal.getTitre()}}</div>
-			<!--case -->
-			<div class="cell" ng-repeat="lig in ligne track by $index" ng-click="afficherAjouterEvenement($index,'ajout')"></div>
-			<div ng-repeat="tache in sal.getTaches()" class="cell tache" ><div class="laTache"><h3>Intro Agile Toulouse</h5><p class="tacheTexte">tegggggggggggggggggggsssffffffffffffst</p></div></div>
-		</div>
-		<!--dede-->
-		
-		<form id="editEvnt" ng-if="editEvnt" ng-submit="ajoutEditEvmt()">
-			<div style="border:2px solid black;padding:2px;background:lightblue;width:35%;">
-				<table>
-					<tr><td style="width:100px">Titre:</td><td><input type="text" ng-model="form.titre"/></td></tr>
-					<tr><td style="width:100px">Heure début:</td><td><input type="number" ng-model="form.hDeb"/>h <input type="number" ng-model="form.mDeb"/>m</td></tr>
-					<tr><td>Heure fin:</td><td><input type="number" ng-model="form.hFin"/>h <input type="number" ng-model="form.mFin"/>m<br /></td></tr>
-					<tr><td style="vertical-align:top;">Description:</td><td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea><br />
-					
-					<input type="submit" value="Ajouter" ng-model="form.ajout" ng-if="mode=='ajout'" />
-					<input type="submit" value="Modifier" ng-model="form.modif" ng-click="modifElement()"/>
-					<input type="submit" value="Supprimer" ng-model="form.sup" ng-click="supElement()"/>
-				</table>
-			</div>
-	{{form.titre}}
-			<div style="border:2px solid black;padding:2px;background:lightblue;width:25%;">
-				<p>Attention</p>
-				<p>Cette plage horaire est déja utilisée par un autre événement, etes vous sur de vouloir la remplacer?</p>
-				<button onclick="remplacer()">Oui</button><button onClick="annuleRemplace()">Non</button>
-			</div>
-		</form>
+		<div ng-include="'accueil.html'"></div>
+		<div id="grillePlanning" ng-include="'grillePlanning.html'"></div>
+		<div ng-include="'formulaire.html'"></div>
 	</div>
 	
   </body>

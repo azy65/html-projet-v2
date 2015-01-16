@@ -3,19 +3,38 @@
 				padding:0;
 				box-sizing:border-box;
 				word-wrap: break-word;
-				overflow: hidden;
 			}
 			
 			body{
 			padding:10px;
 			}
-		
-			.bordPlanning{
+			#editEvnt{
+				position:absolute;
+				z-index:4;
+				width:1000px;
+			}
+			#grillePlanning{
+				position:absolute;
+				z-index:3;
+			}
+			.bordPlanningDroite{
+				background:white!important;
+			}
+			.bordPlanningGauche{
+				background:#f3f3f3!important;
+			}
+
+			.bordPlanningGauche, .bordPlanningDroite {
 				color:#08C;
 			}
+			.bordPlanningDroite {
+				font-weight:bold;
+				text-transform:capitalize;
+			}
+		
 			.col{
 				display:inline-block;
-				background:#F9F9F9;
+				background;
 				float:left;
 				width:150px;
 				position:relative;
@@ -27,32 +46,46 @@
 				border:solid 1px #C2C2C2;
 				padding:5px;
 				height:50px;
-				width:100%;				
-			}
+				width:100%;	
+				overflow: hidden;
+				background:#F9F9F9;	
+		}
 			.cell+.cell{
 				border-top:solid 0px gray;
 			}
-			h3{
+			.titre{
 				color:white;
 				font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 				font-size:15px;
 				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+				margin-bottom:10px;
+				text-transform:capitalize;
 			}
 			.tache{
 				position:absolute;
 				top:70px;
 				border:none;
+				background:transparent;
+				height:auto;
+				overflow: visible;
 			}
 			.laTache{
 				border:1px rgb(203, 203, 203) solid!important;	
 				border-radius:15px;
-				padding:0 10px;
+				padding:5px 10px;
 				background:#ccb800;
 				height:100%;
+				margin:10px;
+				overflow: hidden;
+				position:absolute;
 			}
 			.tacheTexte{
 				color:white;
-				
+				text-transform:capitalize;	
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+				height:100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			.optionInvisible {
 				margin-left: -9000px;
@@ -94,7 +127,7 @@
 			top:0px;
 			bottom:0px;
 				position:absolute;
-				z-index:2;
+				z-index:10;
 				background:white;
 				width: 100%;
 				height:100%;
@@ -121,4 +154,8 @@
 			width:10%;
 			left:45%;
 			top: 30%
+			}
+
+			.coins{
+				background:white;
 			}

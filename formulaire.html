@@ -1,0 +1,20 @@
+﻿	<form id="editEvnt" ng-if="editEvnt" ng-submit="ajoutEditEvmt()">
+			<div style="border:2px solid black;padding:2px;background:lightblue;width:35%;">
+				<table>
+					<tr><td style="width:100px">Titre:</td><td><input type="text" ng-model="form.titre"/></td></tr>
+					<tr><td style="width:100px">Heure début:</td><td><input type="number" ng-model="form.hDeb"/>h <input type="number" ng-model="form.mDeb"/>m</td></tr>
+					<tr><td>Heure fin:</td><td><input type="number" ng-model="form.hFin"/>h <input type="number" ng-model="form.mFin"/>m<br /></td></tr>
+					<tr><td style="vertical-align:top;">Description:</td><td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea><br />
+					
+					<input type="submit" value="Ajouter" ng-model="form.ajout" ng-if="mode=='ajout'" />
+					<input type="submit" value="Modifier" ng-model="form.modif" ng-click="modifElement()"/>
+					<input type="submit" value="Supprimer" ng-model="form.sup" ng-click="supElement()"/>
+				</table>
+			</div>
+	{{form.titre}}
+			<div style="border:2px solid black;padding:2px;background:lightblue;width:25%;">
+				<p>Attention</p>
+				<p>Cette plage horaire est déja utilisée par un autre événement, etes vous sur de vouloir la remplacer?</p>
+				<button onclick="remplacer()">Oui</button><button onClick="annuleRemplace()">Non</button>
+			</div>
+		</form>
