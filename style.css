@@ -9,10 +9,7 @@
 			body{
 			padding:10px;
 			}
-			#laTache{
-				padding:0px 10px;
-			
-			}
+		
 			.bordPlanning{
 				color:#08C;
 			}
@@ -44,9 +41,14 @@
 			.tache{
 				position:absolute;
 				top:70px;
+				border:none;
+			}
+			.laTache{
+				border:1px rgb(203, 203, 203) solid!important;	
+				border-radius:15px;
+				padding:0 10px;
 				background:#ccb800;
-				border-top:1px gray solid!important;	
-				border-radius:10px;
+				height:100%;
 			}
 			.tacheTexte{
 				color:white;

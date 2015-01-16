@@ -18,7 +18,7 @@
   
   <!--accueil-->
 	<div ng-controller="planController" ng-app="planning">
-		<div ng-if="mode=='null'" ng-class="accueilVisible" id="accueil">
+		<div ng-if="mode=='1null'" ng-class="accueilVisible" id="accueil">
 		<h1>LE PLANNIFICAT'HEURE</h1>
 		<p id="slogan">Plannifier votre journée à toutes heures</p>
 		<fieldset>
@@ -38,7 +38,7 @@
 			<div class="cell">{{sal.getTitre()}}</div>
 			<!--case -->
 			<div class="cell" ng-repeat="lig in ligne track by $index" ng-click="afficherAjouterEvenement($index,'ajout')"></div>
-			<div ng-repeat="tache in sal.getTaches()" class="cell tache" ><div id="laTache"><h3>Intro Agile Toulouse</h5><p class="tacheTexte">tegggggggggggggggggggsssffffffffffffst</p></div></div>
+			<div ng-repeat="tache in sal.getTaches()" class="cell tache" ><div class="laTache"><h3>Intro Agile Toulouse</h5><p class="tacheTexte">tegggggggggggggggggggsssffffffffffffst</p></div></div>
 		</div>
 		<!--dede-->
 		
