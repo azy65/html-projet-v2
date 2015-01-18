@@ -2,31 +2,26 @@
 /***************************
 ***** Classe planning ******
 ****************************/
-var Planning=function(mode){
-	var prive={
-		 mode:mode,
-		 tabColonne:[]
+
+var Planning = Class.create({
+	//constructeur
+	initialize:function (mode){
+		//attribut protected
+		this._mode=mode,
+		this._tabColonne=[]
+	},
+	//funtion publiques
+	getMode:function getMode(){
+		return this._mode;
+	},
+	setMode:function(mode){
+		this._mode=mode;
+	},
+	ajoutColonne:function(col2){
+		this._tabColonne.push(col2);
+	},
+	getColonnes:function(){
+		return this._tabColonne;
 	}
-	this.getPrivate=function(){
-		return prive;
-	};
-}
-//public
-Planning.prototype.getMode=function getMode(){
-	var p=this.getPrivate();
-	return p.mode;
-};
+})
 
-Planning.prototype.setMode=function(mode){
-	var p=this.getPrivate();
-	p.mode=mode;
-}
-
-Planning.prototype.ajoutColonne=function(col2){
-	var p=this.getPrivate();
-	p.tabColonne.push(col2);
-}
-Planning.prototype.getColonnes=function(){
-	var p=this.getPrivate();
-	return p.tabColonne;
-}

@@ -1,9 +1,9 @@
-		<div ng-class="accueilVisible" id="accueil">
+		<div ng-class="accueilVisible.getClasse()" id="accueil">
 		<h1>LE PLANNIFICAT'HEURE</h1>
 		<p id="slogan">Plannifier votre journée à toutes heures</p>
 		<fieldset>
 			<LEGEND align="left">Mode</LEGEND>
-			<button class="btnMode" ng-click="switchVisibiliteAccueil()">Journalier</button>
-				<button class="btnMode" ng-click="switchVisibiliteAccueil()">Hebdomadaire</button>
+			<button class="btnMode" ng-click="accueilVisible.afficher(false)">Journalier</button>
+				<button class="btnMode" ng-click="accueilVisible.afficher(false)">Hebdomadaire</button>
 		</fieldset>
 	</div>

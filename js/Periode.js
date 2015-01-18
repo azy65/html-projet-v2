@@ -1,55 +1,37 @@
 "use strict";
-
 /***************************
 ***** Classe periode ******
 ****************************/
 //public
-var Periode=function(P){
-	var t=P.heureDeb;
-	var prive ={
-	//journalier : attribut
-		heureDeb:t ||0,
-		minuteDeb : P.minuteDeb ||0,
-		heureFin : P.heureFin ||0,
-		minuteFin: P.minuteFin ||0,
-		jourDeb: P.jourDeb ||0,
-		jourFin: P.jourFin ||0,
-		moisDeb : P.moisDeb ||0,
-		moisFin : P.moisFin ||0,
-		anneeDeb : P.anneeDeb ||0,
-		anneeFin : P.anneeFin ||0,
+var Periode=Class.create({
+	//protected
+	initialize:function(P){
+			this._heureDeb   = 	P.heureDeb ||0;
+			this._minuteDeb  = 	P.minuteDeb ||0;
+			this._heureFin   = 	P.heureFin ||0;
+			this._minuteFin  = 	P.minuteFin ||0;
+			this._jourDeb  	= 	P.jourDeb ||0;
+			this._jourFin 	= 	P.jourFin ||0;
+			this._moisDeb 	= 	P.moisDeb ||0;
+			this._moisFin 	= 	P.moisFin ||0;
+			this._anneeDeb 	= 	P.anneeDeb ||0;
+			this._anneeFin	= 	P.anneeFin ||0;
+	},
+	//public
+	getIntervalle:function (){
+		var i=(this._anneeFin-this._anneeDeb)*365*24*60+(this._moisFin-this._moisDeb)*30*24*60+(this._jourFin-this._jourDeb)*24*60+(this._heureFin-this._heureDeb)*60+(this._minuteFin-this._minuteDeb);
+		return i;
+	},
+	getEnMinDebut:function (){
+		return this._heureDeb*60+this._minuteDeb;
+	},
+	getJourDebut : function (){
+		return this._jourDeb;
+	},
+	getMoisDebut : function (){
+		return this._moisDeb;
+	},
+	getAnneeDebut : function (){
+		return this._anneeDeb;
 	}
-	this.getPrivate=function(){
-		return prive;
-	};
-}
-//public
-
-//journalier : méthode
-Periode.prototype.getIntervalle=function (){
-	var p=this.getPrivate();
-	var i=(p.anneeFin-p.anneeDeb)*365*24*60+(p.moisFin-p.moisDeb)*30*24*60+(p.jourFin-p.jourDeb)*24*60+(p.heureFin-p.heureDeb)*60+(p.minuteFin-p.minuteDeb);
-	return i;
-}
-
-Periode.prototype.getHeureDebut=function (){
-	var p=this.getPrivate();
-	return p.heureDeb;
-}
-	
-	
-	//semaine : méthode
-	Periode.prototype.getJourDebut=function (){
-		var p=this.getPrivate();
-		return p.jourDeb;
-	}
-
-	Periode.prototype.getMoisDebut=function (){
-		var p=this.getPrivate();
-		return p.moisDeb;
-	}
-	
-	Periode.prototype.getAnneeDebut=function (){
-		var p=this.getPrivate();
-		return p.anneeDeb;
-	}
+})

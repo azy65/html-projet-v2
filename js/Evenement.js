@@ -2,78 +2,59 @@
 /***************************
 ***** classe evenement ******
 ****************************/
-var Evenement;
-(function(){
-	//static private attribute
-	var lastID=0; 
-	Evenement=function(nom,periode,description,lieu){
-		lastID++;
-		//private attribute
-		var prive={
-			 id:lastID,
-			 nom:nom,
-			 periode:periode,
-			 description:description,
-			 lieu:lieu,
-			 tabEv:[] //facu
-		}
-		this.getPrivate=function(){
-			return prive;
-		};	
-	};
-	//static public method
-	Evenement.setLastID=function(id){
-		lastID=id;	
+var Evenement= Class.create({
+	/*statique*/
+	lastID: 0, 
+	setLastID : function(id){
+		this.lastID=id;	
+	},
+	/*fin statique*/
+	initialize:function(nom,periode,description,lieu){
+			this._id=this.lastID++;
+			this._nom=nom;
+			this._periode=periode;
+			this._description=description;
+			this._lieu=lieu;
+			this._tabEv=[];
+	},
+	getId : function(){
+		return this._id;
+	},
+	setId : function(identifiant){
+		this._id = identifiant;
+	},
+	getNom : function(){
+		return this._nom;
+	},
+	setNom : function(titre){
+		this._nom = titre;
+	},
+	getPeriode : function(){
+		return this._periode;
+	},
+	setPeriode : function(per){
+		this._periode = per;
+	},
+	getDescription : function(){
+		return this._description;
+	},
+	setDescription : function(desc){
+		this._description = desc;
+	},
+	getLieu : function(){
+		return this._lieu;
+	},
+	setLieu : function(lieu){
+		this._lieu = lieu;
+	},
+	hauteur : function(){
+		var posHaut=-19;
+		posHaut+=(this.getPeriode().getEnMinDebut()/60-8)*50;
+		return ""+posHaut+"px";
+	},
+	posEnPx:function(){
+		var t=this.getPeriode(this).getIntervalle()*0.82;
+		return (t+"px")
 	}
+})
 	
-	//methode public
-	Evenement.prototype.getId=function(){
-		var p=this.getPrivate();
-		return p.id;
-	}
-
-	Evenement.prototype.setId=function(identifiant){
-		var p=this.getPrivate();
-		p.id = identifiant;
-	}
-
-	Evenement.prototype.getNom=function(){
-		var p=this.getPrivate();
-		return p.nom;
-	}
-
-	Evenement.prototype.setNom=function(titre){
-		var p=this.getPrivate();
-		p.nom = titre;
-	}
-
-	Evenement.prototype.getPeriode=function(){
-		var p=this.getPrivate();
-		return p.periode;
-	}
-
-	Evenement.prototype.setPeriode=function(per){
-		var p=this.getPrivate();
-		p.periode = per;
-	}
-
-	Evenement.prototype.getDescription=function(){
-		var p=this.getPrivate();
-		return p.description;
-	}
-
-	Evenement.prototype.setDescription=function(desc){
-		var p=this.getPrivate();
-		p.description = desc;
-	}
-
-	Evenement.prototype.getLieu=function(){
-		var p=this.getPrivate();
-		return p.lieu;
-	}
-
-	Evenement.prototype.setLieu=function(lieu){
-		var p=this.getPrivate();
-		p.lieu = lieu;
-	}
-})()
