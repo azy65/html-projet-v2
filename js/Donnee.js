@@ -1,11 +1,11 @@
 /***************************
 ***** classe donnee ********
 ****************************/
-var Donnee=mClass({
-	init:function(){
+var Donnee=Class.create({
+	initialize:function(){
 		tabEv=[];
 	},
 	ajouterEvenement:function(evnmt){
-		tabEv.push(evnmt);
+		this._tabEv.push(evnmt);
 	}
-}
+})

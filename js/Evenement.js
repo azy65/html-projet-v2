@@ -2,62 +2,59 @@
 /***************************
 ***** classe evenement ******
 ****************************/
-var Evenement=mClass(){
-	init:(function(){
-		var lastID=1;
-		return function(nom,periode,description,lieu){
-			this.id=lastID;
-			this.nom=nom;
-			this.periode=periode;
-			this.description=description;
-			this.liedfdu=lieu;
-			this.tabEv=[];
-			this.lastID++;
-		}
-	}),
+var Evenement= Class.create({
+	/*statique*/
+	lastID: 0, 
+	setLastID : function(id){
+		this.lastID=id;	
+	},
+	/*fin statique*/
+	initialize:function(nom,periode,description,lieu){
+			this._id=this._id || this.lastID++;
+			this._nom=nom;
+			this._periode=periode;
+			this._description=description;
+			this._lieu=lieu;
+			this._tabEv=[];
+	},
 	getId : function(){
-		var p=this.getPrivate();
-		return p.id;
+		return this._id;
 	},
 	setId : function(identifiant){
-		var p=this.getPrivate();
-		p.id = identifiant;
+		this._id = identifiant;
 	},
 	getNom : function(){
-		var p=this.getPrivate();
-		return p.nom;
+		return this._nom;
 	},
 	setNom : function(titre){
-		var p=this.getPrivate();
-		p.nom = titre;
+		this._nom = titre;
 	},
 	getPeriode : function(){
-		var p=this.getPrivate();
-		return p.periode;
+		return this._periode;
 	},
 	setPeriode : function(per){
-		var p=this.getPrivate();
-		p.periode = per;
+		this._periode = per;
 	},
 	getDescription : function(){
-		var p=this.getPrivate();
-		return p.description;
+		return this._description;
 	},
 	setDescription : function(desc){
-		var p=this.getPrivate();
-		p.description = desc;
+		this._description = desc;
 	},
 	getLieu : function(){
-		var p=this.getPrivate();
-		return p.lieu;
+		return this._lieu;
 	},
 	setLieu : function(lieu){
-		var p=this.getPrivate();
-		p.lieu = lieu;
+		this._lieu = lieu;
+	},
+	hauteur : function(){
+		var posHaut=-19;
+		posHaut+=(this.getPeriode().getEnMinDebut()/60-8)*50;
+		return ""+posHaut+"px";
+	},
+	posEnPx:function(){
+		var t=this.getPeriode(this).getIntervalle()*0.82;
+		return (t+"px")
 	}
-}
-
-//static public method
-Evenement.setLastID : function(id){
-	lastID=id;	
-}
+})
+	
