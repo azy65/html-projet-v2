@@ -5,7 +5,7 @@
 <div class="col " ng-repeat="sal in planning.getColonnes() track by  $index" class="col">
 			<div class=" bordPlanningDroite cell">{{sal.getTitre()}}</div>
 			<!--case -->
-			<div class="cell" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(0,lig,'ajout')"></div>
+			<div class="cell" ng-repeat="lig in ligne" ng-click="alert($index)"></div>
 			<div  class="cell tache">
 				<div  ng-repeat="tache in sal.getTaches()"  ng-style="{'height':enPx(tache),'top':posHaut(tache)}" class="laTache">
 					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>

@@ -1,11 +1,11 @@
 /***************************
 ***** classe donnee ********
 ****************************/
-var Donnee=function(){
-	var prive={
-		tabEv:[]
+var Donnee=mClass({
+	init:function(){
+		tabEv=[];
+	},
+	ajouterEvenement:function(evnmt){
+		tabEv.push(evnmt);
 	}
-	this.getPrivate=function(){
-		return prive;
-	};
 }

@@ -2,78 +2,62 @@
 /***************************
 ***** classe evenement ******
 ****************************/
-var Evenement;
-(function(){
-	//static private attribute
-	var lastID=0; 
-	Evenement=function(nom,periode,description,lieu){
-		lastID++;
-		//private attribute
-		var prive={
-			 id:lastID,
-			 nom:nom,
-			 periode:periode,
-			 description:description,
-			 lieu:lieu,
-			 tabEv:[] //facu
+var Evenement=mClass(){
+	init:(function(){
+		var lastID=1;
+		return function(nom,periode,description,lieu){
+			this.id=lastID;
+			this.nom=nom;
+			this.periode=periode;
+			this.description=description;
+			this.liedfdu=lieu;
+			this.tabEv=[];
+			this.lastID++;
 		}
-		this.getPrivate=function(){
-			return prive;
-		};	
-	};
-	//static public method
-	Evenement.setLastID=function(id){
-		lastID=id;	
-	}
-	
-	//methode public
-	Evenement.prototype.getId=function(){
+	}),
+	getId : function(){
 		var p=this.getPrivate();
 		return p.id;
-	}
-
-	Evenement.prototype.setId=function(identifiant){
+	},
+	setId : function(identifiant){
 		var p=this.getPrivate();
 		p.id = identifiant;
-	}
-
-	Evenement.prototype.getNom=function(){
+	},
+	getNom : function(){
 		var p=this.getPrivate();
 		return p.nom;
-	}
-
-	Evenement.prototype.setNom=function(titre){
+	},
+	setNom : function(titre){
 		var p=this.getPrivate();
 		p.nom = titre;
-	}
-
-	Evenement.prototype.getPeriode=function(){
+	},
+	getPeriode : function(){
 		var p=this.getPrivate();
 		return p.periode;
-	}
-
-	Evenement.prototype.setPeriode=function(per){
+	},
+	setPeriode : function(per){
 		var p=this.getPrivate();
 		p.periode = per;
-	}
-
-	Evenement.prototype.getDescription=function(){
+	},
+	getDescription : function(){
 		var p=this.getPrivate();
 		return p.description;
-	}
-
-	Evenement.prototype.setDescription=function(desc){
+	},
+	setDescription : function(desc){
 		var p=this.getPrivate();
 		p.description = desc;
-	}
-
-	Evenement.prototype.getLieu=function(){
+	},
+	getLieu : function(){
 		var p=this.getPrivate();
 		return p.lieu;
-	}
-
-	Evenement.prototype.setLieu=function(lieu){
+	},
+	setLieu : function(lieu){
 		var p=this.getPrivate();
 		p.lieu = lieu;
 	}
-})()
+}
+
+//static public method
+Evenement.setLastID : function(id){
+	lastID=id;	
+}

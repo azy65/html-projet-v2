@@ -4,52 +4,36 @@
 ***** Classe periode ******
 ****************************/
 //public
-var Periode=function(P){
-	var t=P.heureDeb;
-	var prive ={
-	//journalier : attribut
-		heureDeb:t ||0,
-		minuteDeb : P.minuteDeb ||0,
-		heureFin : P.heureFin ||0,
-		minuteFin: P.minuteFin ||0,
-		jourDeb: P.jourDeb ||0,
-		jourFin: P.jourFin ||0,
-		moisDeb : P.moisDeb ||0,
-		moisFin : P.moisFin ||0,
-		anneeDeb : P.anneeDeb ||0,
-		anneeFin : P.anneeFin ||0,
+var Periode=mClass({
+	init:function(P){
+			this.heureDeb=this.heureDeb ||0;
+			this.minuteDeb = this.minuteDeb ||0;
+			this.heureFin = this.heureFin ||0;
+			this.minuteFin= this.minuteFin ||0;
+			this.jourDeb= this.jourDeb ||0;
+			this.jourFin= this.jourFin ||0;
+			this.moisDeb = this.moisDeb ||0;
+			this.moisFin = this.moisFin ||0;
+			this.anneeDeb = this.anneeDeb ||0;
+			this.anneeFin = this.anneeFin ||0;
+	},
+	getIntervalle=function (){
+		var i=(this.anneeFin-this.anneeDeb)*365*24*60+(this.moisFin-this.moisDeb)*30*24*60+(this.jourFin-this.jourDeb)*24*60+(this.heureFin-this.heureDeb)*60+(this.minuteFin-this.minuteDeb);
+		return i;
 	}
-	this.getPrivate=function(){
-		return prive;
-	};
-}
-//public
-
-//journalier : méthode
-Periode.prototype.getIntervalle=function (){
-	var p=this.getPrivate();
-	var i=(p.anneeFin-p.anneeDeb)*365*24*60+(p.moisFin-p.moisDeb)*30*24*60+(p.jourFin-p.jourDeb)*24*60+(p.heureFin-p.heureDeb)*60+(p.minuteFin-p.minuteDeb);
-	return i;
-}
-
-Periode.prototype.getHeureDebut=function (){
-	var p=this.getPrivate();
-	return p.heureDeb;
-}
-	
-	
-	//semaine : méthode
-	Periode.prototype.getJourDebut=function (){
-		var p=this.getPrivate();
-		return p.jourDeb;
+	getHeureDebut=function (){
+		return this.heureDeb;
 	}
-
-	Periode.prototype.getMoisDebut=function (){
-		var p=this.getPrivate();
-		return p.moisDeb;
+	getJourDebut=function (){
+		return this.jourDeb;
 	}
-	
-	Periode.prototype.getAnneeDebut=function (){
-		var p=this.getPrivate();
-		return p.anneeDeb;
+	getMoisDebut=function (){
+		return this.moisDeb;
 	}
+	getAnneeDebut=function (){
+		return this.anneeDeb;
+	}
+	getJourDebut=function (){
+		return this.jourDeb;
+	}
+})
