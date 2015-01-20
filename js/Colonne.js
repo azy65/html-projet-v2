@@ -1,46 +1,45 @@
 "use strict";
+
 /***************************
 ***** Classe colonne ******
 ****************************/
-var Colonne=mClass(){
-	init : function(id,titre,largeur){
-		//attributs protected
-		this.lastId=id,
-		this.tabEvmt=[],
-		this.titre=titre,
-		this.largeur=largeur
+var Colonne = Class.create({
+	initialize: function(id,titre,largeur){
+		this._tabEvmt=[],
+		this._titre=titre,
+		this._largeur=largeur
 	},
-	//fonction publiques
-	ajouterEvenement : function(evmt){
-		this.tabEvmt.push(evmt);
-		this.lastId++;
+	ajouterEvenement:function(evmt){
+		this._tabEvmt.push(evmt);
 	},
 	getTaches:function(){
-		return this.tabEvmt;
+		return this._tabEvmt;
+	}
+	,setTaches:function(tabEvmt){
+		this._tabEvmt=tabEvmt;
 	},
-	setTaches:function(tabEvmt){
-		this.tabEvmt=tabEvmt;
-	},getId:function(){
-		return this.lastId;
+	getId:function(){
+		return this._lastId;
 	},
 	getTitre:function(){
-		return this.titre;
+		return this._titre;
 	},
 	setTitre:function(titre){
-		this.titre = titre;
+		this._titre = titre;
 	},
 	getLargeur:function(){
-		return this.largeur;
+		return this._largeur;
 	},
 	setLargeur:function(largeur){
-		this.largeur = largeur;
+		this._largeur = largeur;
 	},
 	supprimerEvenement:function(evmt){
-		var id = evmt.getId();
-		for(var i =0;i<this.tabEvmt.length;i++){
-			if(id==this.tabEvmt[i].getId()){
-				this.tabEvmt.splice(i, 1);
+		/*var id = evmt.getId();
+		for(var i =0;i<this._tabEvmt.length;i++){
+			if(id==this._tabEvmt[i].getId()){
+				this._tabEvmt.splice(i, 1);
 			}
-		}
+		}*/
+		this._tabEvmt.splice(this._tabEvmt.indexOf(evmt), 1);
 	}
-}
+})

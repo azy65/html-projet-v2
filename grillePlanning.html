@@ -1,13 +1,13 @@
 <div class="col">
 			<div class="cell coins" >planning</div>
-			<div class="cell bordPlanningGauche"  ng-repeat="lig in ligne track by  $index">{{$index+8 + "h00 - "+($index+9) +"h00"}}</div>
+			<div class="cell bordPlanningGauche"  ng-repeat="lig in ligne track by  $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 </div>		
-<div class="col " ng-repeat="sal in planning.getColonnes() track by  $index" class="col">
+<div class="col " ng-repeat="sal in planning.getColonnes()" class="col">
 			<div class=" bordPlanningDroite cell">{{sal.getTitre()}}</div>
 			<!--case -->
-			<div class="cell" ng-repeat="lig in ligne" ng-click="alert($index)"></div>
+			<div class="cell" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)"></div>
 			<div  class="cell tache">
-				<div  ng-repeat="tache in sal.getTaches()"  ng-style="{'height':enPx(tache),'top':posHaut(tache)}" class="laTache">
+				<div  ng-click="afficherModifierEvenement(tache,sal)" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur()}" class="laTache">
 					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
 				</div>
 			</div>
