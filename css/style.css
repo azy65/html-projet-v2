@@ -159,14 +159,14 @@
 				background:white;
 			}
 			
-			#ajoutCol{
+			.ajoutCol{
 				position: absolute;
 				margin: auto;
 				top: 0;
 				right: 0;
 				bottom: 0;
 				left: 0;
-				width: 270px;
+				width: 325px;
 				height: 25px;
 				background:white;
 				border-radius:15px;

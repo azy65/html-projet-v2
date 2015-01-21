@@ -9,6 +9,7 @@
 					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
 					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>
 					<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>
+					<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button></td></tr>
 				</table>
 			</div>
 	{{form.titre}}
