@@ -159,3 +159,9 @@
 			.coins{
 				background:white;
 			}
+			
+			#ajoutCol {
+				position: absolute;
+				height: 500px;
+				z-index: 3;
+			}
