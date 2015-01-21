@@ -1,9 +1,9 @@
 <div class="containerForm" ng-if="fenetreModifSupprColonne.isAfficher()">
-	<form class="gererColonne">
+	<form class="gererColonne" ng-submit="fenetreModifSupprColonne.afficher(false)">
 		<label for="titreCol">Titre :</label>
 		<input id="titreCol" type="text" ng-model="formCol.titre"/>
-		<button ng-click="modifColonne()">Modifier</button>
+		<button ng-click="ModifColonne()">Modifier</button>
 		<button ng-click="supprColonne()">Supprimer</button>
-		<button ng-click="fenetreModifSupprColonne.afficher(false)">Annuler</button>
+		<button >Annuler</button>
 	</form>
 </div>

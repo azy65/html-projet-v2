@@ -12,7 +12,7 @@ mod.controller('planController', ['$scope',
 		$scope.mode="ajout";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
 		$scope.accueilVisible = new FenetreAvecTransition(true);
-		$scope.formCol = {};
+		var formCol=$scope.formCol = {};
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		//fin initialisation//
@@ -89,10 +89,12 @@ mod.controller('planController', ['$scope',
 			planning.ajoutColonne (col);
 			fenetreAjoutColonne.afficher(false);
 		}
-		$scope.modifColonne=function(){
-			var col = new Colonne ($scope.formCol.titre);
-			var lieu=form.col.getTitre();
-			form.col.initialize(lieu);
+		$scope.afficherModifColonne=function(colo){
+			fenetreModifSupprColonne.afficher(true);
+			formCol.col=colo;			
+		}
+		$scope.ModifColonne=function(){
+			formCol.col.setTitre(formCol.titre);
 		}
 
 

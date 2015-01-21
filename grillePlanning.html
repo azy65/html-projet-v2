@@ -3,7 +3,7 @@
 			<div class="cell bordPlanningGauche"  ng-repeat="lig in ligne track by  $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 </div>		
 <div class="col " ng-repeat="sal in planning.getColonnes()" >
-			<div class=" bordPlanningDroite cell" ng-click="fenetreModifSupprColonne.afficher(true)">{{sal.getTitre()}}</div>
+			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>
 			<!--case -->
 			<div class="cell" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)"></div>
 			<div  class="cell tache">
