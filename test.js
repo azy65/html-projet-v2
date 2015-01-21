@@ -19,13 +19,11 @@ QUnit.test( "testPlanningSetMode", function( assert ) {
 QUnit.test( "testAjoutColonne", function( assert ) {
 	var planningTest = new Planning("journalier");
 	
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	
 	planningTest.ajoutColonne(colonneTest);
 	
 	assert.equal(  planningTest.getColonnes()[0].getTitre(), "salle Rubis"
-	, "Passed!" );
-	assert.equal(  planningTest.getColonnes()[0].getId(), 0
 	, "Passed!" );
 	assert.equal(  planningTest.getColonnes()[0].getLargeur(), 10
 	, "Passed!" );
@@ -36,42 +34,38 @@ QUnit.test( "testAjoutColonne", function( assert ) {
 /***************************
 ****test classe colonne*****
 ****************************/
-QUnit.test( "testColonneGetId", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
-	assert.equal(  colonneTest.getId() , 0, "Passed!" );
-});
 
 QUnit.test( "testColonneGetTitre", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	assert.equal(  colonneTest.getTitre() , "salle Rubis", "Passed!" );
 });
 
 QUnit.test( "testColonneSetTitre", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	colonneTest.setTitre("salle Opale");
 	assert.equal(  colonneTest.getTitre() , "salle Opale", "Passed!" );
 });
 
 QUnit.test( "testColonneGetLargeur", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	assert.equal(  colonneTest.getLargeur() , 10, "Passed!" );
 });
 
 QUnit.test( "testColonneSetLargeur", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	colonneTest.setLargeur(20);
 	assert.equal(  colonneTest.getLargeur() , 20, "Passed!" );
 });
 
 QUnit.test( "testColonneSetTaches", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
 	var evenementTest = new Evenement("TD",periodeTest,"UML","salle Rubis");
-	Evenement.setLastID(0);
+	//Evenement.setLastID(0);
 	colonneTest.ajouterEvenement(evenementTest);
 	var tabEvmt = new Array(evenementTest);
 	colonneTest.setTaches(tabEvmt);
-	assert.equal(  colonneTest.getTaches()[0].getId() , 1, "Passed!" );
+	assert.equal(  colonneTest.getTaches()[0].getId() , 0, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getNom() , "TD", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut() , 8, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription() , "UML", "Passed!" );
@@ -79,11 +73,11 @@ QUnit.test( "testColonneSetTaches", function( assert ) {
 });
 
 QUnit.test( "testColonneajouterEvenement", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
 	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis");
 	colonneTest.ajouterEvenement(evmt);
-	assert.equal( colonneTest.getTaches()[0].getId(), 1, "Passed!" );
+	assert.equal( colonneTest.getTaches()[0].getId(), 0, "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );
@@ -91,16 +85,15 @@ QUnit.test( "testColonneajouterEvenement", function( assert ) {
 });
 
 QUnit.test( "testColonneSupprimerEvenement", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	var evenementTest= new Evenement();
 	var periodeTest = new Periode({heureDeb:8});
-	Evenement.setLastID(0);
 	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis");
 	colonneTest.ajouterEvenement(evmt);
 	colonneTest.ajouterEvenement(evmt);
 
 	colonneTest.supprimerEvenement(colonneTest.getTaches()[1]);
-	assert.equal(  colonneTest.getTaches()[0].getId(), 1, "Passed!" );
+	assert.equal(  colonneTest.getTaches()[0].getId(), 0, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );
@@ -135,17 +128,6 @@ QUnit.test( "testPeriodeGetJourDebut", function( assert ) {
 	assert.equal(  periodeTest.getJourDebut(), 20, "Passed!" );
 });
 
-QUnit.test( "testPeriodeGetMoisDebut", function( assert ) {
-	var periodeTest = new Periode({moisDeb:10});
-		
-	assert.equal(  periodeTest.getMoisDebut(), 10, "Passed!" );
-});
-
-QUnit.test( "testPeriodeGetAnneeDebut", function( assert ) {
-	var periodeTest = new Periode({anneeDeb:2015});
-		
-	assert.equal(  periodeTest.getAnneeDebut(), 2015, "Passed!" );
-});
 
 /*****************************
 ****test classe evenement*****
@@ -157,7 +139,7 @@ QUnit.test( "testEvenementGetId", function( assert ) {
 		minuteFin: 30});
 	Evenement.setLastID(0);
 	var evenementTest = new Evenement("TP",periodeTest,"refactoring","salle Rubis");
-	assert.equal(  evenementTest.getId(), 1, "Passed!" );
+	assert.equal(  evenementTest.getId(), 0, "Passed!" );
 });
 
 QUnit.test( "testEvenementSetId", function( assert ) {
@@ -269,16 +251,16 @@ QUnit.test( "testEvenementSetLieu", function( assert ) {
 ******test classe donnee******
 ******************************/
 
-QUnit.test( "testDonneeGetTabEvenement", function( assert ) {
+/*QUnit.test( "testDonneeGetTabEvenement", function( assert ) {
 	
 	assert.equal(  colonneTest.getId() , 0, "Passed!" );
 });
 
 QUnit.test( "testDonneeSetTabEvenement", function( assert ) {
-	var colonneTest = new Colonne(0,"salle Rubis",10);
+	var colonneTest = new Colonne("salle Rubis",10);
 	assert.equal(  colonneTest.getTitre() , "salle Rubis", "Passed!" );
-});
+});*/
 
 
 
-//tester incrementation id
+//tester incrementation id, test periode fin à faire

@@ -37,7 +37,7 @@ var Periode=Class.create({
 	getJourDebut : function (){
 		return this._jourDeb;
 	},
-	
+	//à tester
 	getHeureFin:function (){
 		return this._heureFin;
 	},

@@ -3,12 +3,6 @@
 ***** classe evenement ******
 ****************************/
 var Evenement= Class.create({
-	/*statique*/
-	lastID: 0, 
-	setLastID : function(id){
-		this.lastID=id;	
-	},
-	/*fin statique*/
 	initialize:function(nom,periode,description,lieu){
 			this._id=this._id || this.lastID++;
 			this._nom=nom;
@@ -57,4 +51,8 @@ var Evenement= Class.create({
 		return (t+"px")
 	}
 })
-	
+/*statique*/
+Evenement.lastID= 0;
+Evenement.setLastID = function(id){
+	this.lastID=id;	
+}
