@@ -159,14 +159,14 @@
 				background:white;
 			}
 			
-			.ajoutCol{
+			.gererColonne{
 				position: absolute;
 				margin: auto;
 				top: 0;
 				right: 0;
 				bottom: 0;
 				left: 0;
-				width: 325px;
+				width:30%;
 				height: 25px;
 				background:white;
 				border-radius:15px;
@@ -175,7 +175,7 @@
 				padding: 0 0 0 15px; 
 			}
 			
-			.containerAjoutForm {
+			.containerForm {
 				z-index:3;
 				position: absolute;
 				width:100%;
