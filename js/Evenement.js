@@ -4,7 +4,10 @@
 ****************************/
 var Evenement= Class.create({
 	initialize:function(nom,periode,description,lieu){
-			this._id=this._id || this.lastID++;
+			if (!this._id){
+				this._id=Evenement.lastID;
+				Evenement.lastID++;
+			} 
 			this._nom=nom;
 			this._periode=periode;
 			this._description=description;
@@ -54,5 +57,5 @@ var Evenement= Class.create({
 /*statique*/
 Evenement.lastID= 0;
 Evenement.setLastID = function(id){
-	this.lastID=id;	
+	Evenement.lastID=id;	
 }

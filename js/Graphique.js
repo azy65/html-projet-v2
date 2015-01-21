@@ -1,3 +1,4 @@
+
 var Fenetre=Class.create({
 	initialize:function(montrer){
 		this._visible=montrer;
@@ -5,7 +6,7 @@ var Fenetre=Class.create({
 	afficher:function (montrer){
 		this._visible=montrer;
 	},
-	isAfficher:function (montrer){
+	isAfficher:function (){
 		return this._visible;
 	}
 })
