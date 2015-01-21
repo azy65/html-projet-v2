@@ -1,4 +1,7 @@
-<form id="ajoutCol" ng-if="fenetreAjoutColonne.isAfficher()" ng-submit="ajoutColonne()">
-<input type="text" ng-model="formCol.titre"/>
-<input type="submit" value="Ajouter"  />
-</form>
+<div class="containerAjoutForm" ng-if="fenetreAjoutColonne.isAfficher()">
+	<form id="ajoutCol" ng-submit="ajoutColonne()">
+		<label for="titreCol">Titre :</label>
+		<input id="titreCol" type="text" ng-model="formCol.titre"/>
+		<input type="submit" value="Ajouter"  />
+	</form>
+</div>
