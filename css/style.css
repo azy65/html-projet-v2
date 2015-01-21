@@ -5,6 +5,10 @@
 				word-wrap: break-word;
 			}
 			
+			/*body {
+			  -webkit-print-color-adjust:exact;
+			}*/
+			
 			
 			#editEvnt{
 				position:absolute;
@@ -47,7 +51,7 @@
 				height:50px;
 				width:100%;	
 				overflow: hidden;
-				background:#F9F9F9;	
+				background:#F9F9F9; 	
 		}
 			.cell+.cell{
 				border-top:solid 0px gray;
@@ -69,7 +73,7 @@
 				overflow: visible;
 			}
 			.laTache{
-				border:1px rgb(203, 203, 203) solid!important;	
+				border:1px rgb(203, 203, 203) solid;	
 				border-radius:15px;
 				padding:0px 10px;
 				background:#ccb800;

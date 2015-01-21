@@ -93,8 +93,12 @@ mod.controller('planController', ['$scope',
 			fenetreModifSupprColonne.afficher(true);
 			formCol.col=colo;			
 		}
-		$scope.ModifColonne=function(){
+		$scope.modifColonne=function(){
 			formCol.col.setTitre(formCol.titre);
+		}
+		$scope.supprColonne=function(){
+			poubelle.push(formCol.col);
+			planning.supprimerColonne(formCol.col);
 		}
 
 

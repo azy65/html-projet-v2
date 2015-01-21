@@ -22,6 +22,9 @@ var Planning = Class.create({
 	},
 	getColonnes:function(){
 		return this._tabColonne;
+	},
+	supprimerColonne:function(col){
+		this._tabColonne.splice(this._tabColonne.indexOf(col), 1);
 	}
 })
 
