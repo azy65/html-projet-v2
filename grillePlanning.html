@@ -5,8 +5,9 @@
 <div class="col " ng-repeat="sal in planning.getColonnes()" >
 			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>
 			<!--case -->
+			
 			<div class="cell" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)"></div>
-			<div  class="cell tache">
+			<div  class="tache">
 				<div  ng-click="afficherModifierEvenement(tache,sal)" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur()}" class="laTache">
 					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
 				</div>

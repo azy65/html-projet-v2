@@ -24,25 +24,30 @@ mod.controller('planController', ['$scope',
 			fenetreEditEvnt.afficher(false);
 		}		
 		$scope.ajoutEvmt=function(){
+		
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
 				form.col.ajouterEvenement(evnmt);
+				
 		}
 		$scope.modifEvmt=function(){
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
 				form.evnmt.initialize(form.titre,per,form.description,lieu);
+				
 		}
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
+			
 		
 		}
 		/*******************************/
 		/********Afficher formulaire*************/
 		/*******************************/
 		$scope.afficherAjouterEvenement=function(col,ligneDeb){
+			viderInput();
 			$scope.mode="ajout";
 			
 			fenetreEditEvnt.afficher(true);
@@ -114,6 +119,11 @@ mod.controller('planController', ['$scope',
 			planning.ajoutColonne(colonne);
 			planning.ajoutColonne(colonne2);
 		}
-		justepourexemple();		
+		justepourexemple();	
+		
+		function viderInput(){
+			form.titre="";
+			form.description="";
+		}
     }	
 ]);
