@@ -31,11 +31,10 @@ mod.controller('planController', ['$scope',
 				form.col.ajouterEvenement(evnmt);
 				
 				if (form.evCommun) {
-				planning.getColonnes().forEach(function(entry) {
-					
-					evnmt=new Evenement (form.titre,per,form.description,entry.getTitre());
-				entry.ajouterEvenement(evnmt);
-				});
+				planning.getColonnes().forEach(function(colonne) {
+					evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
+					colonne.ajouterEvenement(evnmt);
+					});
 				}
 				
 		}
