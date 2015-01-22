@@ -30,6 +30,14 @@ mod.controller('planController', ['$scope',
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
 				form.col.ajouterEvenement(evnmt);
 				
+				if (form.evCommun) {
+				planning.getColonnes().forEach(function(entry) {
+					
+					evnmt=new Evenement (form.titre,per,form.description,entry.getTitre());
+				entry.ajouterEvenement(evnmt);
+				});
+				}
+				
 		}
 		$scope.modifEvmt=function(){
 				var per= new Periode(form);			

@@ -5,7 +5,8 @@
 					<tr><td style="width:100px">Heure début:</td><td><input class="inputHeure" type="number" ng-model="form.heureDeb"/>h <input type="number" class="inputHeure" ng-model="form.minuteDeb"/>m</td></tr>
 					<tr><td>Heure fin:</td><td><input type="number" class="inputHeure" ng-model="form.heureFin" />h <input type="number" class="inputHeure" ng-model="form.minuteFin"/>m<br /></td></tr>
 					<tr><td style="vertical-align:top;">Description:</td><td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea><br />
-					
+					<tr><td><input type="checkbox" ng-model="form.evCommun" /> </td></tr>
+					<tr><td>
 					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
 					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>
 					<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>

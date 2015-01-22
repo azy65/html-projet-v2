@@ -62,6 +62,7 @@
 				background:transparent;
 				height:auto;
 				overflow: visible;
+				width:100%;
 			}
 			.laTache{
 				border:1px rgb(203, 203, 203) solid;	
@@ -69,10 +70,12 @@
 				padding:0px 10px;
 				background:#ccb800;
 				height:100%;
-				margin:0 10px;
+				width:100%;
 				overflow: hidden;
 				position:absolute;
 			}
+			
+			
 			.tacheTexte{
 				color:white;
 				text-transform:capitalize;	
@@ -212,7 +215,7 @@
 				border-radius:15px;
 				box-shadow:5px 5px 5px #888888;
 				background-color:#DAD8D8;
-				padding: 0 15px 0 15px; 
+				padding: 5px 15px 5px 15px; 
 			}
 			
 			
