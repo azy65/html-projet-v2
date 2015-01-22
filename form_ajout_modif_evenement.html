@@ -16,16 +16,16 @@
 					<tr>
 						<td style="vertical-align:top;">Description:</td>
 						<td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
+					</tr>
 					<tr>
 						<td>Evenement commun :</td><td> <input type="checkbox" ng-model="form.evCommun" /> </td>
 					</tr>
-					
-					<tr>
-						</td><input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
-							<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>
-							<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>
-							<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button></td>
-					</tr>
 				</table>
+				<div class="form_bouton">
+					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
+					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>
+					<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>
+					<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button>
+				</div>
 		</form>
 </div>
