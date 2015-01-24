@@ -147,3 +147,40 @@ mod.controller('planController', ['$scope',
 		}
     }	
 ]);
+
+// directive de drag and drop attribut glisser et deposer dans la html
+var tacheQuiBouge;
+var colonneDepart;
+mod.directive('glisser', [function() {
+	return{
+		link:function(scope, element, attr){
+			tacheQuiBouge=scope.tache;
+			element[0].addEventListener('dragstart', function(e){			tacheQuiBouge=scope.tache;
+			    e.dataTransfer.setData('text/plain', "firefox à besoisn de cette ligne inutile");
+
+					colonneDepart=scope.sal;
+			}, false);
+			element[0].addEventListener('dragend', function(e){
+					scope.sal.supprimerEvenement(tacheQuiBouge)
+			}, false);
+		}
+	}
+}])
+
+
+mod.directive('deposer', [function() {
+	return 	{
+		link:function(scope, element, attr){
+			console.log(scope)	
+			var colonneFinal=scope.sal;
+			element[0].addEventListener('drop', function(e){
+				e.preventDefault();
+				colonneFinal.ajouterEvenement(tacheQuiBouge);
+				scope.$apply()
+			}, false);
+			element[0].addEventListener('dragover', function(e) {
+				e.preventDefault(); // Annule l'interdiction de "drop"
+			}, false);
+		}
+	}	
+}])
