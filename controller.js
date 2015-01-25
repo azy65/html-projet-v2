@@ -44,7 +44,7 @@ mod.controller('planController', ['$scope',
 			});
 		}
 		
-		/*$scope.modifEvmt=function(){
+		$scope.modifEvmt=function(){
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
 				form.evnmt.initialize(form.titre,per,form.description,lieu);
@@ -55,7 +55,7 @@ mod.controller('planController', ['$scope',
 					});
 				}
 				
-		}*/
+		}
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
@@ -154,31 +154,38 @@ var colonneDepart;
 mod.directive('glisser', [function() {
 	return{
 		link:function(scope, element, attr){
-			tacheQuiBouge=scope.tache;
-			element[0].addEventListener('dragstart', function(e){			tacheQuiBouge=scope.tache;
-			    e.dataTransfer.setData('text/plain', "firefox à besoisn de cette ligne inutile");
-
-					colonneDepart=scope.sal;
-			}, false);
-			element[0].addEventListener('dragend', function(e){
-					scope.sal.supprimerEvenement(tacheQuiBouge)
+			var el=element[0];
+			el.addEventListener('dragstart', function(e){
+				colonneDepart=scope.sal;
+				tacheQuiBouge=scope.tache;//garder dans le dragstar bug arpès drag multiple et rapide
+				//ie bug avec text/ html firefox avec text 
+				try	{
+					e.dataTransfer.setData('text/html', "firefox à besoisn de cette ligne inutile");
+				}catch(e){
+					e.dataTransfer.setData('text', "juste comme ça");
+				}
 			}, false);
 		}
 	}
 }])
 
-
-mod.directive('deposer', [function() {
-	return 	{
+mod.directive('deposer', [function(){
+	return {
 		link:function(scope, element, attr){
-			console.log(scope)	
+			var el=element[0];
 			var colonneFinal=scope.sal;
-			element[0].addEventListener('drop', function(e){
+			var lig=scope.lig;
+			el.addEventListener('drop', function(e){
 				e.preventDefault();
+				/*decalage heure*/
+				var per=tacheQuiBouge.getPeriode();
+				per.decallerA({heure:lig});
+				/*fin decalage heure*/
 				colonneFinal.ajouterEvenement(tacheQuiBouge);
+				colonneDepart.supprimerEvenement(tacheQuiBouge);
 				scope.$apply()
 			}, false);
-			element[0].addEventListener('dragover', function(e) {
+			el.addEventListener('dragover', function(e) {
 				e.preventDefault(); // Annule l'interdiction de "drop"
 			}, false);
 		}

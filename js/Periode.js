@@ -3,50 +3,43 @@
 ***** Classe periode ******
 ****************************/
 //public
-var Periode=Class.create({
-	//protected
+
+	var _toMin	=	function(tps){
+		return tps % 60;
+	};
+	var _toHeure=	function(tps){
+		return ((tps % 1440) - _toMin(tps))/60;
+	};
+
+var Periode=Class.create({	
 	initialize:function(P){
-			this._heureDeb   = 	P.heureDeb ||0;
-			this._minuteDeb  = 	P.minuteDeb ||0;
-			this._heureFin   = 	P.heureFin ||0;
-			this._minuteFin  = 	P.minuteFin ||0;
-			this._jourDeb  	= 	P.jourDeb ||0;
-			this._jourFin 	= 	P.jourFin ||0;
-			this._moisDeb 	= 	P.moisDeb ||0;
-			this._moisFin 	= 	P.moisFin ||0;
-			this._anneeDeb 	= 	P.anneeDeb ||0;
-			this._anneeFin	= 	P.anneeFin ||0;
+		this._debutEnMin = (P.heureDeb || 0) * 60 + (P.minuteDeb || 0);
+		this._FinEnMin	 = (P.heureFin || 0) * 60 + (P.minuteFin || 0);
 	},
-	//public
-	getIntervalle:function (){
-		var i=(this._anneeFin-this._anneeDeb)*365*24*60+(this._moisFin-this._moisDeb)*30*24*60+(this._jourFin-this._jourDeb)*24*60+(this._heureFin-this._heureDeb)*60+(this._minuteFin-this._minuteDeb);
-		return i;
-	},
-	
-	getEnMinDebut:function (){
-		return this._heureDeb*60+this._minuteDeb;
-	},
-	
+		
 	getHeureDebut:function (){
-		return this._heureDeb;
+		return _toHeure(this._debutEnMin);
 	},
 	getMinuteDebut:function (){
-		return this._minuteDeb;
-	},
-	
-	getJourDebut : function (){
-		return this._jourDeb;
-	},
-	
+		return _toMin(this._debutEnMin);
+	},		
+		
 	getHeureFin:function (){
-		return this._heureFin;
+		return _toHeure(this._FinEnMin);
 	},
 	getMinuteFin:function (){
-		return this._minuteFin;
-	},
-
-	getJourFin : function (){
-		return this._jourFin;
-	}
+		return _toMin(this._FinEnMin);
+	},	
 	
+	getEnMinDebut:function (){
+		return this._debutEnMin % 1440;
+	},	
+	getIntervalle:function(){
+		return this._FinEnMin - this._debutEnMin ;
+	},
+	decallerA:function(P){
+		var delta=P.heure*60 - this._debutEnMin;
+		this._debutEnMin += delta;
+		this._FinEnMin	 += delta;
+	}		
 })
