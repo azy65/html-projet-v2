@@ -59,8 +59,6 @@ mod.controller('planController', ['$scope',
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
-			
-		
 		}
 		/*******************************/
 		/********Afficher formulaire*************/
@@ -145,20 +143,33 @@ mod.controller('planController', ['$scope',
 			form.description="";
 			form.evCommun = false;
 		}
+		
+		(function glisserDeposer(){	
+			var tacheQuiBouge,colonneDepart;
+			$scope.glisser=function(tache,salDep){
+				colonneDepart=salDep;
+				tacheQuiBouge=tache;		
+			}
+			$scope.deposer=function(colonneFinal,lig){
+				var per=tacheQuiBouge.getPeriode();
+				per.decallerA({heure:lig});
+				colonneFinal.ajouterEvenement(tacheQuiBouge);
+				colonneDepart.supprimerEvenement(tacheQuiBouge);	
+			}
+		})()
     }	
+	
 ]);
 
 // directive de drag and drop attribut glisser et deposer dans la html
-var tacheQuiBouge;
-var colonneDepart;
+
 mod.directive('glisser', [function() {
 	return{
 		link:function(scope, element, attr){
 			var el=element[0];
 			el.addEventListener('dragstart', function(e){
-				colonneDepart=scope.sal;
-				tacheQuiBouge=scope.tache;//garder dans le dragstar bug arpès drag multiple et rapide
-				//ie bug avec text/ html firefox avec text 
+				scope.$eval(attr.glisser);//appelle la fonction de l'attribut glisser avec ses parametres 
+				scope.$apply();				
 				try	{
 					e.dataTransfer.setData('text/html', "firefox à besoisn de cette ligne inutile");
 				}catch(e){
@@ -173,16 +184,9 @@ mod.directive('deposer', [function(){
 	return {
 		link:function(scope, element, attr){
 			var el=element[0];
-			var colonneFinal=scope.sal;
-			var lig=scope.lig;
 			el.addEventListener('drop', function(e){
+				scope.$eval(attr.deposer); //appelle la fonction de l'attribut deposer avec ses parametres 
 				e.preventDefault();
-				/*decalage heure*/
-				var per=tacheQuiBouge.getPeriode();
-				per.decallerA({heure:lig});
-				/*fin decalage heure*/
-				colonneFinal.ajouterEvenement(tacheQuiBouge);
-				colonneDepart.supprimerEvenement(tacheQuiBouge);
 				scope.$apply()
 			}, false);
 			el.addEventListener('dragover', function(e) {
