@@ -14,6 +14,7 @@ var Evenement= Class.create({
 			this._lieu=lieu;
 			this._tabEv=[];
 			this._nbCol=1;
+			this._visibility = true;
 	},
 	getId : function(){
 		return this._id;
@@ -50,6 +51,12 @@ var Evenement= Class.create({
 	},
 	setNbCol : function(nbCol){
 		this._nbCol = nbCol;
+	},
+	getVisibility : function(){
+		return this._visibility;
+	},
+	setVisibility : function(visibility){
+		this._visibility = visibility;
 	},
 	hauteur : function(){
 		var posHaut=-19;

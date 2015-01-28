@@ -67,6 +67,62 @@ mod.controller('planController', ['$scope',
 			$scope.reinitialiser=function(){
 				if(planning.getColonnes().length>0){
 					planning.reinitialiser();
+=======
+    function ($scope){
+		publicAccessToScope=$scope;
+		var poubelle=[];
+		//initialisation//
+		var modePlanning=$scope.modePlanning ;
+		var planning=$scope.planning=new Planning(modePlanning);
+		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
+		$scope.mode="ajout";
+		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
+		$scope.accueilVisible = new FenetreAvecTransition(true);
+		var formCol=$scope.formCol = {};
+		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
+		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
+		//fin initialisation//
+		
+		/*******************************/
+		/********formulaire*************/
+		/*******************************/
+		$scope.ajoutEditEvmt=function(){
+			fenetreEditEvnt.afficher(false);
+		}		
+		$scope.ajoutEvmt=function(){
+				var per= new Periode(form);			
+				var lieu=form.col.getTitre();
+				var evnmt=new Evenement (form.titre,per,form.description,lieu);
+				evnmt.setNbCol(form.nbCol);
+				form.col.ajouterEvenement(evnmt);
+				if (form.nbCol > 1) {
+					$scope.ajoutEvmtCommun(per);
+				} 				
+		}
+		
+		$scope.ajoutEvmtCommun=function(per){
+			var colonne;
+			var tabColonne = planning.getColonnes();
+			var i = tabColonne.indexOf(form.col) + 1;
+			var j = i+form.nbCol - 1;
+			for (i; i < j; i++) {
+				colonne = tabColonne [i]; 
+				var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
+				evnmt.setVisibility(false);
+				colonne.ajouterEvenement(evnmt);
+			};
+		}
+		
+		$scope.modifEvmt=function(){
+				var per= new Periode(form);			
+				var lieu=form.col.getTitre();
+				form.evnmt.initialize(form.titre,per,form.description,lieu);
+				var per= new Periode(form);
+				/*if (form.evCommun) {
+					planning.getColonnes().forEach(function(colonne) {
+						
+					});*/
+>>>>>>> origin/master
 				}
 			}
 			/*******************************/
