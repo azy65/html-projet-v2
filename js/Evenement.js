@@ -13,6 +13,7 @@ var Evenement= Class.create({
 			this._description=description;
 			this._lieu=lieu;
 			this._tabEv=[];
+			this._nbCol;
 	},
 	getId : function(){
 		return this._id;
@@ -44,6 +45,12 @@ var Evenement= Class.create({
 	setLieu : function(lieu){
 		this._lieu = lieu;
 	},
+	getNbCol : function(){
+		return this._nbCol;
+	},
+	setNbCol : function(nbCol){
+		this._nbCol = nbCol;
+	},
 	hauteur : function(){
 		var posHaut=-19;
 		posHaut+=(this.getPeriode().getEnMinDebut()/60-8)*50;
@@ -52,6 +59,9 @@ var Evenement= Class.create({
 	posEnPx:function(){
 		var t=this.getPeriode(this).getIntervalle()*0.82;
 		return (t+"px")
+	},
+	largeur : function() {
+		return this.getNbCol()+"00%";
 	}
 })
 /*statique*/

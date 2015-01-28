@@ -8,7 +8,7 @@
 			
 			<div class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)"></div>
 			<div  class="tache">
-				<div  draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur()}" class="laTache">
+				<div  draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur(), 'width': tache.largeur()}" class="ng-class:test; laTache">
 					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
 				</div>
 			</div>
