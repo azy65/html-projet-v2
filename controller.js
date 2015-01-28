@@ -28,11 +28,11 @@ mod.controller('planController', ['$scope',
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
-				form.col.ajouterEvenement(evnmt);
 				
 				if (form.evCommun) {
-					form.col.supprimerEvenement(form.evnmt);
 					$scope.ajoutEvmtCommun(per);
+				} else {
+					form.col.ajouterEvenement(evnmt);
 				}
 				
 		}
@@ -44,6 +44,10 @@ mod.controller('planController', ['$scope',
 			});
 		}
 		
+		$scope.modifEvmtCommun=function(per){
+			
+		}
+		
 		$scope.modifEvmt=function(){
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
@@ -51,7 +55,8 @@ mod.controller('planController', ['$scope',
 				var per= new Periode(form);
 				if (form.evCommun) {
 					planning.getColonnes().forEach(function(colonne) {
-						colonne.initialize(form.titre,per,form.description,colonne.getTitre());
+						form.evnmt.initialize(form.titre,per,form.description,lieu);
+						var per= new Periode(form);
 					});
 				}
 				
