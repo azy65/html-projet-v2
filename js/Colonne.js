@@ -39,5 +39,8 @@ var Colonne = Class.create({
 			}
 		}*/
 		this._tabEvmt.splice(this._tabEvmt.indexOf(evmt), 1);
+	},
+	reinitialiserEvenement:function(){
+		this._tabEvmt=[];
 	}
 })

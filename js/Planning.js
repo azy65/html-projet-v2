@@ -25,6 +25,19 @@ var Planning = Class.create({
 	},
 	supprimerColonne:function(col){
 		this._tabColonne.splice(this._tabColonne.indexOf(col), 1);
+	},
+	reinitialiser:function(){
+		if(this._mode=="journalier")
+			this._tabColonne=[];
+		else{	
+			this._tabColonne.forEach(function(colonne){
+				colonne.reinitialiserEvenement();
+			})
+					
+					
+		}
+		
 	}
+
 })
 

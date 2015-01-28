@@ -7,7 +7,8 @@ mod.controller('planController', ['$scope',
 		publicAccessToScope=$scope;
 		var poubelle=[];
 		//initialisation//
-		var planning=$scope.planning=new Planning();
+		var modePlanning=$scope.modePlanning ;
+		var planning=$scope.planning=new Planning(modePlanning);
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
@@ -65,6 +66,12 @@ mod.controller('planController', ['$scope',
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
 		}
+		
+		$scope.reinitialiser=function(){
+			if(planning.getColonnes().length>0){
+				planning.reinitialiser();
+			}
+		}
 		/*******************************/
 		/********Afficher formulaire*************/
 		/*******************************/
@@ -90,7 +97,7 @@ mod.controller('planController', ['$scope',
 			form.description=evmt.getDescription();
 			fenetreEditEvnt.afficher(true);	
 			form.col=col;	
-			form.evnmt	=	evmt;	
+			form.evnmt=evmt;	
 		}
 		
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
