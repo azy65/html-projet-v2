@@ -3,7 +3,7 @@
 		<p id="slogan">Plannifier votre journée à toutes heures</p>
 		<fieldset>
 			<LEGEND align="left">Mode</LEGEND>
-			<button class="btnMode" ng-click="accueilVisible.afficher(false)">Journalier</button>
-				<button class="btnMode" ng-click="accueilVisible.afficher(false)">Hebdomadaire</button>
+			<button class="btnMode" ng-click="accueilVisible.afficher(false); planning.setMode('journalier');">Journalier</button>
+				<button class="btnMode" ng-click="accueilVisible.afficher(false); planning.setMode('hebdomadaire');">Hebdomadaire</button>
 		</fieldset>
 	</div>
