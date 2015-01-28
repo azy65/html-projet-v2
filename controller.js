@@ -31,27 +31,21 @@ mod.controller('planController', ['$scope',
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
 				evnmt.setNbCol(form.nbCol);
 				form.col.ajouterEvenement(evnmt);
-				
 				if (form.nbCol > 1) {
 					$scope.ajoutEvmtCommun(per);
-				}
-				//$scope.ajoutEvmtCommun(per);
-				/*
-				} else {
-					form.col.ajouterEvenement(evnmt);
-				}*/
-				
+				} 				
 		}
 		
 		$scope.ajoutEvmtCommun=function(per){
-			planning.getColonnes().forEach(function(colonne) {
+			var colonne;
+			var tabColonne = planning.getColonnes();
+			var i = tabColonne.indexOf(form.col) + 1;
+			var j = i+form.nbCol - 1;
+			for (i; i < j; i++) {
+				colonne = tabColonne [i]; 
 				var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
 				colonne.ajouterEvenement(evnmt);
-			});
-		}
-		
-		$scope.modifEvmtCommun=function(per){
-			
+			};
 		}
 		
 		$scope.modifEvmt=function(){
@@ -182,6 +176,7 @@ mod.controller('planController', ['$scope',
     }	
 	
 ]);
+
 
 // directive de drag and drop attribut glisser et deposer dans la html
 

@@ -3,6 +3,7 @@
 /***************************
 ***** Classe colonne ******
 ****************************/
+
 var Colonne = Class.create({
 	initialize: function(titre,largeur){
 		this._tabEvmt=[],
@@ -18,7 +19,6 @@ var Colonne = Class.create({
 	,setTaches:function(tabEvmt){
 		this._tabEvmt=tabEvmt;
 	},
-	
 	getTitre:function(){
 		return this._titre;
 	},
