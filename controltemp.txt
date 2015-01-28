@@ -3,19 +3,86 @@ var publicAccessToScope;
 var planning = angular.module('planning', ['mod']);
 var mod = angular.module('mod',[]);
 mod.controller('planController', ['$scope',
+<<<<<<< HEAD
+		function ($scope) {
+			publicAccessToScope = $scope;
+			var poubelle = [];
+			//initialisation//
+			var planning = $scope.planning=new Planning(modePlanning);
+			var form = $scope.form = {}; //contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
+			$scope.mode = "ajout";
+			var fenetreEditEvnt = $scope.fenetreEditEvnt = new Fenetre(false);
+			$scope.accueilVisible = new FenetreAvecTransition(true);
+			var formCol = $scope.formCol = {};
+			var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
+			var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
+			//fin initialisation//
+			
+			/*******************************/
+			/********formulaire*************/
+			/*******************************/
+			$scope.ajoutEditEvmt=function(){
+				fenetreEditEvnt.afficher(false);
+			}		
+			$scope.ajoutEvmt=function(){
+			
+					var per= new Periode(form);			
+					var lieu=form.col.getTitre();
+					var evnmt=new Evenement (form.titre,per,form.description,lieu);
+					evnmt.setNbCol(form.nbCol);
+					form.col.ajouterEvenement(evnmt);
+					if (form.nbCol > 1) {
+						$scope.ajoutEvmtCommun(per);
+					} 				
+			}
+			
+			$scope.ajoutEvmtCommun=function(per){
+				var colonne;
+				var tabColonne = planning.getColonnes();
+				var i = tabColonne.indexOf(form.col) + 1;
+				var j = i+form.nbCol - 1;
+				for (i; i < j; i++) {
+					colonne = tabColonne [i]; 
+					var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
+					colonne.ajouterEvenement(evnmt);
+				};
+			}
+			
+			$scope.modifEvmt=function(){
+					var per= new Periode(form);			
+					var lieu=form.col.getTitre();
+					form.evnmt.initialize(form.titre,per,form.description,lieu);
+					var per= new Periode(form);
+					if (form.evCommun) {
+						planning.getColonnes().forEach(function(colonne) {
+							
+						});
+					}
+					
+			}
+			$scope.suppEvmt=function(){
+				poubelle.push(form.evnmt);
+				form.col.supprimerEvenement(form.evnmt);
+			}
+			
+			$scope.reinitialiser=function(){
+				if(planning.getColonnes().length>0){
+					planning.reinitialiser();
+=======
+=======
+>>>>>>> parent of 7ed63c1... Mise en forme
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
 		//initialisation//
-		var planning=$scope.planning=new Planning();
+		var modePlanning=$scope.modePlanning ;
+		var planning=$scope.planning=new Planning(modePlanning);
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
 		$scope.accueilVisible = new FenetreAvecTransition(true);
 		var formCol=$scope.formCol = {};
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
-		var fenetreModifHoraire = $scope.fenetreModifHoraire = new Fenetre (false);
-		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		//fin initialisation//
 		
@@ -26,33 +93,34 @@ mod.controller('planController', ['$scope',
 			fenetreEditEvnt.afficher(false);
 		}		
 		$scope.ajoutEvmt=function(){
+<<<<<<< HEAD
+=======
 		
+>>>>>>> parent of 7ed63c1... Mise en forme
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
 				evnmt.setNbCol(form.nbCol);
 				form.col.ajouterEvenement(evnmt);
-				
 				if (form.nbCol > 1) {
-				
-				}
-				//$scope.ajoutEvmtCommun(per);
-				/*
-				} else {
-					form.col.ajouterEvenement(evnmt);
-				}*/
-				
+					$scope.ajoutEvmtCommun(per);
+				} 				
 		}
 		
 		$scope.ajoutEvmtCommun=function(per){
-			planning.getColonnes().forEach(function(colonne) {
+			var colonne;
+			var tabColonne = planning.getColonnes();
+			var i = tabColonne.indexOf(form.col) + 1;
+			var j = i+form.nbCol - 1;
+			for (i; i < j; i++) {
+				colonne = tabColonne [i]; 
 				var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
+<<<<<<< HEAD
+				evnmt.setVisibility(false);
+=======
+>>>>>>> parent of 7ed63c1... Mise en forme
 				colonne.ajouterEvenement(evnmt);
-			});
-		}
-		
-		$scope.modifEvmtCommun=function(per){
-			
+			};
 		}
 		
 		$scope.modifEvmt=function(){
@@ -60,10 +128,18 @@ mod.controller('planController', ['$scope',
 				var lieu=form.col.getTitre();
 				form.evnmt.initialize(form.titre,per,form.description,lieu);
 				var per= new Periode(form);
+<<<<<<< HEAD
+				/*if (form.evCommun) {
+					planning.getColonnes().forEach(function(colonne) {
+						
+					});*/
+>>>>>>> origin/master
+=======
 				if (form.evCommun) {
 					planning.getColonnes().forEach(function(colonne) {
 						
 					});
+>>>>>>> parent of 7ed63c1... Mise en forme
 				}
 				
 		}
@@ -140,18 +216,7 @@ mod.controller('planController', ['$scope',
 			planning.supprimerColonne(formCol.col);
 		}
 
-		/*Horaire*/
-		
-		$scope.modifHeure=function(){
-			$scope.ligne=[];
-		
-			while(horaire.debut<horaire.fin){
-				$scope.ligne.push(horaire.debut);
-				horaire.debut++;
-			}	
-			fenetreModifHoraire.afficher(false);
-		}
-		
+
 		function justepourexemple(){
 			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 			
@@ -170,7 +235,7 @@ mod.controller('planController', ['$scope',
 			// planning.ajoutColonne(colonne);
 			// planning.ajoutColonne(colonne2);
 		}
-		justepourexemple();
+		justepourexemple();	
 		
 		function viderInput(){
 			form.titre="";
@@ -194,6 +259,7 @@ mod.controller('planController', ['$scope',
     }	
 	
 ]);
+
 
 // directive de drag and drop attribut glisser et deposer dans la html
 
