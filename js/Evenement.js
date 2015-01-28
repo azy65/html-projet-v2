@@ -13,7 +13,7 @@ var Evenement= Class.create({
 			this._description=description;
 			this._lieu=lieu;
 			this._tabEv=[];
-			this._nbCol;
+			this._nbCol=1;
 	},
 	getId : function(){
 		return this._id;

@@ -31,8 +31,12 @@ mod.controller('planController', ['$scope',
 				var evnmt=new Evenement (form.titre,per,form.description,lieu);
 				evnmt.setNbCol(form.nbCol);
 				form.col.ajouterEvenement(evnmt);
-				/*if (form.evCommun) {
-					$scope.ajoutEvmtCommun(per);
+				
+				if (form.nbCol > 1) {
+				
+				}
+				//$scope.ajoutEvmtCommun(per);
+				/*
 				} else {
 					form.col.ajouterEvenement(evnmt);
 				}*/
