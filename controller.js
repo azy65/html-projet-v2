@@ -141,16 +141,22 @@ mod.controller('planController', ['$scope',
 
 
 		function justepourexemple(){
-			var colonne= new Colonne("rubis","rubis");
-			var colonne2= new Colonne("rubis","rubis2");
-			var periode=new Periode({heureDeb:9,heureFin:11})
-			var periode2=new Periode({heureDeb:15,heureFin:17})
-			var evmt=new Evenement("presentation",periode2,"presentation plus en détail des méthodes agiles par Marc *Toutenkarthon","toulouse");
-			var evmt2=new Evenement("presentation2",periode,"presentation plus en détail des méthodes agiles par Marc *Toutenpapier sfsfsfsfsfs","toulouse");
-			colonne2.ajouterEvenement(evmt);
-			colonne.ajouterEvenement(evmt2);
-			planning.ajoutColonne(colonne);
-			planning.ajoutColonne(colonne2);
+			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+			
+			for (var i = 0; i < 7; i++) {
+				planning.ajoutColonne(new Colonne(joursSemaine[i]));
+			}
+			
+			// var colonne= new Colonne("rubis","rubis");
+			// var colonne2= new Colonne("rubis","rubis2");
+			// var periode=new Periode({heureDeb:9,heureFin:11})
+			// var periode2=new Periode({heureDeb:15,heureFin:17})
+			// var evmt=new Evenement("presentation",periode2,"presentation plus en détail des méthodes agiles par Marc *Toutenkarthon","toulouse");
+			// var evmt2=new Evenement("presentation2",periode,"presentation plus en détail des méthodes agiles par Marc *Toutenpapier sfsfsfsfsfs","toulouse");
+			// colonne2.ajouterEvenement(evmt);
+			// colonne.ajouterEvenement(evmt2);
+			// planning.ajoutColonne(colonne);
+			// planning.ajoutColonne(colonne2);
 		}
 		justepourexemple();	
 		
