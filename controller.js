@@ -57,21 +57,20 @@ mod.controller('planController', ['$scope',
 			planning.setColonnes = tabColonne;
 		}
 		
-		$scope.modifEvmtCommun=function(per){
-			
-		}
 		
 		$scope.modifEvmt=function(){
+				var colonnes = planning.getColonnes();
+				var indexColonne = colonnes.indexOf(form.col);
+				var evenements = colonnes[indexColonne].getTaches();
+				var indexEvenement = evenements.indexOf(form.evnmt);
 				var per= new Periode(form);			
-				var lieu=form.col.getTitre();
-				form.evnmt.initialize(form.titre,per,form.description,lieu);
-				var per= new Periode(form);
-				if (form.evCommun) {
-					planning.getColonnes().forEach(function(colonne) {
-						
-					});
-				}
-				
+				evenements[indexEvenement].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol, true);
+	
+				var tabEvenementSecondaire = evenements[indexEvenement].getTabEvenementAutreCol();
+				tabEvenementSecondaire.forEach(function(even) {
+					even.initialize(form.titre,per,form.description,form.col.getTitre());
+					evnmt.setVisibility(false);
+				});	
 		}
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
