@@ -38,7 +38,7 @@ mod.controller('planController', ['$scope',
 				} 			
 		}
 		
-		$scope.ajoutEvmtCommun=function(per){
+		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var colonne;
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -103,7 +103,7 @@ mod.controller('planController', ['$scope',
 			var mDeb=p.getMinuteDebut();
 			var mFin=p.getMinuteFin();
 			initHeureEvmt(hDeb,hFin,mDeb,mFin);
-			form.titre=evmt.getLieu();
+			form.titre=evmt.getNom();
 			form.description=evmt.getDescription();
 			fenetreEditEvnt.afficher(true);	
 			form.col=col;	
