@@ -60,16 +60,15 @@ mod.controller('planController', ['$scope',
 			fenetreEditEvnt.afficher(false);
 		}		
 		$scope.ajoutEvmt=function(){
-		
 				var colonne = form.col;
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
-				var evnmt=new Evenement (form.titre,per,form.description,lieu,form.nbCol,true);
+				var evnmt=new EvenementClassique (form.titre,form.description,per,lieu,form.nbCol);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
 					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
-				} 			
+				} 					
 		}
 		
 		$scope.focusCouleur=function(categorie){

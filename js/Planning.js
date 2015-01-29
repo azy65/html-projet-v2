@@ -34,7 +34,7 @@ var Planning = Class.create({
 		var cat =new Categorie(couleur,categorieNom);
 		this.categories.push(cat);
 		return cat;
-	}
+	},
 	reinitialiser:function(){
 		if(this._mode=="journalier")
 			this._tabColonne=[];

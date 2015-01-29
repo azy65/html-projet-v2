@@ -58,8 +58,8 @@ var Evenement= Class.create({
 })
 
 var EvenementClassique = Class.create(Evenement,{
-	initialize:function($super,nom,description,periode,lieu,nbCol,visibility){
-		$super(periode,lieu,nbCol, visibility);
+	initialize:function($super,nom,description,periode,lieu,nbCol){
+		$super(periode,lieu,nbCol,true);
 		this._nom=nom;
 		this._description=description;
 		this._tabEv=[];
@@ -89,8 +89,8 @@ var EvenementClassique = Class.create(Evenement,{
 })
 
 var EvenementInvisible = Class.create(Evenement,{
-	initialize:function($super,periode,lieu,nbCol,visibility){
-		$super(periode,lieu,nbCol, visibility);
+	initialize:function($super,periode,lieu,nbCol){
+		$super(periode,lieu,nbCol,false);
 	}
 })
 
