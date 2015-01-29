@@ -8,7 +8,8 @@ var Planning = Class.create({
 	initialize:function (mode){
 		//attribut protected
 		this._mode=mode,
-		this._tabColonne=[]
+		this._tabColonne=[],
+		this.categories=[];
 	},
 	//funtion publiques
 	getMode:function getMode(){
@@ -26,18 +27,22 @@ var Planning = Class.create({
 	supprimerColonne:function(col){
 		this._tabColonne.splice(this._tabColonne.indexOf(col), 1);
 	},
+	getCategories:function(){
+		return this.categories;
+	},
+	ajouterCategories:function(couleur,categorieNom){
+		var cat =new Categorie(couleur,categorieNom);
+		this.categories.push(cat);
+		return cat;
+	}
 	reinitialiser:function(){
 		if(this._mode=="journalier")
 			this._tabColonne=[];
 		else{	
 			this._tabColonne.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
-			})
-					
-					
+			})					
 		}
-		
 	}
-
 })
 

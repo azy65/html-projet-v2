@@ -16,6 +16,7 @@ var Evenement= Class.create({
 			this._visibility = visibility;
 			this._tabEv=[];
 			this._tabEvenementAutreCol = [];
+			this._categorie=categorie;
 	},
 	getId : function(){
 		return this._id;
@@ -61,7 +62,10 @@ var Evenement= Class.create({
 	},
 	getTabEvenementAutreCol:function(){
 		return this._tabEvenementAutreCol;
-	}
+	},
+	getCategorie : function(){
+		return this._categorie;
+	},
 	,setTabEvenementAutreCol:function(tabEvenementAutreCol){
 		this._tabEvenementAutreCol=tabEvenementAutreCol;
 	},
