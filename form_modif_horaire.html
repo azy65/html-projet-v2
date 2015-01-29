@@ -1,0 +1,11 @@
+<div class="containerForm" ng-if="fenetreModifHoraire.isAfficher()">
+	<form class="gererColonne centrer_form" >
+		<label for="heureDeb">Heure début :</label>
+		<input id="heureDeb" type="number" ng-model="horaire.debut"/>
+		<label for="heureFin">Heure fin :</label>
+		<input id="heureFin" type="number" ng-model="horaire.fin"/>
+		<input type="submit" value="Modifier heure" ng-click="modifHeure()"  />
+		<button ng-click="fenetreModifHoraire.afficher(false)">Annuler</button>
+	</form>
+	
+</div>
