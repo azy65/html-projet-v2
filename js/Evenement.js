@@ -3,13 +3,12 @@
 ***** classe evenement ******
 ****************************/
 var Evenement= Class.create({
-	initialize:function(periode,lieu,nbCol, visibility){
+	initialize:function(periode,nbCol, visibility){
 			if (!this._id){
 				this._id=Evenement.lastID;
 				Evenement.lastID++;
 			} 
 			this._periode=periode;
-			this._lieu="";
 			this._nbCol=nbCol;
 			this._visibility = visibility;
 	},
@@ -24,12 +23,6 @@ var Evenement= Class.create({
 	},
 	setPeriode : function(per){
 		this._periode = per;
-	},
-	getLieu : function(){
-		return this._lieu;
-	},
-	setLieu : function(lieu){
-		this._lieu = lieu;
 	},
 	getNbCol : function(){
 		return this._nbCol;
@@ -58,12 +51,13 @@ var Evenement= Class.create({
 })
 
 var EvenementClassique = Class.create(Evenement,{
-	initialize:function($super,nom,description,periode,lieu,nbCol){
-		$super(periode,lieu,nbCol,true);
+	initialize:function($super,nom,description,periode,nbCol,categorie){
+		$super(periode,nbCol,true);
 		this._nom=nom;
 		this._description=description;
 		this._tabEv=[];
 		this._tabEvenementAutreCol = [];
+		this._categorie=categorie;
 	},
 	getNom : function(){
 		return this._nom;
@@ -77,6 +71,9 @@ var EvenementClassique = Class.create(Evenement,{
 	setDescription : function(desc){
 		this._description = desc;
 	},
+	getCategorie : function(){
+		return this._categorie;
+	},
 	getTabEvenementAutreCol:function(){
 		return this._tabEvenementAutreCol;
 	}
@@ -89,8 +86,8 @@ var EvenementClassique = Class.create(Evenement,{
 })
 
 var EvenementInvisible = Class.create(Evenement,{
-	initialize:function($super,periode,lieu,nbCol){
-		$super(periode,lieu,nbCol,false);
+	initialize:function($super,periode,nbCol){
+		$super(periode,nbCol,false);
 	}
 })
 

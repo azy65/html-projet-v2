@@ -6,11 +6,13 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
-		
+
 		//initialisation//
+		$scope.fenCategorie=new Fenetre(false);
 		var planning;
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
+		form.categorie="";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
 		var accueilVisible = $scope.accueilVisible = new FenetreAvecTransition(true);
 		var formCol=$scope.formCol = {};
@@ -29,6 +31,12 @@ mod.controller('planController', ['$scope',
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
 			}
+			planning.ajouterCategories("red","sport");
+			planning.ajouterCategories("orange","foot");
+			planning.ajouterCategories("white","sieste");
+			planning.ajouterCategories("green","ceuillete");
+			planning.ajouterCategories("cyan","avion");
+			planning.ajouterCategories("yellow","bronzette au soleil");
 		}
 		
 		function initialiserPlanningHebdo() {
@@ -48,8 +56,9 @@ mod.controller('planController', ['$scope',
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);			
-				var lieu=form.col.getTitre();
-				var evnmt=new EvenementClassique (form.titre,form.description,per,lieu,form.nbCol);
+				
+				
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
@@ -69,7 +78,7 @@ mod.controller('planController', ['$scope',
 			var tabEvenements = tabColonne[ind].getTaches();
 			var evenementPrincipal = tabEvenements[indexEvenementPrin];
 			for (i; i < j; i++) { 
-				var evnmt=new Evenement (form.titre,per,form.description,tabColonne [i].getTitre(), 1, false);
+				var evnmt=new EvenementInvisible (per, 1);
 				tabColonne [i].ajouterEvenement(evnmt);
 				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
 			};
@@ -91,7 +100,7 @@ mod.controller('planController', ['$scope',
 						/*Ajout Nouveaux Evenements Secondaires
 						//Ajout dans colonnes*/
 				}
-				evenements[indexEvenementPrinc].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol, true);
+				evenements[indexEvenementPrinc].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol,form.categorie);
 	
 				
 				tabEvenementSecondaire.forEach(function(even) {
@@ -135,7 +144,8 @@ mod.controller('planController', ['$scope',
 			form.description=evmt.getDescription();
 			fenetreEditEvnt.afficher(true);	
 			form.col=col;	
-			form.evnmt=evmt;	
+			form.evnmt=evmt;
+			form.categorie = evmt.getCategorie();
 		}
 		
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
