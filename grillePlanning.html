@@ -15,8 +15,10 @@
 			</div>
 </div>
 
-<div class="col">
-	<div class="cell" ng-click="fenetreAjoutColonne.afficher(true)">Ajout colonne </div>
+<div class="col" ng-if="planning.getMode() === 'journalier'">
+	<div class="cell" ng-click="fenetreAjoutColonne.afficher(true)">
+		Ajout colonne
+	</div>
 </div>
 
 <button id="btnReset" ng-click="reinitialiser();">Reinitialiser</button>
