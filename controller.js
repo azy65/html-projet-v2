@@ -27,28 +27,34 @@ mod.controller('planController', ['$scope',
 		}		
 		$scope.ajoutEvmt=function(){
 		
+				var colonne = form.col;
 				var per= new Periode(form);			
 				var lieu=form.col.getTitre();
-				var evnmt=new Evenement (form.titre,per,form.description,lieu);
-				evnmt.setNbCol(form.nbCol);
-				form.col.ajouterEvenement(evnmt);
-				
+				var evnmt=new Evenement (form.titre,per,form.description,lieu,form.nbCol,true);
+				colonne.ajouterEvenement(evnmt);
+				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
-				
-				}
-				//$scope.ajoutEvmtCommun(per);
-				/*
-				} else {
-					form.col.ajouterEvenement(evnmt);
-				}*/
-				
+					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
+				} 			
 		}
 		
 		$scope.ajoutEvmtCommun=function(per){
-			planning.getColonnes().forEach(function(colonne) {
-				var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
-				colonne.ajouterEvenement(evnmt);
-			});
+			var colonne;
+			var tabColonne = planning.getColonnes();
+			var i = tabColonne.indexOf(form.col) + 1;
+			var j = i+form.nbCol - 1;
+			var ind = tabColonne.indexOf(form.col);
+			var tabEvenements = tabColonne[ind].getTaches();
+			var evenementPrincipal = tabEvenements[indexEvenementPrin];
+			for (i; i < j; i++) { 
+				var evnmt=new Evenement (form.titre,per,form.description,tabColonne [i].getTitre(), 1, false);
+				colonne = tabColonne [i].ajouterEvenement(evnmt);
+				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
+			};
+			
+			tabEvenements[indexEvenementPrin] = evenementPrincipal;
+			tabColonne[ind].setTaches(tabEvenements);
+			planning.setColonnes = tabColonne;
 		}
 		
 		$scope.modifEvmtCommun=function(per){
