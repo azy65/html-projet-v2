@@ -51,12 +51,13 @@ var Evenement= Class.create({
 })
 
 var EvenementClassique = Class.create(Evenement,{
-	initialize:function($super,nom,description,periode,nbCol){
+	initialize:function($super,nom,description,periode,nbCol,categorie){
 		$super(periode,nbCol,true);
 		this._nom=nom;
 		this._description=description;
 		this._tabEv=[];
 		this._tabEvenementAutreCol = [];
+		this._categorie=categorie;
 	},
 	getNom : function(){
 		return this._nom;
@@ -69,6 +70,9 @@ var EvenementClassique = Class.create(Evenement,{
 	},
 	setDescription : function(desc){
 		this._description = desc;
+	},
+	getCategorie : function(){
+		return this._categorie;
 	},
 	getTabEvenementAutreCol:function(){
 		return this._tabEvenementAutreCol;

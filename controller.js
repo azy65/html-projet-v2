@@ -5,12 +5,14 @@ var mod = angular.module('mod',[]);
 mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
+		
 		var poubelle=[];
 		//initialisation//
-		
+		$scope.fenCategorie=new Fenetre(false);
 		var planning;
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
+		form.categorie="";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
 		var accueilVisible = $scope.accueilVisible = new FenetreAvecTransition(true);
 		var formCol=$scope.formCol = {};
@@ -30,6 +32,12 @@ mod.controller('planController', ['$scope',
 				case 'journalier'  : initialiserPlanningJournalier(); break;
 				case 'hebdomadaire': initialiserPlanningHebdo(); break;
 			}
+			planning.ajouterCategories("red","sport");
+			planning.ajouterCategories("orange","foot");
+			planning.ajouterCategories("white","sieste");
+			planning.ajouterCategories("green","ceuillete");
+			planning.ajouterCategories("cyan","avion");
+			planning.ajouterCategories("yellow","bronzette au soleil");
 		}
 		
 		function initialiserPlanningJournalier() {
@@ -64,7 +72,7 @@ mod.controller('planController', ['$scope',
 				var per= new Periode(form);			
 				
 				
-				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol);
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
@@ -106,7 +114,7 @@ mod.controller('planController', ['$scope',
 						/*Ajout Nouveaux Evenements Secondaires
 						//Ajout dans colonnes*/
 				}
-				evenements[indexEvenementPrinc].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol, true);
+				evenements[indexEvenementPrinc].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol,form.categorie);
 	
 				
 				tabEvenementSecondaire.forEach(function(even) {
@@ -150,7 +158,8 @@ mod.controller('planController', ['$scope',
 			form.description=evmt.getDescription();
 			fenetreEditEvnt.afficher(true);	
 			form.col=col;	
-			form.evnmt=evmt;	
+			form.evnmt=evmt;
+			form.categorie = evmt.getCategorie();
 		}
 		
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
