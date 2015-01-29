@@ -97,6 +97,7 @@ mod.controller('planController', ['$scope',
 				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
 				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
 					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
+						//Modifier Evenements Secondaires Existant - Modifier Evenement Colonne Existant - Ajouter Nouveaux Evenements Secondaires et Colonnes
 					}
 						/*Ajout Nouveaux Evenements Secondaires
 						//Ajout dans colonnes*/
