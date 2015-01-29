@@ -72,6 +72,10 @@ mod.controller('planController', ['$scope',
 				} 			
 		}
 		
+		$scope.focusCouleur=function(categorie){
+			form.categorie = categorie;
+		} 
+		
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -135,7 +139,7 @@ mod.controller('planController', ['$scope',
 		
 		$scope.afficherModifierEvenement=function(evmt,col){
 			$scope.mode="modif";
-
+			form.categorie = evmt.getCategorie();
 			var p=evmt.getPeriode();
 			var hDeb=p.getHeureDebut();
 			var hFin=p.getHeureFin();
