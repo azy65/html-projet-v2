@@ -89,23 +89,36 @@ mod.controller('planController', ['$scope',
 				var indexColonne = colonnes.indexOf(form.col);
 				var evenements = colonnes[indexColonne].getTaches();
 				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
+				var evenementPrincipal = evenements[indexEvenementPrinc];
 				var per= new Periode(form);	
 				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+				
+				var nbEvenementSecondaire = evenements.length;
+				var cpt = 0;
+				tabEvenementSecondaire.forEach(function(evenementSecondaire) {
+							tabEvenementSecondaire[cpt].setPeriode(per);
+							cpt++;
+				})
 				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
 					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
-						//Modifier Evenements Secondaires Existant - Modifier Evenement Colonne Existant - Ajouter Nouveaux Evenements Secondaires et Colonnes
+						var temp = [];
+						for (var i = nbEvenementSecondaire+1; i < form.nbCol; i++) {
+							var evnmt = new EvenementInvisible (per, 1);
+							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
+							temp.push(evenementPrincipal.getTabEvenementAutreCol().indexOf(evnmt));
+						};
+					
+						var fg = temp[0];
+						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
+						tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+						for (var j = nbEvenementSecondaire+indexColonne+1; j < form.nbCol+1; j++) {
+							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
+							fg++;
+						}
 					}
-						/*Ajout Nouveaux Evenements Secondaires
-						//Ajout dans colonnes*/
 				}
 			
 				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-	
-				
-				/*tabEvenementSecondaire.forEach(function(even) {
-					even.initialize(form.titre,per,form.description,form.col.getTitre());
-					even.setVisibility(false);
-				});	*/
 		}
 		
 		$scope.suppEvmt=function(){
