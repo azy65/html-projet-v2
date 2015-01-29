@@ -62,8 +62,9 @@ mod.controller('planController', ['$scope',
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);			
-				var lieu=form.col.getTitre();
-				var evnmt=new EvenementClassique (form.titre,form.description,per,lieu,form.nbCol);
+				
+				
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
@@ -83,7 +84,7 @@ mod.controller('planController', ['$scope',
 			var tabEvenements = tabColonne[ind].getTaches();
 			var evenementPrincipal = tabEvenements[indexEvenementPrin];
 			for (i; i < j; i++) { 
-				var evnmt=new Evenement (form.titre,per,form.description,tabColonne [i].getTitre(), 1, false);
+				var evnmt=new EvenementInvisible (per, 1);
 				tabColonne [i].ajouterEvenement(evnmt);
 				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
 			};
