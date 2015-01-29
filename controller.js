@@ -73,7 +73,6 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
-			var colonne;
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
 			var j = i+form.nbCol - 1;
@@ -82,12 +81,9 @@ mod.controller('planController', ['$scope',
 			var evenementPrincipal = tabEvenements[indexEvenementPrin];
 			for (i; i < j; i++) { 
 				var evnmt=new Evenement (form.titre,per,form.description,tabColonne [i].getTitre(), 1, false);
-				colonne = tabColonne [i].ajouterEvenement(evnmt);
+				tabColonne [i].ajouterEvenement(evnmt);
 				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
 			};
-			
-			tabEvenements[indexEvenementPrin] = evenementPrincipal;
-			tabColonne[ind].setTaches(tabEvenements);
 			planning.setColonnes = tabColonne;
 		}
 		
@@ -96,16 +92,24 @@ mod.controller('planController', ['$scope',
 				var colonnes = planning.getColonnes();
 				var indexColonne = colonnes.indexOf(form.col);
 				var evenements = colonnes[indexColonne].getTaches();
-				var indexEvenement = evenements.indexOf(form.evnmt);
-				var per= new Periode(form);			
-				evenements[indexEvenement].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol, true);
+				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
+				var per= new Periode(form);	
+				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
+					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
+					}
+						/*Ajout Nouveaux Evenements Secondaires
+						//Ajout dans colonnes*/
+				}
+				evenements[indexEvenementPrinc].initialize(form.titre,per,form.description,form.col.getTitre(), form.nbCol, true);
 	
-				var tabEvenementSecondaire = evenements[indexEvenement].getTabEvenementAutreCol();
+				
 				tabEvenementSecondaire.forEach(function(even) {
 					even.initialize(form.titre,per,form.description,form.col.getTitre());
-					evnmt.setVisibility(false);
+					even.setVisibility(false);
 				});	
 		}
+		
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
