@@ -3,7 +3,7 @@
 ***** classe evenement ******
 ****************************/
 var Evenement= Class.create({
-	initialize:function(nom,periode,description,lieu){
+	initialize:function(nom,periode,description,lieu,nbCol, visibility){
 			if (!this._id){
 				this._id=Evenement.lastID;
 				Evenement.lastID++;
@@ -12,9 +12,10 @@ var Evenement= Class.create({
 			this._periode=periode;
 			this._description=description;
 			this._lieu=lieu;
+			this._nbCol=nbCol;
+			this._visibility = visibility;
 			this._tabEv=[];
-			this._nbCol=1;
-			this._visibility = true;
+			this._tabEvenementAutreCol = [];
 	},
 	getId : function(){
 		return this._id;
@@ -57,6 +58,15 @@ var Evenement= Class.create({
 	},
 	setVisibility : function(visibility){
 		this._visibility = visibility;
+	},
+	getTabEvenementAutreCol:function(){
+		return this._tabEvenementAutreCol;
+	}
+	,setTabEvenementAutreCol:function(tabEvenementAutreCol){
+		this._tabEvenementAutreCol=tabEvenementAutreCol;
+	},
+	ajoutEvenementSecondaire:function(evnmt){
+		this._tabEvenementAutreCol.push(evnmt);
 	},
 	hauteur : function(){
 		var posHaut=-19;
