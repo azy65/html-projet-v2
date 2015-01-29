@@ -5,6 +5,19 @@
 				word-wrap: break-word;
 			}
 			
+			
+			.radio{
+				width:20px !important;
+				height:20px !important;
+				display:inline-block;
+				border:transparent solid 2px;
+			}
+			.radioActive{
+				border-Color:black;
+			}
+			.radioInactive{
+				border-Color:transparent;
+			} 
 			#grillePlanning{
 				position:absolute;
 				z-index:3;
