@@ -6,8 +6,8 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
-		//initialisation//
 		
+		//initialisation//
 		var planning;
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
@@ -26,30 +26,16 @@ mod.controller('planController', ['$scope',
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
-			switch (planning.getMode()) {
-				case 'journalier'  : initialiserPlanningJournalier(); break;
-				case 'hebdomadaire': initialiserPlanningHebdo(); break;
+			if (planning.getMode() === 'hebdomadaire') {
+				initialiserPlanningHebdo();
 			}
-		}
-		
-		function initialiserPlanningJournalier() {
-			// var colonne1 = new Colonne('Rubis');
-			// var colonne2 = new Colonne('Grenat');
-			// var periode1 = new Periode({heureDeb:9, heureFin:11})
-			// var periode2 = new Periode({heureDeb:15, heureFin:17})
-			// var evmt1 = new Evenement("presentation 1", periode1, "Méthodes agiles par Marc Toutencarton", "toulouse");
-			// var evmt2 = new Evenement("presentation 2", periode2, "Méthodes agiles par Marc Toutenpapier", "toulouse");
-			// colonne1.ajouterEvenement(evmt1);
-			// colonne2.ajouterEvenement(evmt2);
-			// planning.ajoutColonne(colonne1);
-			// planning.ajoutColonne(colonne2);
 		}
 		
 		function initialiserPlanningHebdo() {
 			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 			
-			for (var i = 0; i < 7; i++) {
-				planning.ajoutColonne(new Colonne(joursSemaine[i]));
+			for (var jour = 0, nbJours = joursSemaine.length; jour < nbJours; jour++) {
+				planning.ajoutColonne(new Colonne(joursSemaine[jour]));
 			}
 		}
 		
