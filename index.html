@@ -4,9 +4,12 @@
 		<title>Planificat'heure</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+		<script type='text/javascript' src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/prototype.js"> </script>
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css">
+		<script type='text/javascript' src="lib/ui.js"  data-cover></script>
+		<script type='text/javascript' src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
 		<script src="js/fastSetterAndGetter.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
 		<script type="text/javascript" src="js/Planning.js"> </script>
 		<script type="text/javascript" src="js/Colonne.js"> </script>
 		<script type="text/javascript" src="js/Donnee.js"> </script>
@@ -14,8 +17,7 @@
 		<script type="text/javascript" src="js/Periode.js"> </script>
 		<script type="text/javascript" src="js/Graphique.js"> </script>
 		<script type="text/javascript" src="js/Categorie.js"> </script>
-		<script src="controller.js"></script>
-		
+		<script src="controller.js"></script>	
   </head>
   <body>  
   <!--accueil-->
@@ -30,6 +32,5 @@
 		<div  ng-include="'fenCategorie.html'"> </div>
 
 	</div>
-	
   </body>
 </html>

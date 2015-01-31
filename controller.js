@@ -1,4 +1,6 @@
 ﻿'use strict';
+
+
 var publicAccessToScope;
 angular.module('planning', ['mod']);
 var mod = angular.module('mod',[]);
@@ -6,7 +8,6 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
-
 		//initialisation//
 		$scope.fenCategorie=new Fenetre(false);
 		var planning;
@@ -166,13 +167,14 @@ mod.controller('planController', ['$scope',
 			$scope.form.heureFin=hFin || 9;
 			$scope.form.minuteFin=mFin || 0;
 		}
-				
-		
+		$scope.colonneRedim=function(col){
+			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
+		}		
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
-		$scope.alert=function(){
-			alert();			
+		$scope.alert=function(width){
+			alert(width );				
 		};	
 		
 		
@@ -191,6 +193,7 @@ mod.controller('planController', ['$scope',
 			formCol.col.setTitre(formCol.titre);
 		}
 		$scope.supprColonne=function(){
+			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
 			planning.supprimerColonne(formCol.col);
 		}
@@ -264,3 +267,16 @@ mod.directive('deposer', [function(){
 		}
 	}	
 }])
+
+mod.directive('resizable', function () {
+    return {
+        link: function (scope, elem, attr) {
+            elem.resizable();
+            elem.on('resizestop', function (evt, ui) {	
+				//on rajoute l'accès à l'element
+				publicAccessToScope['accessToResizableElmt']=elem[0];
+                scope.$eval(attr.onresize)
+            });
+        }
+    };
+});
