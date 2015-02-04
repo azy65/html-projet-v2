@@ -3,9 +3,9 @@
 
 <div resizable onresize="funciton(){}"  class="col">
 
-			<div class="cell coins" >planning</div>
+			<div class="cell coins" >Planning</div>
 			<div class="cell bordPlanningGauche"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
-			<div class="cell bordPlanningGauche" ng-click="fenetreModifHoraire.afficher(true)">Ajout horaire</div>
+			<div id="AjoutH" class="cell bordPlanningGauche" ng-click="fenetreModifHoraire.afficher(true)">Ajout horaire</div>
 </div>		
 <div  resizable onresize="colonneRedim(sal)"  class="col " ng-repeat="sal in planning.getColonnes()" >
 			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>
@@ -20,8 +20,8 @@
 </div>
 
 <div class="col" ng-if="planning.getMode() === 'journalier'">
-	<div class="cell" ng-click="fenetreAjoutColonne.afficher(true)">
-		Ajout colonne
+	<div id="AjoutC" class="cell">
+		<img src="./css/postplus.png" ng-click="fenetreAjoutColonne.afficher(true)"/>
 	</div>
 </div>
 

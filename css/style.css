@@ -31,7 +31,7 @@
 			}
 
 			.bordPlanningGauche, .bordPlanningDroite {
-				color:#08C;
+				color:black;
 			}
 			.bordPlanningDroite {
 				font-weight:bold;
@@ -156,6 +156,10 @@
 			margin-left:50px;
 			}
 			
+			.btnMode:hover{
+			color:rgb(190,110,0);
+			}
+			
 			#slogan{
 			text-decoration:underline;
 			font-family: "MV Boli", Georgia, Serif;
@@ -175,7 +179,10 @@
 			}
 
 			.coins{
-				background:white;
+				background:black;
+				color:white;
+				text-align:center;
+				font-size:30px;
 			}
 			
 			
@@ -270,7 +277,32 @@
 				text-align:left;
 			}
 			
-			#page
-			{
-				background:url("");
+			body{
+				background:url(bois.jpg);
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			
+			#AjoutH{
+			color:rgb(199,140,54);
+			}
+			
+			#AjoutH:hover{
+				cursor:pointer;
+				color:rgb(190,110,0);
+			}
+			
+			#AjoutC{
+				color:rgb(199,140,54);
+				width:50px;
+			}
+			
+			img{
+			height:40px;
+			}
+			
+			img:hover{
+				cursor:pointer;
 			}
