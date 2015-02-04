@@ -36,3 +36,4 @@ var Planning = Class.create({
 })
 addGSet(Planning,["mode"])
 addGSet(Planning,["categories","colonnes"],"get")
+addGSet(Planning,["categories","colonnes"],"set")
