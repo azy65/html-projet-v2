@@ -9,7 +9,7 @@ var Planning = Class.create({
 		//attribut protected
 		this._mode=mode,
 		this._colonnes=[],
-		this.categories=[];
+		this._categories=[];
 	},
 	//funtion publiques
 	ajoutColonne:function(col2){
@@ -21,7 +21,7 @@ var Planning = Class.create({
 
 	ajouterCategories:function(couleur,categorieNom){
 		var cat =new Categorie(couleur,categorieNom);
-		this.categories.push(cat);
+		this._categories.push(cat);
 		return cat;
 	},
 	reinitialiser:function(){
