@@ -21,6 +21,8 @@
 						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" /> </td>
 					</tr>
 				</table>
+				 <span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+			</span>
 				<div class="form_bouton">
 					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
 					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>

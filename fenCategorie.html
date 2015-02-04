@@ -1,0 +1,7 @@
+﻿	<form style="position:absolute;z-index:3" ng-if="fenCategorie.isAfficher()" ng-submit="ajoutEditEvmt()">
+		veuillez associer un  couleur à vos catégories
+		<div>
+			 <span  ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" > 
+			 {{categorie.getNom()}}</span>
+		</div>
+	</form>

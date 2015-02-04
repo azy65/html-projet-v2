@@ -1,17 +1,21 @@
 ﻿'use strict';
+
+
 var publicAccessToScope;
-var planning = angular.module('planning', ['mod']);
+angular.module('planning', ['mod']);
 var mod = angular.module('mod',[]);
 mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
 		//initialisation//
-		var planning=$scope.planning=new Planning();
+		$scope.fenCategorie=new Fenetre(false);
+		var planning;
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
+		form.categorie="";
 		var fenetreEditEvnt=$scope.fenetreEditEvnt=new Fenetre(false);
-		$scope.accueilVisible = new FenetreAvecTransition(true);
+		var accueilVisible = $scope.accueilVisible = new FenetreAvecTransition(true);
 		var formCol=$scope.formCol = {};
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
 		var fenetreModifHoraire = $scope.fenetreModifHoraire = new Fenetre (false);
@@ -20,53 +24,104 @@ mod.controller('planController', ['$scope',
 		//fin initialisation//
 		
 		/*******************************/
+		/******** Initialisation *******/
+		/*******************************/
+		$scope.creerPlanning = function(mode) {
+			accueilVisible.afficher(false);
+			planning = $scope.planning = new Planning(mode);
+			if (planning.getMode() === 'hebdomadaire') {
+				initialiserPlanningHebdo();
+			}
+			planning.ajouterCategories("red","sport");
+			planning.ajouterCategories("orange","foot");
+			planning.ajouterCategories("white","sieste");
+			planning.ajouterCategories("green","ceuillete");
+			planning.ajouterCategories("cyan","avion");
+			planning.ajouterCategories("yellow","bronzette au soleil");
+		}
+		
+		function initialiserPlanningHebdo() {
+			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+			
+			for (var jour = 0, nbJours = joursSemaine.length; jour < nbJours; jour++) {
+				planning.ajoutColonne(new Colonne(joursSemaine[jour]));
+			}
+		}
+		
+		/*******************************/
 		/********formulaire*************/
 		/*******************************/
 		$scope.ajoutEditEvmt=function(){
 			fenetreEditEvnt.afficher(false);
 		}		
 		$scope.ajoutEvmt=function(){
-		
+				var colonne = form.col;
 				var per= new Periode(form);			
-				var lieu=form.col.getTitre();
-				var evnmt=new Evenement (form.titre,per,form.description,lieu);
-				evnmt.setNbCol(form.nbCol);
-				form.col.ajouterEvenement(evnmt);
-				
-				if (form.nbCol > 1) {
-				
-				}
-				//$scope.ajoutEvmtCommun(per);
-				/*
-				} else {
-					form.col.ajouterEvenement(evnmt);
-				}*/
-				
-		}
-		
-		$scope.ajoutEvmtCommun=function(per){
-			planning.getColonnes().forEach(function(colonne) {
-				var evnmt=new Evenement (form.titre,per,form.description,colonne.getTitre());
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
-			});
+				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
+				if (form.nbCol > 1) {
+					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
+				} 					
 		}
 		
-		$scope.modifEvmtCommun=function(per){
+		$scope.focusCouleur=function(categorie){
+			form.categorie = categorie;
+		} 
+		
+		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
+			var tabColonne = planning.getColonnes();
+			var i = tabColonne.indexOf(form.col) + 1;
+			var j = i+form.nbCol - 1;
+			var ind = tabColonne.indexOf(form.col);
+			var tabEvenements = form.col.getTaches();
+			var evenementPrincipal = tabEvenements[indexEvenementPrin];
+			for (i; i < j; i++) { 
+				var evnmt=new EvenementInvisible (per, 1);
+				tabColonne [i].ajouterEvenement(evnmt);
+				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
+			};
 			
 		}
 		
+		
 		$scope.modifEvmt=function(){
-				var per= new Periode(form);			
-				var lieu=form.col.getTitre();
-				form.evnmt.initialize(form.titre,per,form.description,lieu);
-				var per= new Periode(form);
-				if (form.evCommun) {
-					planning.getColonnes().forEach(function(colonne) {
-						
-					});
-				}
+				var colonnes = planning.getColonnes();
+				var indexColonne = colonnes.indexOf(form.col);
+				var evenements = colonnes[indexColonne].getTaches();
+				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
+				var evenementPrincipal = evenements[indexEvenementPrinc];
+				var per= new Periode(form);	
+				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
 				
+				var nbEvenementSecondaire = evenements.length;
+				var cpt = 0;
+				tabEvenementSecondaire.forEach(function(evenementSecondaire) {
+							tabEvenementSecondaire[cpt].setPeriode(per);
+							cpt++;
+				})
+				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
+					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
+						var temp = [];
+						for (var i = nbEvenementSecondaire+1; i < form.nbCol; i++) {
+							var evnmt = new EvenementInvisible (per, 1);
+							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
+							temp.push(evenementPrincipal.getTabEvenementAutreCol().indexOf(evnmt));
+						};
+					
+						var fg = temp[0];
+						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
+						tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+						for (var j = nbEvenementSecondaire+indexColonne+1; j < form.nbCol+1; j++) {
+							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
+							fg++;
+						}
+					}
+				}
+			
+				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 		}
+		
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
@@ -91,18 +146,19 @@ mod.controller('planController', ['$scope',
 		
 		$scope.afficherModifierEvenement=function(evmt,col){
 			$scope.mode="modif";
-
+			form.categorie = evmt.getCategorie();
 			var p=evmt.getPeriode();
 			var hDeb=p.getHeureDebut();
 			var hFin=p.getHeureFin();
 			var mDeb=p.getMinuteDebut();
 			var mFin=p.getMinuteFin();
 			initHeureEvmt(hDeb,hFin,mDeb,mFin);
-			form.titre=evmt.getLieu();
+			form.titre=evmt.getNom();
 			form.description=evmt.getDescription();
 			fenetreEditEvnt.afficher(true);	
 			form.col=col;	
-			form.evnmt=evmt;	
+			form.evnmt=evmt;
+			form.categorie = evmt.getCategorie();
 		}
 		
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
@@ -111,13 +167,14 @@ mod.controller('planController', ['$scope',
 			$scope.form.heureFin=hFin || 9;
 			$scope.form.minuteFin=mFin || 0;
 		}
-				
-		
+		$scope.colonneRedim=function(col){
+			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
+		}		
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
-		$scope.alert=function(){
-			alert();			
+		$scope.alert=function(width){
+			alert(width );				
 		};	
 		
 		
@@ -137,6 +194,7 @@ mod.controller('planController', ['$scope',
 		}
 		$scope.supprColonne=function(){
 			poubelle.push(formCol.col);
+			poubelle.push(formCol.col);
 			planning.supprimerColonne(formCol.col);
 		}
 
@@ -151,26 +209,6 @@ mod.controller('planController', ['$scope',
 			}	
 			fenetreModifHoraire.afficher(false);
 		}
-		
-		function justepourexemple(){
-			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-			
-			for (var i = 0; i < 7; i++) {
-				planning.ajoutColonne(new Colonne(joursSemaine[i]));
-			}
-			
-			// var colonne= new Colonne("rubis","rubis");
-			// var colonne2= new Colonne("rubis","rubis2");
-			// var periode=new Periode({heureDeb:9,heureFin:11})
-			// var periode2=new Periode({heureDeb:15,heureFin:17})
-			// var evmt=new Evenement("presentation",periode2,"presentation plus en détail des méthodes agiles par Marc *Toutenkarthon","toulouse");
-			// var evmt2=new Evenement("presentation2",periode,"presentation plus en détail des méthodes agiles par Marc *Toutenpapier sfsfsfsfsfs","toulouse");
-			// colonne2.ajouterEvenement(evmt);
-			// colonne.ajouterEvenement(evmt2);
-			// planning.ajoutColonne(colonne);
-			// planning.ajoutColonne(colonne2);
-		}
-		justepourexemple();
 		
 		function viderInput(){
 			form.titre="";
@@ -229,3 +267,16 @@ mod.directive('deposer', [function(){
 		}
 	}	
 }])
+
+mod.directive('resizable', function () {
+    return {
+        link: function (scope, elem, attr) {
+            elem.resizable();
+            elem.on('resizestop', function (evt, ui) {	
+				//on rajoute l'accès à l'element
+				publicAccessToScope['accessToResizableElmt']=elem[0];
+                scope.$eval(attr.onresize)
+            });
+        }
+    };
+});

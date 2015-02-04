@@ -124,11 +124,6 @@ QUnit.test( "testPeriodeGetHeureDebut", function( assert ) {
 	assert.equal(  periodeTest.getHeureDebut() , 8, "Passed!" );
 });
 
-QUnit.test( "testPeriodeGetJourDebut", function( assert ) {
-	var periodeTest = new Periode({jourDeb:20});
-		
-	assert.equal(  periodeTest.getJourDebut(), 20, "Passed!" );
-});
 
 QUnit.test( "testPeriodeGetEnMinDebut", function( assert ) {
 	var periodeTest = new Periode({heureDeb:20,minuteDeb:30});
@@ -154,11 +149,7 @@ QUnit.test( "testPeriodeGetMinuteFin", function( assert ) {
 	assert.equal(  periodeTest.getMinuteFin(), 45, "Passed!" );
 });
 
-QUnit.test( "testPeriodeGetJourFin", function( assert ) {
-	var periodeTest = new Periode({jourDeb:20,jourFin:22});
-		
-	assert.equal(  periodeTest.getJourFin(), 22, "Passed!" );
-});
+
 
 /*****************************
 ****test classe evenement*****
@@ -233,24 +224,7 @@ QUnit.test( "testEvenementSetPeriodeMemeVariable", function( assert ) {
 	assert.equal(  evenementTest.getPeriode().getIntervalle(), 60, "Passed!" );
 });
 
-QUnit.test( "testEvenementSetPeriodeVariableDifferente", function( assert ) {
-	var periodeTest = new Periode({heureDeb:8,
-		minuteDeb : 30,
-		heureFin : 9,
-		minuteFin: 30});
-	var periodeSet = new Periode({
-		jourDeb: 8,
-		jourFin: 9,
-	});
-	Evenement.setLastID(0);
-	var evenementTest = new Evenement("TP",periodeTest,"refactoring","salle Rubis");
-	evenementTest.setPeriode(periodeSet);
 
-	assert.equal(  evenementTest.getPeriode().getHeureDebut(), 0, "Passed!" );
-	assert.equal(  evenementTest.getPeriode().getJourDebut(), 8, "Passed!" );
-	assert.equal(  evenementTest.getPeriode().getIntervalle(), 1440, "Passed!" );
-	
-});
 
 QUnit.test( "testEvenementGetLieu", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
@@ -283,6 +257,43 @@ QUnit.test( "testEvenementIncrementationId", function( assert ) {
 	var evenementTest = new Evenement("TP2",periodeTest,"refactoring","salle Rubis");
 	var evenementTest = new Evenement("TP3",periodeTest,"refactoring","salle Rubis");
 	assert.equal(evenementTest.getId(), 2, "Passed!" );
+});
+
+QUnit.test( "testEvenementgetNbCol", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",5);
+	assert.equal(evmt.getNbCol(),5,"Passed");
+});
+QUnit.test( "testEvenementSetNbCol", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",2);
+	evmt.setNbCol(5);
+	assert.equal(evmt.getNbCol(),5,"Passed");
+});
+QUnit.test( "testEvenementGetVisibility", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",4,false);
+	
+	assert.equal(evmt.getVisibility(),false,"Passed");
+});
+QUnit.test( "testEvenementSetVisibility", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",4,true);
+	evmt.setVisibility(false);
+	
+	assert.equal(evmt.getVisibility(),false,"Passed");
 });
 
 /*****************************

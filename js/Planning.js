@@ -8,36 +8,31 @@ var Planning = Class.create({
 	initialize:function (mode){
 		//attribut protected
 		this._mode=mode,
-		this._tabColonne=[]
+		this._colonnes=[],
+		this._categories=[];
 	},
 	//funtion publiques
-	getMode:function getMode(){
-		return this._mode;
-	},
-	setMode:function(mode){
-		this._mode=mode;
-	},
 	ajoutColonne:function(col2){
-		this._tabColonne.push(col2);
-	},
-	getColonnes:function(){
-		return this._tabColonne;
+		this._colonnes.push(col2);
 	},
 	supprimerColonne:function(col){
-		this._tabColonne.splice(this._tabColonne.indexOf(col), 1);
+		this._colonnes.splice(this._colonnes.indexOf(col), 1);
+	},
+
+	ajouterCategories:function(couleur,categorieNom){
+		var cat =new Categorie(couleur,categorieNom);
+		this._categories.push(cat);
+		return cat;
 	},
 	reinitialiser:function(){
 		if(this._mode=="journalier")
-			this._tabColonne=[];
+			this._colonnes=[];
 		else{	
-			this._tabColonne.forEach(function(colonne){
+			this._colonnes.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
-			})
-					
-					
+			})					
 		}
-		
 	}
-
 })
-
+addGSet(Planning,["mode"])
+addGSet(Planning,["categories","colonnes"],"get")
