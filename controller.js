@@ -125,6 +125,21 @@ mod.controller('planController', ['$scope',
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
 			form.col.supprimerEvenement(form.evnmt);
+			
+			if (form.evnmt.getNbCol() > 1 ){
+				$scope.suppEvenementCommun();
+			}
+		}
+		
+		$scope.suppEvenementCommun=function() {
+			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
+			var tabColonne = planning.getColonnes();
+			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
+			var cpt = 1;
+			tabEvenementSecondaire.forEach (function(evenementSecondaire) {
+				tabColonne[indexColEvenementPrincipal+cpt].supprimerEvenement(evenementSecondaire);
+				cpt++;
+			})
 		}
 		
 		$scope.reinitialiser=function(){
