@@ -143,7 +143,8 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.reinitialiser=function(){
-			if(planning.getColonnes().length>0){
+			if(confirm('Vous êtes sur le point de réinitialiser votre planning.\n\n'
+					+ 'Attention, cette action est irréversible !') && planning.getColonnes().length>0){
 				planning.reinitialiser();
 			}
 		}
