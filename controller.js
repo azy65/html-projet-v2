@@ -94,7 +94,7 @@ mod.controller('planController', ['$scope',
 				var per= new Periode(form);	
 				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
 				
-				var nbEvenementSecondaire = evenements.length;
+				var nbEvenementSecondaireAvantModif = evenements.length;
 				var cpt = 0;
 				tabEvenementSecondaire.forEach(function(evenementSecondaire) {
 							tabEvenementSecondaire[cpt].setPeriode(per);
@@ -108,7 +108,7 @@ mod.controller('planController', ['$scope',
 					
 						var temp = [];
 						
-						for (var i = nbEvenementSecondaire; i < form.nbCol; i++) {
+						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol; i++) {
 							var evnmt = new EvenementInvisible (per, 1);
 							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
 							temp.push(evenementPrincipal.getTabEvenementAutreCol().indexOf(evnmt));
@@ -117,8 +117,8 @@ mod.controller('planController', ['$scope',
 						var fg = temp[0];
 						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-						nbEvenementSecondaire = form.nbCol-1;
-						for (var j = indexColonne+1; j < indexColonne+nbEvenementSecondaire+1; j++) {
+						var nbEvenementSecondaireApresModif = form.nbCol-1;
+						for (var j = indexColonne+nbEvenementSecondaireAvantModif; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
 							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
 							fg++;
 						}
@@ -126,11 +126,15 @@ mod.controller('planController', ['$scope',
 						evenements[indexEvenementPrinc].setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						colonnes[indexColonne].setTaches(evenements);
 					}
+					
+					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
+						//A faire
+					}
 				} else {
-					evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+					
 				}
 			
-				
+				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 				planning.setColonnes(colonnes);
 		}
 		
