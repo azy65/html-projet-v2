@@ -117,8 +117,6 @@ mod.controller('planController', ['$scope',
 						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
 						var nbEvenementSecondaireApresModif = form.nbCol-1;
-						alert(indexColonne+nbEvenementSecondaireAvantModif);
-						alert(indexColonne+nbEvenementSecondaireApresModif);
 						for (var j = indexColonne+nbEvenementSecondaireAvantModif+1; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
 							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
 							fg++;
