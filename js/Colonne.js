@@ -6,7 +6,7 @@ var Colonne = Class.create({
 	initialize: function(titre,largeur){
 		this._taches=[],
 		this._titre=titre,
-		this._largeur=largeur
+		this._largeur=150
 	},
 	ajouterEvenement:function(evmt){
 		this._taches.push(evmt);

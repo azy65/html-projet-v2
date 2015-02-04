@@ -212,6 +212,21 @@ mod.controller('planController', ['$scope',
 			poubelle.push(formCol.col);
 			planning.supprimerColonne(formCol.col);
 		}
+		
+		$scope.calculerLargeur=function(evenement, colonne) {
+			var tabColonnes = planning.getColonnes();
+			var result = colonne.getLargeur();
+			if(evenement.getNbCol() > 1) {
+				var tabEvenementSecondaire = evenement.getTabEvenementAutreCol();
+				var cpt = 1;
+				var indexCol = tabColonnes.indexOf(colonne);
+				tabEvenementSecondaire.forEach (function(evenementSecondaire) {
+					result += tabColonnes[indexCol+cpt].getLargeur();
+					cpt++;
+				})
+			}
+			return result+"px";
+		}
 
 		/*Horaire*/
 		

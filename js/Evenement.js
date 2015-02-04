@@ -23,6 +23,7 @@ var Evenement= Class.create({
 		return (t+"px")
 	},
 	largeur : function() {
+		
 		return this._nbCol+"00%";
 	}
 })
@@ -40,7 +41,6 @@ var EvenementClassique = Class.create(Evenement,{
 		$super(periode,nbCol,true);
 		this._nom=nom;
 		this._description=description;
-		this._tabEv=[];
 		this._tabEvenementAutreCol = [];
 		this._categorie=categorie;
 	},
