@@ -107,8 +107,7 @@ mod.controller('planController', ['$scope',
 					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
 					
 						var temp = [];
-						
-						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol; i++) {
+						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol-1; i++) {
 							var evnmt = new EvenementInvisible (per, 1);
 							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
 							temp.push(evenementPrincipal.getTabEvenementAutreCol().indexOf(evnmt));
@@ -118,7 +117,9 @@ mod.controller('planController', ['$scope',
 						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
 						var nbEvenementSecondaireApresModif = form.nbCol-1;
-						for (var j = indexColonne+nbEvenementSecondaireAvantModif; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
+						alert(indexColonne+nbEvenementSecondaireAvantModif);
+						alert(indexColonne+nbEvenementSecondaireApresModif);
+						for (var j = indexColonne+nbEvenementSecondaireAvantModif+1; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
 							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
 							fg++;
 						}
@@ -128,18 +129,15 @@ mod.controller('planController', ['$scope',
 					}
 					
 					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
-						//A faire
+						
 						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
 						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
 							evenementPrincipal.supprimerDernierEvenementSecondaire();
 							colonnes[indexColASupp].getTaches().pop();
-							alert(indexColASupp);
 							indexColASupp--;
 						}
 					}
-				} else {
-					
-				}
+				} 
 			
 				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 				planning.setColonnes(colonnes);
