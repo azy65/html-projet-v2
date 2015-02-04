@@ -28,7 +28,7 @@ var Planning = Class.create({
 		if(this._mode=="journalier")
 			this._colonnes=[];
 		else{	
-			this._tabColonne.forEach(function(colonne){
+			this._colonnes.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
 			})					
 		}

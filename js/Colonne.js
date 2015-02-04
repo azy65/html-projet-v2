@@ -15,7 +15,7 @@ var Colonne = Class.create({
 		this._taches.splice(this._taches.indexOf(evmt), 1);
 	},
 	reinitialiserEvenement:function(){
-		this._tabEvmt=[];
+		this._taches=[];
 	}
 })
 
