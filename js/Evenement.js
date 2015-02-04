@@ -47,6 +47,9 @@ var EvenementClassique = Class.create(Evenement,{
 	
 	ajoutEvenementSecondaire:function(evnmt){
 		this._tabEvenementAutreCol.push(evnmt);
+	},
+	supprimerDernierEvenementSecondaire:function(){
+		this._tabEvenementAutreCol.pop();
 	}
 })
 addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie']);

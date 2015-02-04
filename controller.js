@@ -129,6 +129,13 @@ mod.controller('planController', ['$scope',
 					
 					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
 						//A faire
+						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
+						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
+							evenementPrincipal.supprimerDernierEvenementSecondaire();
+							colonnes[indexColASupp].getTaches().pop();
+							alert(indexColASupp);
+							indexColASupp--;
+						}
 					}
 				} else {
 					
