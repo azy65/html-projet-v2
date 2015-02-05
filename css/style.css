@@ -47,6 +47,7 @@
 				float:left;
 				width:150px;
 				position:relative;
+				margin-top:40px;
 			}
 			.col+.col{
 				margin-left:-1px;
