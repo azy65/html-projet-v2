@@ -2,7 +2,7 @@
 <div class="containerForm" ng-if="fenetreAjoutColonne.isAfficher()">
 	<form class="gererColonne centrer_form" >
 		<label for="titreCol">Titre :</label>
-		<input id="titreCol" type="text" ng-model="formCol.titre"/>
+		<input id="titreCol" type="text" ng-model="formCol.titre" show-focus="fenetreAjoutColonne.isAfficher()" />
 		<input type="submit" value="Ajouter" ng-click="ajoutColonne()"  />
 		<button ng-click="fenetreAjoutColonne.afficher(false)">Annuler</button>
 	</form>

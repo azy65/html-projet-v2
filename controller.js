@@ -216,8 +216,10 @@ mod.controller('planController', ['$scope',
 		/*Colonne*/
 		
 		$scope.ajoutColonne = function() {
+			
 			var col = new Colonne ($scope.formCol.titre);
 			planning.ajoutColonne (col);
+			$scope.formCol.titre ="";
 			fenetreAjoutColonne.afficher(false);
 		}
 		$scope.afficherModifColonne=function(colo){
@@ -331,3 +333,17 @@ mod.directive('resizable', function () {
         }
     };
 });
+
+
+mod.directive('showFocus', function($timeout) {
+  return function(scope, element, attrs) {
+    scope.$watch(attrs.showFocus, 
+      function (newValue) { 
+        $timeout(function() {
+            newValue && element.focus();
+        });
+      },true);
+  };    
+});
+
+
