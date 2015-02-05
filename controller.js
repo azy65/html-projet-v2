@@ -8,6 +8,7 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
+		$scope.clicOnAimant=false;
 		//initialisation//
 		$scope.fenCategorie=new Fenetre(false);
 		var planning;
@@ -51,9 +52,22 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		/********formulaire*************/
 		/*******************************/
-		$scope.ajoutEditEvmt=function(){
-			fenetreEditEvnt.afficher(false);
-		}		
+		
+		$scope.validationFormulaireEvenement= function(){
+			if (isNaN(form.nbCol) || form.nbCol < 0) {
+				return false;
+			}
+			
+			if($scope.mode =="ajout") {
+				$scope.ajoutEvmt();
+			}
+			
+			if ($scope.mode == "modif") {
+				$scope.modifEvmt()
+			}
+			fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
+		}
+			
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);			
@@ -173,7 +187,7 @@ mod.controller('planController', ['$scope',
 		$scope.afficherAjouterEvenement=function(col,ligneDeb){
 			viderInput();
 			$scope.mode="ajout";
-			
+			form.nbCol = 1;
 			fenetreEditEvnt.afficher(true);
 			initHeureEvmt(ligneDeb,ligneDeb+1);	
 			form.col=col;
@@ -253,6 +267,10 @@ mod.controller('planController', ['$scope',
 			}
 			return result+"px";
 		}
+		$scope.activerAiment=function(){
+			$scope.clicOnAimant=true;
+		}
+		
 		
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
@@ -262,15 +280,19 @@ mod.controller('planController', ['$scope',
 				}
 				
 				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
-				var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;
-													
-				if ( distDroite > 0 && RC){
-					var widthDeb=col[$index-1].offsetWidth;
-					col[$index-1].style.width=widthDeb+distDroite+"px";
-				}/*
-				for (i=0;i<$index-2;i++){
-					col[i].style.width=planning.getColonnnes()[$index].getLargeur()
-				}*/
+				
+				if ($scope.clicOnAimant){
+					aimanter();
+				}
+				
+				function aimanter(){
+					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
+					if ( distDroite > 0 && RC){
+						var widthDeb=col[$index-1].offsetWidth;
+						col[$index-1].style.width=widthDeb+distDroite+"px";
+					}
+				}
+		
 			return RC;
 		}
 
@@ -289,7 +311,6 @@ mod.controller('planController', ['$scope',
 		function viderInput(){
 			form.titre="";
 			form.description="";
-			//form.evCommun = 1;
 		}
 		
 		(function glisserDeposer(){	
@@ -351,6 +372,7 @@ mod.directive('resizable', function () {
             elem.on('resizestop', function (evt, ui) {	
 				//on rajoute l'accès à l'element
 				publicAccessToScope['accessToResizableElmt']=elem[0];
+				publicAccessToScope.clicOnAimant=false;
                 scope.$eval(attr.onresize)
 				scope.$apply();
             });

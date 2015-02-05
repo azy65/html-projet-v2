@@ -161,7 +161,7 @@
 			}
 			
 			.btnMode:hover{
-			color:rgb(190,110,0);
+			color:rgb(0,199,19);
 			}
 			
 			#slogan{
@@ -253,8 +253,6 @@
 			
 			#mode
 			{
-				border:2px solid black;
-				/*background:rgba(99,188,247,0.7);*/
 				padding:30px;
 				margin-top:5%;
 				position:absolute;
@@ -268,7 +266,7 @@
 				text-decoration:none;
 				font-family:"Monotype Corsiva",Georgia ,Serif;
 				font-size:30px;
-				color:rgb(199,140,54);
+				color:rgb(6,145,19);
 			}
 			
 			ol{
@@ -303,10 +301,19 @@
 				width:50px;
 			}
 			
-			img{
+			.imgAjout{
 			height:40px;
 			}
 			
-			img:hover{
+			.imgAjout:hover{
 				cursor:pointer;
+			}
+			
+			#imgPostMode{
+			position:absolute;
+			width:400px;
+			height:300px;
+			z-index:-1;
+			left:-60px;
+			bottom:-45px;
 			}

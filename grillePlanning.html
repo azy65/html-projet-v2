@@ -1,28 +1,29 @@
-
 <div id="page">
-
-<span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">
-	
-	<div   resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
-				<div class=" bordPlanningDroite cell" >planning {{ouille($index)}}</div>
-				<div class="cell "  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
-	</div>		
-	<div  resizable onresize="colonneRedim(sal)"  class="col "  >
-				<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>
-				<!--case -->
-				
-				<div class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)">  {{ouille($index)}}</div>
-				<div  class="tache">
-					<div  draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur(),'background':tache.getCategorie().getCouleur(),'width': tache.largeur()}" class="laTache">
-						<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
-					</div>
+	<span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">
+		<div resizable ng-if="retourChariot($index)" class="col pasMoi">
+			<div class="coins cell" >Planning {{ouille($index)}}</div>
+			<div class="cell" ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
+		</div>		
+		
+		<div resizable onresize="colonneRedim(sal)"  class="col "  >
+			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>
+			<!--case -->
+			
+			<div class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)">{{ouille($index)}}</div>
+			
+			<div  class="tache">
+				<div draggable="true" glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)"
+						ng-show="tache.getVisibility()" ng-repeat="tache in sal.getTaches()"
+						ng-style="{'height':tache.posEnPx(),'top':tache.hauteur(),'background':tache.getCategorie().getCouleur(),'width':tache.largeur()}" class="laTache">
+					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
 				</div>
+			</div>
+		</div>
+	</span>
+	
+	<div class="col" ng-if="planning.getMode() === 'journalier'">
+		<div id="AjoutC" class="cell">
+			<img class="imgAjout" src="./css/colonnePlus.png" ng-click="fenetreAjoutColonne.afficher(true)"/>
+		</div>
 	</div>
-</span>
-<div class="col" ng-if="planning.getMode() === 'journalier'">
-	<div id="AjoutC" class="cell">
-		<img src="./css/postplus.png" ng-click="afficherModifierColonne();" />
-	</div>
-</div>
-
 </div>
