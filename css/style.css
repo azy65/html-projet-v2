@@ -5,7 +5,7 @@
 				word-wrap: break-word;
 			}
 			
-			#page{
+			#tableau{
 				width:270mm;
 			}
 			
@@ -26,14 +26,12 @@
 				z-index:3;
 				padding: 10px;
 			}
-			.bordPlanningDroite{
-				background:lightgrey!important;
-			}
-
+		
 			.bordPlanningDroite {
 				color:black;
 				font-weight:bold;
 				text-transform:capitalize;
+				background:lightblue!important;
 			}
 		
 			.col{
@@ -327,5 +325,9 @@
 				height:50px;
 				width:100%;	
 				overflow: hidden;
-				background:lightgrey;
+				background:lightblue;
+			}
+			
+			#zoneBtn{
+			display:inline-block;
 			}
