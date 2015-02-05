@@ -5,7 +5,7 @@
 	
 	<div   resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
 				<div class="coins cell" >Planning {{ouille($index)}}</div>
-				<div class="cell "  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
+				<div class="cellHoraire"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 	</div>		
 	<div  resizable onresize="colonneRedim(sal)"  class="col "  >
 				<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">{{sal.getTitre()}}</div>

@@ -27,23 +27,17 @@
 				padding: 10px;
 			}
 			.bordPlanningDroite{
-				background:white!important;
-			}
-			.bordPlanningGauche{
-				background:#f3f3f3!important;
+				background:lightgrey!important;
 			}
 
-			.bordPlanningGauche, .bordPlanningDroite {
-				color:black;
-			}
 			.bordPlanningDroite {
+				color:black;
 				font-weight:bold;
 				text-transform:capitalize;
 			}
 		
 			.col{
 				display:inline-block;
-				/*background;*/
 				float:left;
 				width:150px;
 				position:relative;
@@ -316,4 +310,13 @@
 			z-index:-1;
 			left:-60px;
 			bottom:-45px;
+			}
+			
+			.cellHoraire{
+				border:solid 1px #C2C2C2;
+				padding:5px;
+				height:50px;
+				width:100%;	
+				overflow: hidden;
+				background:lightgrey;
 			}
