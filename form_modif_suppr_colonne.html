@@ -1,9 +1,11 @@
 <div class="containerForm" ng-if="fenetreModifSupprColonne.isAfficher()">
 	<form class="gererColonne centrer_form" ng-submit="fenetreModifSupprColonne.afficher(false)">
 		<label for="titreCol">Titre :</label>
-		<input id="titreCol" type="text" ng-model="formCol.titre" />
+
+		<input id="titreCol" type="text" ng-model="formCol.titre" show-focus="fenetreModifSupprColonne.isAfficher()"/>
+
 		<button ng-click="modifColonne()">Modifier</button>
-		<button ng-if="planning.getMode() === 'journalier'" ng-click="supprColonne()">
+		<button ng-if="planning.getMode() === 'journalier'">
 			Supprimer
 		</button>
 		<button >Annuler</button>
