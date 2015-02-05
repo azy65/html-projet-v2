@@ -53,7 +53,7 @@ mod.controller('planController', ['$scope',
 		/********formulaire*************/
 		/*******************************/
 		
-		$scope.validationFormulaire= function(){
+		$scope.validationFormulaireEvenement= function(){
 			if (isNaN(form.nbCol) || form.nbCol < 0) {
 				return false;
 			}
