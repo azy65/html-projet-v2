@@ -52,9 +52,22 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		/********formulaire*************/
 		/*******************************/
-		$scope.ajoutEditEvmt=function(){
-			fenetreEditEvnt.afficher(false);
-		}		
+		
+		$scope.validationFormulaire= function(){
+			if (isNaN(form.nbCol) || form.nbCol < 0) {
+				return false;
+			}
+			
+			if($scope.mode =="ajout") {
+				$scope.ajoutEvmt();
+			}
+			
+			if ($scope.mode == "modif") {
+				$scope.modifEvmt()
+			}
+			fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
+		}
+			
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);			
@@ -174,7 +187,7 @@ mod.controller('planController', ['$scope',
 		$scope.afficherAjouterEvenement=function(col,ligneDeb){
 			viderInput();
 			$scope.mode="ajout";
-			
+			form.nbCol = 1;
 			fenetreEditEvnt.afficher(true);
 			initHeureEvmt(ligneDeb,ligneDeb+1);	
 			form.col=col;
@@ -298,7 +311,6 @@ mod.controller('planController', ['$scope',
 		function viderInput(){
 			form.titre="";
 			form.description="";
-			//form.evCommun = 1;
 		}
 		
 		(function glisserDeposer(){	

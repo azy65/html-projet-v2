@@ -1,5 +1,5 @@
 ﻿<div class="containerForm" ng-if="fenetreEditEvnt.isAfficher()">
-	<form id="editEvnt" class="form_evenement centrer_form" ng-if="fenetreEditEvnt.isAfficher()" ng-submit="ajoutEditEvmt()">
+	<form id="editEvnt" class="form_evenement centrer_form" ng-if="fenetreEditEvnt.isAfficher()" ng-submit="validationFormulaire()">
 				<table>
 					<tr>
 						<td style="width:100px">Titre:</td>
@@ -18,14 +18,14 @@
 						<td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
 					</tr>
 					<tr>
-						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" /> </td>
+						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" min="1" max="99" /> </td>
 					</tr>
 				</table>
 				 <span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
 			</span>
 				<div class="form_bouton">
-					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="ajoutEvmt();" ng-if="mode=='ajout'" />
-					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="modifEvmt()" ng-if="mode!='ajout'"/>
+					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click=";" ng-if="mode=='ajout'" />
+					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="" ng-if="mode !='ajout'"/>
 					<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>
 					<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button>
 				</div>
