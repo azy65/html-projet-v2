@@ -10,7 +10,6 @@ mod.controller('planController', ['$scope',
 		var poubelle=[];
 		$scope.clicOnAimant=false;
 		//initialisation//
-		$scope.fenCategorie=new Fenetre(false);
 		var planning;
 		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
@@ -20,6 +19,7 @@ mod.controller('planController', ['$scope',
 		var formCol=$scope.formCol = {};
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
 		var fenetreModifHoraire = $scope.fenetreModifHoraire = new Fenetre (false);
+		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		//fin initialisation//

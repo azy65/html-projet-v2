@@ -216,6 +216,15 @@
 				vertical-align: middle;
 			}
 			
+			/*Formulaire Categorie*/
+			
+			.gererCategorie{
+				border-radius:15px;
+				box-shadow:5px 5px 5px #888888;
+				background-color:#DAD8D8;
+				padding: 5px 15px 5px 15px; 
+			}
+			
 			
 			/*Formulaire Evenement */
 			
