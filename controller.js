@@ -69,6 +69,7 @@ mod.controller('planController', ['$scope',
 			form.categorie = categorie;
 		} 
 		
+		
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -216,8 +217,10 @@ mod.controller('planController', ['$scope',
 		/*Colonne*/
 		
 		$scope.ajoutColonne = function() {
+			
 			var col = new Colonne ($scope.formCol.titre);
 			planning.ajoutColonne (col);
+			$scope.formCol.titre ="";
 			fenetreAjoutColonne.afficher(false);
 		}
 		$scope.afficherModifColonne=function(colo){
@@ -247,7 +250,26 @@ mod.controller('planController', ['$scope',
 			}
 			return result+"px";
 		}
-
+		
+		$scope.retourChariot=function($index){
+			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
+			
+				if ($index == 0) {
+					return true;
+				}
+				
+				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
+				var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;
+													
+				if ( distDroite > 0 && RC){
+					var widthDeb=col[$index-1].offsetWidth;
+					col[$index-1].style.width=widthDeb+distDroite+"px";
+				}/*
+				for (i=0;i<$index-2;i++){
+					col[i].style.width=planning.getColonnnes()[$index].getLargeur()
+				}*/
+			return RC;
+		}
 		/*Horaire*/
 		
 		$scope.modifHeure=function(){
@@ -331,3 +353,17 @@ mod.directive('resizable', function () {
         }
     };
 });
+
+
+mod.directive('showFocus', function($timeout) {
+  return function(scope, element, attrs) {
+    scope.$watch(attrs.showFocus, 
+      function (newValue) { 
+        $timeout(function() {
+            newValue && element.focus();
+        });
+      },true);
+  };    
+});
+
+

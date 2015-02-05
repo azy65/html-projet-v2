@@ -5,6 +5,9 @@
 				word-wrap: break-word;
 			}
 			
+			#page{
+				width:270mm;
+			}
 			
 			.radio{
 				width:20px !important;
