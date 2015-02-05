@@ -215,14 +215,18 @@ mod.controller('planController', ['$scope',
 		
 		/*Colonne*/
 		
+		$scope.afficherModifierColonne = function() {
+			formCol.titre = "";
+			fenetreAjoutColonne.afficher(true);
+		}
+		
 		$scope.ajoutColonne = function() {
-			
 			var col = new Colonne ($scope.formCol.titre);
 			planning.ajoutColonne (col);
-			$scope.formCol.titre ="";
 			fenetreAjoutColonne.afficher(false);
 		}
 		$scope.afficherModifColonne=function(colo){
+			formCol.titre = colo.getTitre();
 			fenetreModifSupprColonne.afficher(true);
 			formCol.col=colo;			
 		}
