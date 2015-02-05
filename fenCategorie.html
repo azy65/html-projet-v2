@@ -1,9 +1,14 @@
 ﻿<div class="containerForm" ng-if="fenCategorie.isAfficher()">
 	<form class="centrer_form gererCategorie"  ng-submit="">
-		Veuillez associer une  couleur à vos catégories
-		<div ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}">
-			 <span> 
-			 {{categorie.getNom()}}</span>
+		Veuillez associer une  couleur à vos catégories <br />
+		<div class="containerCategorie" >
+			<div ng-repeat="categorie in planning.getCategories()" >
+					  <span  ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+			</span>
+			</div>
+			<!--div ng-repeat="categorie in planning.getCategories()" >
+				 <div class="labelCategorie">{{categorie.getNom()}}</div>
+			</div!-->
 		</div>
 	</form>
 </div>
