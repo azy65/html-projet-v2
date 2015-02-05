@@ -8,6 +8,7 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
+		$scope.clicOnAimant=false;
 		//initialisation//
 		$scope.fenCategorie=new Fenetre(false);
 		var planning;
@@ -253,6 +254,10 @@ mod.controller('planController', ['$scope',
 			}
 			return result+"px";
 		}
+		$scope.activerAiment=function(){
+			$scope.clicOnAimant=true;
+		}
+		
 		
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
@@ -262,15 +267,19 @@ mod.controller('planController', ['$scope',
 				}
 				
 				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
-				var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;
-													
-				if ( distDroite > 0 && RC){
-					var widthDeb=col[$index-1].offsetWidth;
-					col[$index-1].style.width=widthDeb+distDroite+"px";
-				}/*
-				for (i=0;i<$index-2;i++){
-					col[i].style.width=planning.getColonnnes()[$index].getLargeur()
-				}*/
+				
+				if ($scope.clicOnAimant){
+					aimanter();
+				}
+				
+				function aimanter(){
+					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
+					if ( distDroite > 0 && RC){
+						var widthDeb=col[$index-1].offsetWidth;
+						col[$index-1].style.width=widthDeb+distDroite+"px";
+					}
+				}
+		
 			return RC;
 		}
 
@@ -351,6 +360,7 @@ mod.directive('resizable', function () {
             elem.on('resizestop', function (evt, ui) {	
 				//on rajoute l'accès à l'element
 				publicAccessToScope['accessToResizableElmt']=elem[0];
+				publicAccessToScope.clicOnAimant=false;
                 scope.$eval(attr.onresize)
 				scope.$apply();
             });
