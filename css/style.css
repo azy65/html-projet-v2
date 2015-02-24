@@ -314,6 +314,12 @@
 				background:lightblue;
 			}
 			
+			#footer {
+				position: absolute;
+				width: 270mm;
+				display: inline-block;
+			}
+			
 			#zoneBtn{
 			display:inline-block;
 			}
@@ -341,4 +347,17 @@
 			#nav li{
 				display:inline;
 				margin-right:20px;
+			}
+			
+			
+			/* Impression */
+			
+			@media print {
+				#footer {
+					display: none;
+				}
+				
+				.col {
+					margin-top: 0px;
+				}
 			}
