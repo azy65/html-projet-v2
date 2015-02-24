@@ -1,6 +1,6 @@
 ﻿<div class="containerForm" ng-if="fenCategorie.isAfficher()">
 	<form class="centrer_form"  ng-submit="">
-		Veuillez associer une  couleur à vos catégories <br />
+		Gestion des catégories<br />
 		<div class="containerCategorie" >
 			<div ng-repeat="categorie in planning.getCategories()" class="couleurCategorie" >
 				<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 

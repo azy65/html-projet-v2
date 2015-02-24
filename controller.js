@@ -190,28 +190,39 @@ mod.controller('planController', ['$scope',
 		} 
 		
 		$scope.modifierCategorie=function(){
+			
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
-			var listeCategories = planning.getCategories();
-			var res = new Categorie();
-			var indice;
-			listeCategories.forEach (function(cat) {
-				if (cat.getNom() == nom && cat.getCouleur() == couleur) {
-					indice = listeCategories.indexOf(cat);
-					res.setNom(titreCat.val);
-					res.setCouleur(couleur);
-					listeCategories[indice] = res;
-				}
-			})	
-			planning.setCategories(listeCategories);
+			if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
+				titreCat.val = nom;
+				alert("Catégorie déjà existante");
+			} else {
+				var listeCategories = planning.getCategories();
+				var res = new Categorie();
+				var indice;
+				listeCategories.forEach (function(cat) {
+					if (cat.getNom() == nom && cat.getCouleur() == couleur) {
+						indice = listeCategories.indexOf(cat);
+						res.setNom(titreCat.val);
+						res.setCouleur(couleur);
+						listeCategories[indice] = res;
+					}
+				})	
+				planning.setCategories(listeCategories);
+				form.categorie = res;
+			}
 		}
 		
 		$scope.ajoutCategorie=function() {
-			planning.ajouterCategories(couleurCat.val,titreCat.val);
-			fenetreAjoutCategorie.afficher(false);
-			titreCat.val ="";
-			form.categorie="";
-			fenCategorie.afficher(true);
+			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val))) {
+				alert("Catégorie déjà existante");
+			} else {
+				planning.ajouterCategories(couleurCat.val,titreCat.val);
+				fenetreAjoutCategorie.afficher(false);
+				titreCat.val ="";
+				form.categorie="";
+				fenCategorie.afficher(true);
+			}
 		}
 		
 		$scope.afficherAjouterCategorie=function() {
@@ -219,6 +230,12 @@ mod.controller('planController', ['$scope',
 			titreCat.val ="";
 			couleurCat.val = "#000000";
 			fenetreAjoutCategorie.afficher(true);
+		}
+		
+		$scope.retourModifierCategorie = function() {
+			fenetreAjoutCategorie.afficher(false);
+			fenCategorie.afficher(true); 
+			form.categorie = '';
 		}
 		
 		/*******************************/
@@ -443,5 +460,7 @@ mod.directive('showFocus', function($timeout) {
       },true);
   };    
 });
+
+
 
 
