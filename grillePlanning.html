@@ -1,5 +1,7 @@
+<div style="position:absolute;z-index:10;width:270mm;display:inline-block;" class="footer2" ng-include="'footer.html'"></div>
+
 <div id="tableau"  style="position:relative">
-  <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeurPx()}" >
+  <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeurPx(),'width': getLargeurGrilleSansHoraire()}" >
     <span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">	
       <div resizable onresize="colonneRedim(sal)"  ng-style="{'width':sal.getLargeurPx()}" class="col ">
         <div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">
@@ -35,5 +37,4 @@
 		</div>
 	</div>
 </div>
-	<div style="position:absolute;width:270mm;display:inline-block;" ng-include="'footer.html'"></div>
 

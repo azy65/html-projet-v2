@@ -22,6 +22,11 @@ mod.controller('planController', ['$scope',
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
+    $scope.largeurGrilleAvecHoraire=1090;
+    
+    $scope.getLargeurGrilleSansHoraire=function(){
+       return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
+    }
 		var titreCat = $scope.titreCat={val:""};
 	//fin initialisation//
 		
@@ -242,7 +247,7 @@ mod.controller('planController', ['$scope',
 		$scope.colonneRedim=function(col){
       var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
       var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
-      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 800 : largeurGauche;
+      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 1000 : largeurGauche;
       /*debut suppression de bug*/
     	col.setLargeur(largeurFutureCol+1); 
       $scope.$apply();
@@ -315,17 +320,15 @@ mod.controller('planController', ['$scope',
 				}				
 				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
 			
+        // si on clique sur recalculer affichage alors agrandir la colonne de 
+        // droite pour occuper tout l'affichage 
         if ($scope.clicOnAimant){
-					aimanter();
-				}				
-				function aimanter(){
 					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
 					if ( distDroite > 0 && RC){
 						var widthDeb=col[$index-1].offsetWidth;
 						col[$index-1].style.width=widthDeb+distDroite+"px";
 					}
-				}
-		
+				}					
 			return RC;
 		}
 
@@ -359,9 +362,7 @@ mod.controller('planController', ['$scope',
 				colonneDepart.supprimerEvenement(tacheQuiBouge);	
 			}
 		})()
-    
-    
-   
+ 
     
 }]);
 

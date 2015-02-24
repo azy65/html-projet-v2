@@ -5,9 +5,10 @@
 				word-wrap: break-word;
 			}
 			
-			#tableau{
+		/*	#tableau{
 				width:270mm;
-			}
+        width:1200px;
+			}*/
 			
 			.radio{
 				width:20px !important;
@@ -37,7 +38,6 @@
 			.col{
 				display:inline-block;
 				float:left;
-				width:150px;
 				position:relative;
 				margin-top:40px;
 			}
@@ -356,3 +356,17 @@
 				display:inline;
 				margin-right:20px;
 			}
+      
+      
+       @media print {
+        #grillePlanning{
+          padding: 0px;
+        }
+        
+        .footer2{
+          display:none;
+        }
+        #zoneBtn{
+           display:none;
+        }
+      }
