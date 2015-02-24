@@ -1,0 +1,10 @@
+<div class="containerForm" ng-if="fenetreAjoutCategorie.isAfficher()">
+	<form class="gererColonne centrer_form" >
+		<label for="titreCategorie">Titre :</label>
+		<input id="titreCategorie" type="text" ng-model="titreCal" show-focus="fenetreAjoutColonne.isAfficher()" />
+		<input type="color" name="favcolor">
+		<input type="submit" value="Ajouter" ng-click="ajoutCategorie()"  />
+		<button ng-click="fenetreAjoutCategorie.afficher(false)">Annuler</button>
+	</form>
+	
+</div>

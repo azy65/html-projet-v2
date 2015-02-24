@@ -23,6 +23,7 @@ mod.controller('planController', ['$scope',
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		var titreCat = $scope.titreCat={val:""};
+		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
 		//fin initialisation//
 		
 		/*******************************/
@@ -201,6 +202,11 @@ mod.controller('planController', ['$scope',
 				}
 			})	
 			planning.setCategories(listeCategories);
+		}
+		
+		$scope.afficherAjouterCategorie=function() {
+			fenCategorie.afficher(false);
+			fenetreAjoutCategorie.afficher(true);
 		}
 		
 		/*******************************/
