@@ -340,3 +340,22 @@
 			#zoneBtn{
 			display:inline-block;
 			}
+			
+			#modeEmploi{
+				position:absolute;
+				bottom:2px;
+				left:525px;
+				color:brown;
+				font-size:20px;
+			}
+			
+			#modeEmploi:hover{
+				color:orange;
+				text-decoration:underline;
+			}
+			
+			#livre{
+				position:absolute;
+				bottom:2px;
+				left:500px;
+			}
