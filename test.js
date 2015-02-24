@@ -5,7 +5,7 @@
 ****************************/
 
 
-/*QUnit.test( "testPlanningGetMode", function( assert ) {
+QUnit.test( "testPlanningGetMode", function( assert ) {
 	var planningTest = new Planning("journalier");
 	assert.equal(  planningTest.getMode(), "journalier", "Passed!" );
 });
@@ -14,7 +14,7 @@ QUnit.test( "testPlanningSetMode", function( assert ) {
 	var planningTest = new Planning("journalier");
 	planningTest.setMode("hebdomadaire");
 	assert.equal(  planningTest.getMode(), "hebdomadaire", "Passed!" );
-});*/
+});
 
 QUnit.test( "testAjoutColonne", function( assert ) {
 	var planningTest = new Planning("journalier");
