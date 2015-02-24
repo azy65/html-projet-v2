@@ -232,6 +232,12 @@ mod.controller('planController', ['$scope',
 			fenetreAjoutCategorie.afficher(true);
 		}
 		
+		$scope.afficherModifierCategorie=function() {
+			fenCategorie.afficher(true);
+			titreCat.val ="";
+			couleurCat.val = planning.getCategories()[0].getCouleur();
+		}
+		
 		$scope.retourModifierCategorie = function() {
 			fenetreAjoutCategorie.afficher(false);
 			fenCategorie.afficher(true); 
