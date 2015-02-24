@@ -225,10 +225,10 @@
 			}
 			
 			.containerCategorie {
-				text-align:left;
+				text-align:center;
 			}
 			
-			.containerCategorie div {
+			.containerCategorie .couleurCategorie {
 				display:inline-block;
 			}
 			

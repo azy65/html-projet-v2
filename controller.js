@@ -181,6 +181,11 @@ mod.controller('planController', ['$scope',
 				planning.reinitialiser();
 			}
 		}
+		
+		/*Categorie/Couleur */
+		
+		
+		
 		/*******************************/
 		/********Afficher formulaire*************/
 		/*******************************/
