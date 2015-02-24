@@ -356,10 +356,12 @@
 			@media print {
         #zoneBtn{
            display:none;
-        }
-				
+        }				
 				.col {
 					margin-top: 0px;
 				}
+        #grillePlanning{
+          padding: 0px;
+        }
 			}
 
