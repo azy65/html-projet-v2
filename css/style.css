@@ -330,9 +330,12 @@
 			}
 			
 			#modeEmploi{
+			border:2px solid red;
 				position:absolute;
 				bottom:2px;
 				left:290px;
+				overflow:hidden;
+				
 			}
 			
 			#nav li{
