@@ -348,33 +348,18 @@
 				display:inline;
 				margin-right:20px;
 			}
-<<<<<<< HEAD
-      
-      
-       @media print {
-        #grillePlanning{
-          padding: 0px;
-        }
-        
-        .footer2{
-          display:none;
-        }
-        #zoneBtn{
-           display:none;
-        }
-      }
-=======
+
 			
 			
 			/* Impression */
 			
 			@media print {
-				#footer {
-					display: none;
-				}
+        #zoneBtn{
+           display:none;
+        }
 				
 				.col {
 					margin-top: 0px;
 				}
 			}
->>>>>>> origin/master
+
