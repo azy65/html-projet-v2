@@ -23,6 +23,7 @@ mod.controller('planController', ['$scope',
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		var titreCat = $scope.titreCat={val:""};
+		var couleurCat = $scope.couleurCat={val:""};
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
 		//fin initialisation//
 
@@ -205,8 +206,17 @@ mod.controller('planController', ['$scope',
 			planning.setCategories(listeCategories);
 		}
 		
+		$scope.ajoutCategorie=function() {
+			planning.ajouterCategories(couleurCat.val,titreCat.val);
+			fenetreAjoutCategorie.afficher(false);
+			titreCat.val ="";
+			fenCategorie.afficher(true);
+		}
+		
 		$scope.afficherAjouterCategorie=function() {
 			fenCategorie.afficher(false);
+			titreCat.val ="";
+			couleurCat.val = "#000000";
 			fenetreAjoutCategorie.afficher(true);
 		}
 		
