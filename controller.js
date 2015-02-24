@@ -22,7 +22,8 @@ mod.controller('planController', ['$scope',
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
-		//fin initialisation//
+		var titreCat = $scope.titreCat={val:""};
+	//fin initialisation//
 		
 		/*******************************/
 		/******** Initialisation *******/
@@ -79,11 +80,7 @@ mod.controller('planController', ['$scope',
 					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
 				} 					
 		}
-		
-		$scope.focusCouleur=function(categorie){
-			form.categorie = categorie;
-		} 
-		
+	
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -184,7 +181,27 @@ mod.controller('planController', ['$scope',
 		}
 		
 		/*Categorie/Couleur */
+				$scope.focusCouleur=function(categorie){
+			form.categorie = categorie;
+			$scope.titreCat.val = form.categorie.getNom();
+		} 
 		
+		$scope.modifierCategorie=function(){
+			var nom = form.categorie.getNom();
+			var couleur = form.categorie.getCouleur();
+			var listeCategories = planning.getCategories();
+			var res = new Categorie();
+			var indice;
+			listeCategories.forEach (function(cat) {
+				if (cat.getNom() == nom && cat.getCouleur() == couleur) {
+					indice = listeCategories.indexOf(cat);
+					res.setNom(titreCat.val);
+					res.setCouleur(couleur);
+					listeCategories[indice] = res;
+				}
+			})	
+			planning.setCategories(listeCategories);
+		}
 		
 		
 		/*******************************/

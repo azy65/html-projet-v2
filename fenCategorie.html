@@ -3,11 +3,12 @@
 		Veuillez associer une  couleur à vos catégories <br />
 		<div class="containerCategorie" >
 			<div ng-repeat="categorie in planning.getCategories()" class="couleurCategorie" >
-				<span ng-model="couleurCat" ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+				<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
 				</span>
 			</div>
 			<div>
-				<input id="titreCategorie" type="text" value="{{form.categorie.getNom()}}" />
+				<input id="titreCategorie" type="text" ng-model="titreCat.val" />
+				<button ng-click="modifierCategorie()">Modifier</button>
 			</div>
 		</div>
 	</form>
