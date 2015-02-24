@@ -1,28 +1,39 @@
-<div id="tableau">
-	<span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">
-		<div   resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
+<div id="tableau"  style="position:relative">
+  <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeur()}" >
+    <span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">	
+      <div resizable onresize="colonneRedim(sal)"  class="col ">
+        <div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">
+          {{sal.getTitre()}}
+        </div>
+        <div id="cellEvenement" class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)">
+          {{ouille($index)}}
+        </div>
+        <div  class="tache">
+          <div  class="laTache" draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" 
+          ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur(),'background':tache.getCategorie().getCouleur(),
+          'width': tache.largeur()}">
+            <h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>
+
+  <span  class="leftCol" style="position:absolute;">
+    <div ng-repeat="sal in planning.getColonnes() track by $index">
+      <div   ng-style="{'width':colonneHoraire.getLargeur()}"  onresize="colonneRedimHoraire()" resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
 			<div class="coins cell" >Planning {{ouille($index)}}</div>
 			<div class="cellHoraire"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
-		</div>		
-		<div resizable onresize="colonneRedim(sal)"  class="col ">
-			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">
-				{{sal.getTitre()}}
-			</div>
-			<div id="cellEvenement" class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)">
-				{{ouille($index)}}
-			</div>
-			<div  class="tache">
-				<div  class="laTache" draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteur(),'background':tache.getCategorie().getCouleur(),'width': tache.largeur()}">
-					<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
-				</div>
-			</div>
 		</div>
-	</span>
+   </div>
+  <span/>
+  
+  
 	<div class="col" ng-if="planning.getMode() === 'journalier'">
-		<div id="AjoutC" class="cell">
+		<div id="AjoutC" class="cell" >
 			<img class="imgAjout" src="./css/colonnePlus.png" ng-click="fenetreAjoutColonne.afficher(true)"/>
 		</div>
 	</div>
-	<div style="width:270mm;display:inline-block;" ng-include="'footer.html'"></div>
 </div>
+	<div style="position:absolute;width:270mm;display:inline-block;" ng-include="'footer.html'"></div>
 

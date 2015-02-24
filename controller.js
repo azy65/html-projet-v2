@@ -223,7 +223,12 @@ mod.controller('planController', ['$scope',
 		}
 		$scope.colonneRedim=function(col){
 			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
-		}		
+		}
+    
+    $scope.colonneHoraire=new ElementGraphique(200);
+    $scope.colonneRedimHoraire=function(){
+				$scope.colonneRedim($scope.colonneHoraire);
+		}
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
@@ -331,9 +336,11 @@ mod.controller('planController', ['$scope',
 				colonneDepart.supprimerEvenement(tacheQuiBouge);	
 			}
 		})()
-    }	
-	
-]);
+    
+    
+   
+    
+}]);
 
 // directive de drag and drop attribut glisser et deposer dans la html
 
