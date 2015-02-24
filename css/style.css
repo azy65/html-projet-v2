@@ -206,17 +206,13 @@
 				position: relative;
 				margin: 20% auto;
 				display: inline-block;
-			}
-			
-			/*Formulaire Categorie*/
-			
-			.gererCategorie{
 				border-radius:15px;
 				box-shadow:5px 5px 5px #888888;
 				background-color:#DAD8D8;
 				padding: 5px 15px 5px 15px; 
-				position:relative;
 			}
+			
+			/*Formulaire Categorie*/
 			
 			.containerCategorie {
 				text-align:center;
@@ -228,13 +224,6 @@
 			
 			
 			/*Formulaire Evenement */
-			
-			.form_evenement{
-				border-radius:15px;
-				box-shadow:5px 5px 5px #888888;
-				background-color:#DAD8D8;
-				padding: 0 15px 0 15px; 
-			}
 			
 			.inputHeure{
 				width:75px;
@@ -248,12 +237,6 @@
 			
 			/* Formulaire Colonne */
 			
-			.gererColonne{
-				border-radius:15px;
-				box-shadow:5px 5px 5px #888888;
-				background-color:#DAD8D8;
-				padding: 5px 15px 5px 15px; 
-			}
 			
 			#mode
 			{
@@ -331,6 +314,12 @@
 				background:lightblue;
 			}
 			
+			#footer {
+				position: absolute;
+				width: 270mm;
+				display: inline-block;
+			}
+			
 			#zoneBtn{
 			display:inline-block;
 			}
@@ -347,15 +336,19 @@
 			}
 			
 			#modeEmploi{
+			border:2px solid red;
 				position:absolute;
 				bottom:2px;
 				left:290px;
+				overflow:hidden;
+				
 			}
 			
 			#nav li{
 				display:inline;
 				margin-right:20px;
 			}
+<<<<<<< HEAD
       
       
        @media print {
@@ -370,3 +363,18 @@
            display:none;
         }
       }
+=======
+			
+			
+			/* Impression */
+			
+			@media print {
+				#footer {
+					display: none;
+				}
+				
+				.col {
+					margin-top: 0px;
+				}
+			}
+>>>>>>> origin/master
