@@ -27,6 +27,7 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		/******** Initialisation *******/
 		/*******************************/
+    $scope.largeurMaxTab=1024;
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
@@ -222,7 +223,15 @@ mod.controller('planController', ['$scope',
 			$scope.form.minuteFin=mFin || 0;
 		}
 		$scope.colonneRedim=function(col){
-			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
+      var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
+      var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
+      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 800 : largeurGauche;
+      /*debut suppression de bug*/
+    	col.setLargeur(largeurFutureCol+1); 
+      $scope.$apply();
+      /*fin suppression de bug*/
+      col.setLargeur(largeurFutureCol);
+     
 		}
     
     $scope.colonneHoraire=new ElementGraphique(200);
@@ -284,17 +293,14 @@ mod.controller('planController', ['$scope',
 		
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
-			
 				if ($index == 0) {
 					return true;
-				}
-				
+				}				
 				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
-				
-				if ($scope.clicOnAimant){
+			
+        if ($scope.clicOnAimant){
 					aimanter();
-				}
-				
+				}				
 				function aimanter(){
 					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
 					if ( distDroite > 0 && RC){

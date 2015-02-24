@@ -16,7 +16,10 @@ var Colonne = Class.create({
 	},
 	reinitialiserEvenement:function(){
 		this._taches=[];
-	}
+	},
+  getLargeurPx: function(){
+    return this._largeur+"px";
+  }
 })
 
 addGSet(Colonne,["taches","titre",'largeur']);
