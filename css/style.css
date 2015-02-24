@@ -222,6 +222,9 @@
 				display:inline-block;
 			}
 			
+			#ajoutCat:hover {
+				border:black solid 2px;
+			}
 			
 			/*Formulaire Evenement */
 			

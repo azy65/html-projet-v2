@@ -6,8 +6,7 @@
 				<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
 				</span>
 			</div>
-			<span ng-click="afficherAjouterCategorie()" class="radio" >+
-				</span>
+			<img id="ajoutCat" ng-click="afficherAjouterCategorie()" src="./css/img/iconeplus.png" class="radio ajoutCategorie" ></img>
 			<div>
 				<input id="titreCategorie" type="text" ng-model="titreCat.val" />
 				<button ng-click="modifierCategorie()" ng-disabled= "form.categorie == ''">Modifier</button>
