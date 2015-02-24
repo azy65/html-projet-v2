@@ -318,21 +318,24 @@
 			display:inline-block;
 			}
 			
-			#modeEmploi{
-				position:absolute;
-				bottom:2px;
-				left:525px;
-				color:brown;
-				font-size:20px;
+			#modeEmploiFont{
+				color:black;
+				font-size:15px;
+				vertical-align:text-bottom;
 			}
 			
-			#modeEmploi:hover{
-				color:orange;
+			#modeEmploiFont:hover{
+				color:rgb(0,199,19);
 				text-decoration:underline;
 			}
 			
-			#livre{
+			#modeEmploi{
 				position:absolute;
 				bottom:2px;
-				left:500px;
+				left:290px;
+			}
+			
+			#nav li{
+				display:inline;
+				margin-right:20px;
 			}

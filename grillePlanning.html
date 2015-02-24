@@ -1,7 +1,7 @@
 <div id="tableau"  style="position:relative">
-  <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeur()}" >
+  <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeurPx()}" >
     <span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">	
-      <div resizable onresize="colonneRedim(sal)"  class="col ">
+      <div resizable onresize="colonneRedim(sal)"  ng-style="{'width':sal.getLargeurPx()}" class="col ">
         <div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">
           {{sal.getTitre()}}
         </div>
@@ -21,7 +21,7 @@
 
   <span  class="leftCol" style="position:absolute;">
     <div ng-repeat="sal in planning.getColonnes() track by $index">
-      <div   ng-style="{'width':colonneHoraire.getLargeur()}"  onresize="colonneRedimHoraire()" resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
+      <div   ng-style="{'width':colonneHoraire.getLargeurPx()}"  onresize="colonneRedimHoraire()" resizable ng-if="retourChariot($index)"  class="col pasMoi"  >
 			<div class="coins cell" >Planning {{ouille($index)}}</div>
 			<div class="cellHoraire"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 		</div>

@@ -23,12 +23,17 @@ mod.controller('planController', ['$scope',
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		var titreCat = $scope.titreCat={val:""};
+<<<<<<< HEAD
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
 		//fin initialisation//
+=======
+	//fin initialisation//
+>>>>>>> origin/master
 		
 		/*******************************/
 		/******** Initialisation *******/
 		/*******************************/
+    $scope.largeurMaxTab=1024;
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
@@ -80,7 +85,7 @@ mod.controller('planController', ['$scope',
 					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
 				} 					
 		}
-		
+	
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -181,8 +186,7 @@ mod.controller('planController', ['$scope',
 		}
 		
 		/*Categorie/Couleur */
-		
-		$scope.focusCouleur=function(categorie){
+				$scope.focusCouleur=function(categorie){
 			form.categorie = categorie;
 			$scope.titreCat.val = form.categorie.getNom();
 		} 
@@ -204,10 +208,13 @@ mod.controller('planController', ['$scope',
 			planning.setCategories(listeCategories);
 		}
 		
+<<<<<<< HEAD
 		$scope.afficherAjouterCategorie=function() {
 			fenCategorie.afficher(false);
 			fenetreAjoutCategorie.afficher(true);
 		}
+=======
+>>>>>>> origin/master
 		
 		/*******************************/
 		/********Afficher formulaire*************/
@@ -245,8 +252,21 @@ mod.controller('planController', ['$scope',
 			$scope.form.minuteFin=mFin || 0;
 		}
 		$scope.colonneRedim=function(col){
-			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
-		}		
+      var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
+      var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
+      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 800 : largeurGauche;
+      /*debut suppression de bug*/
+    	col.setLargeur(largeurFutureCol+1); 
+      $scope.$apply();
+      /*fin suppression de bug*/
+      col.setLargeur(largeurFutureCol);
+     
+		}
+    
+    $scope.colonneHoraire=new ElementGraphique(200);
+    $scope.colonneRedimHoraire=function(){
+				$scope.colonneRedim($scope.colonneHoraire);
+		}
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
@@ -302,17 +322,14 @@ mod.controller('planController', ['$scope',
 		
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
-			
 				if ($index == 0) {
 					return true;
-				}
-				
+				}				
 				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
-				
-				if ($scope.clicOnAimant){
+			
+        if ($scope.clicOnAimant){
 					aimanter();
-				}
-				
+				}				
 				function aimanter(){
 					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
 					if ( distDroite > 0 && RC){
@@ -354,9 +371,11 @@ mod.controller('planController', ['$scope',
 				colonneDepart.supprimerEvenement(tacheQuiBouge);	
 			}
 		})()
-    }	
-	
-]);
+    
+    
+   
+    
+}]);
 
 // directive de drag and drop attribut glisser et deposer dans la html
 
