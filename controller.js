@@ -80,11 +80,6 @@ mod.controller('planController', ['$scope',
 				} 					
 		}
 		
-		$scope.focusCouleur=function(categorie){
-			form.categorie = categorie;
-			$scope.titreCat.val = form.categorie.getNom();
-		} 
-		
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -186,6 +181,11 @@ mod.controller('planController', ['$scope',
 		
 		/*Categorie/Couleur */
 		
+		$scope.focusCouleur=function(categorie){
+			form.categorie = categorie;
+			$scope.titreCat.val = form.categorie.getNom();
+		} 
+		
 		$scope.modifierCategorie=function(){
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
@@ -240,12 +240,7 @@ mod.controller('planController', ['$scope',
 		}
 		$scope.colonneRedim=function(col){
 			col.setLargeur($scope.accessToResizableElmt.offsetWidth);
-		}
-    
-    $scope.colonneHoraire=new ElementGraphique(200);
-    $scope.colonneRedimHoraire=function(){
-				$scope.colonneRedim($scope.colonneHoraire);
-		}
+		}		
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
@@ -353,11 +348,9 @@ mod.controller('planController', ['$scope',
 				colonneDepart.supprimerEvenement(tacheQuiBouge);	
 			}
 		})()
-    
-    
-   
-    
-}]);
+    }	
+	
+]);
 
 // directive de drag and drop attribut glisser et deposer dans la html
 
