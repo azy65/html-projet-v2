@@ -184,7 +184,7 @@ mod.controller('planController', ['$scope',
 		}
 		
 		/*Categorie/Couleur */
-				$scope.focusCouleur=function(categorie){
+		$scope.focusCouleur=function(categorie){
 			form.categorie = categorie;
 			$scope.titreCat.val = form.categorie.getNom();
 		} 
@@ -218,6 +218,12 @@ mod.controller('planController', ['$scope',
 			titreCat.val ="";
 			couleurCat.val = "#000000";
 			fenetreAjoutCategorie.afficher(true);
+		}
+		
+		$scope.afficherModifierCategorie=function() {
+			fenCategorie.afficher(true);
+			titreCat.val ="";
+			couleurCat.val = planning.getCategories()[0].getCouleur();
 		}
 		
 		/*******************************/
