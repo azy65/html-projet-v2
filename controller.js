@@ -210,6 +210,7 @@ mod.controller('planController', ['$scope',
 			planning.ajouterCategories(couleurCat.val,titreCat.val);
 			fenetreAjoutCategorie.afficher(false);
 			titreCat.val ="";
+			form.categorie="";
 			fenCategorie.afficher(true);
 		}
 		
@@ -218,12 +219,6 @@ mod.controller('planController', ['$scope',
 			titreCat.val ="";
 			couleurCat.val = "#000000";
 			fenetreAjoutCategorie.afficher(true);
-		}
-		
-		$scope.afficherModifierCategorie=function() {
-			fenCategorie.afficher(true);
-			titreCat.val ="";
-			couleurCat.val = planning.getCategories()[0].getCouleur();
 		}
 		
 		/*******************************/

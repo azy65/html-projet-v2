@@ -4,7 +4,7 @@
 		<input id="titreCategorie" type="text" ng-model="titreCat.val" show-focus="fenetreAjoutColonne.isAfficher()" />
 		<input type="color" ng-model="couleurCat.val" />
 		<input type="submit" value="Ajouter" ng-click="ajoutCategorie()"  />
-		<button ng-click="fenetreAjoutCategorie.afficher(false)">Annuler</button>
+		<button ng-click="fenetreAjoutCategorie.afficher(false);fenCategorie.afficher(true);">Annuler</button>
 	</form>
 	
 </div>

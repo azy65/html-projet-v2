@@ -10,7 +10,7 @@
 				</span>
 			<div>
 				<input id="titreCategorie" type="text" ng-model="titreCat.val" />
-				<button ng-click="modifierCategorie()">Modifier</button>
+				<button ng-click="modifierCategorie()" ng-disabled= "form.categorie == ''">Modifier</button>
 				<button ng-click="fenCategorie.afficher(false)">Annuler</button>
 			</div>
 		</div>
