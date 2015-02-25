@@ -1,13 +1,13 @@
 <div style="position:absolute;z-index:10;width:270mm;display:inline-block;" id="footer"  ng-include="'footer.html'"></div>
 
 <div id="tableau"  >
-	<div id="1" ng-style="{'width':(planning.getColonneHoraire().getLargeur()+planning.getLargeurMax())+'px' }" style="display:block"  ng-repeat="page in planning.getPages()" >
-		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPx()}"  onresize="colonneRedimHoraire()" resizable   class="col pasMoi"  >
+	<div id="A4" style="display:block;width:29.7cm; background:red"  ng-repeat="page in planning.getPages()" >
+		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPrcnt()}" onresize="colonneRedimHoraire()" resizable   class="col pasMoi"  >
 				<div class="coins cell" >Planning {{ouille($index)}}</div>
 				<div class="cellHoraire"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 		</div>
-		<div class="bigCol" ng-repeat="sal in page.getColonnes() track by $index">
-		  <div resizable onresize="colonneRedim(sal)"  ng-style="{'width':sal.getLargeurPx()}" class="col ">
+		<div ng-style="{'width':sal.getLargeurPrcnt()}" resizable onresize="colonneRedim(sal)"   class="bigCol" ng-repeat="sal in page.getColonnes() track by $index">
+		  <div  style="width:100%"    class="col ">
 			<div class=" bordPlanningDroite cell" ng-click="afficherModifColonne(sal)">
 			  {{sal.getTitre()}}
 			</div>

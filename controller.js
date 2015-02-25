@@ -39,7 +39,6 @@ mod.controller('planController', ['$scope',
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
-		/*	planning.addPage();*/
 			planning.addPage()
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
@@ -50,7 +49,7 @@ mod.controller('planController', ['$scope',
 			planning.ajouterCategories("green","ceuillete");
 			planning.ajouterCategories("cyan","avion");
 			planning.ajouterCategories("yellow","bronzette au soleil");
-      planning.repartirColonnes();
+			planning.repartirColonnes();
 		}
 		
 		function initialiserPlanningHebdo() {
@@ -301,21 +300,17 @@ mod.controller('planController', ['$scope',
     
 		
     $scope.colonneRedim=function(col){
-      var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
-      var largeur = largeurGauche+planning.getColonneHoraire().getLargeur();
-      var largeurFutureCol=( largeur>planning.getLargeurMax() ) ? planning.getLargeurMax() : largeurGauche;
-      /*debut suppression de bug*/
-    	col.setLargeur(largeurFutureCol+1); 
-      $scope.$apply();
-      /*fin suppression de bug*/
-      col.setLargeur(largeurFutureCol);
-      planning.repartirColonnes();
-     
-		}
+		var largeurElm=$scope.accessToResizableElmt.offsetWidth;
+		var largeurPlanning=document.getElementById("A4").offsetWidth;
+		/*debut suppression de bug*/
+		col.setLargeurPx(largeurElm+1,largeurPlanning); 
+		$scope.$apply();
+		/*fin suppression de bug*/
+		col.setLargeurPx(largeurElm,largeurPlanning)
+		planning.repartirColonnes();
+	}
     
-    $scope.colonneRedimHoraire=function(){
-				$scope.colonneRedim(planning.getColonneHoraire());
-		}
+
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
 		$scope.ligne=[8,9,10,11,12,13,14,15,16];
@@ -367,7 +362,7 @@ mod.controller('planController', ['$scope',
 			return result+"px";
 		}
 		$scope.activerAiment=function(){
-			$scope.clicOnAimant=true;
+			planning.optimiserLargeurColonnes();
 		}
 		
 		/*
