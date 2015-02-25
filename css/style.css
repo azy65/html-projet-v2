@@ -319,6 +319,7 @@
 			
 			#footer {
 				position: absolute;
+				z-index: 10;
 				width: 270mm;
 				display: inline-block;
 			}
