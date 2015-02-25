@@ -198,23 +198,26 @@ mod.controller('planController', ['$scope',
 			
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
-			if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
-				titreCat.val = nom;
-				alert("Catégorie déjà existante");
-			} else {
-				var listeCategories = planning.getCategories();
-				var res = new Categorie();
-				var indice;
-				listeCategories.forEach (function(cat) {
-					if (cat.getNom() == nom && cat.getCouleur() == couleur) {
-						indice = listeCategories.indexOf(cat);
-						res.setNom(titreCat.val);
-						res.setCouleur(couleur);
-						listeCategories[indice] = res;
-					}
-				})	
-				planning.setCategories(listeCategories);
-				form.categorie = res;
+			if(nom != titreCat.val) {
+			
+				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
+					titreCat.val = nom;
+					alert("Catégorie déjà existante");
+				} else {
+					var listeCategories = planning.getCategories();
+					var res = new Categorie();
+					var indice;
+					listeCategories.forEach (function(cat) {
+						if (cat.getNom() == nom && cat.getCouleur() == couleur) {
+							indice = listeCategories.indexOf(cat);
+							res.setNom(titreCat.val);
+							res.setCouleur(couleur);
+							listeCategories[indice] = res;
+						}
+					})	
+					planning.setCategories(listeCategories);
+					form.categorie = res;
+				}
 			}
 		}
 		
