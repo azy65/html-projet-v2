@@ -385,15 +385,14 @@ mod.controller('planController', ['$scope',
 			return RC;
 		}
 
-		/*Horaire*/
 		
-		$scope.modifHeure=function(){
-			$scope.ligne=[];
+		/* Horaire */
 		
-			while(horaire.debut<horaire.fin){
-				$scope.ligne.push(horaire.debut);
-				horaire.debut++;
-			}	
+		$scope.modifHeure = function() {
+			$scope.ligne = [];
+			for (var h = horaire.debut; h < horaire.fin; h++) {
+				$scope.ligne.push(h);
+			}
 			fenetreModifHoraire.afficher(false);
 		}
 		
