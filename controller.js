@@ -198,28 +198,42 @@ mod.controller('planController', ['$scope',
 			
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
-			if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
-				titreCat.val = nom;
-				alert("Catégorie déjà existante");
-			} else {
-				var listeCategories = planning.getCategories();
-				var res = new Categorie();
-				var indice;
-				listeCategories.forEach (function(cat) {
-					if (cat.getNom() == nom && cat.getCouleur() == couleur) {
-						indice = listeCategories.indexOf(cat);
-						res.setNom(titreCat.val);
-						res.setCouleur(couleur);
-						listeCategories[indice] = res;
-					}
-				})	
-				planning.setCategories(listeCategories);
-				form.categorie = res;
+
+			if(nom != titreCat.val) {
+				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val)) != null) {
+					titreCat.val = nom;
+					alert("Catégorie déjà existante");
+				} else {
+					var listeCategories = planning.getCategories();
+					var res = new Categorie();
+					var indice;
+					listeCategories.forEach (function(cat) {
+						if (cat.getNom() == nom && cat.getCouleur() == couleur) {
+							indice = listeCategories.indexOf(cat);
+							res.setNom(titreCat.val);
+							res.setCouleur(couleur);
+							listeCategories[indice] = res;
+						}
+					})	
+					planning.setCategories(listeCategories);
+					form.categorie = res;
+				}
 			}
 		}
 		
+		$scope.supprimerCategorie=function(){
+			var nom = form.categorie.getNom();
+			var couleur = form.categorie.getCouleur();
+			var catSup = planning.estCategorieExistante(new Categorie(couleur,nom));
+			if (catSup != null) {
+				planning.supprimerCategorie(catSup);
+			}
+			form.categorie = '';
+			titreCat.val = '';
+		}
+		
 		$scope.ajoutCategorie=function() {
-			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val))) {
+			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val)) != null) {
 				alert("Catégorie déjà existante");
 			} else {
 				planning.ajouterCategories(couleurCat.val,titreCat.val);
@@ -299,7 +313,7 @@ mod.controller('planController', ['$scope',
      
 		}
     
-    $scope.colonneHoraire=new ElementGraphique(200);
+    $scope.colonneHoraire=new ElementGraphique(195);
     $scope.colonneRedimHoraire=function(){
 				$scope.colonneRedim($scope.colonneHoraire);
 		}
@@ -316,12 +330,14 @@ mod.controller('planController', ['$scope',
 		$scope.afficherModifierColonne = function() {
 			formCol.titre = "";
 			fenetreAjoutColonne.afficher(true);
+
 		}
 		
 		$scope.ajoutColonne = function() {
 			var col = new Colonne ($scope.formCol.titre);
 			planning.ajoutColonne (col);
 			fenetreAjoutColonne.afficher(false);
+      planning.repartirColonnes();
 		}
 		$scope.afficherModifColonne=function(colo){
 			formCol.titre = colo.getTitre();
