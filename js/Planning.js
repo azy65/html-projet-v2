@@ -12,6 +12,7 @@ var Planning = Class.create({
 		this._categories=[];
 		this._page=[];
     this._largeurMax=900;
+    this._colonneHoraire=new ElementGraphique(170);
 	},
 
 	addPage:function(unePage){
@@ -88,6 +89,16 @@ var Planning = Class.create({
 			}
 		})
 		return res;
+	},
+  reinitialiser:function(){
+    var col=this.getColonnes();
+		if(this._mode=="journalier"){
+      this._page=[new Page()];
+    }else{	
+			col.forEach(function(colonne){
+				colonne.reinitialiserEvenement();
+			})					
+		}
 	}
 })
-addGSet(Planning,["mode","categories","largeurMax"]);
+addGSet(Planning,["mode","categories","largeurMax","colonneHoraire"]);

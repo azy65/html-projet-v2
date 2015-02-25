@@ -302,7 +302,7 @@ mod.controller('planController', ['$scope',
 		
     $scope.colonneRedim=function(col){
       var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
-      var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
+      var largeur = largeurGauche+planning.getColonneHoraire().getLargeur();
       var largeurFutureCol=( largeur>planning.getLargeurMax() ) ? planning.getLargeurMax() : largeurGauche;
       /*debut suppression de bug*/
     	col.setLargeur(largeurFutureCol+1); 
@@ -313,9 +313,8 @@ mod.controller('planController', ['$scope',
      
 		}
     
-    $scope.colonneHoraire=new ElementGraphique(195);
     $scope.colonneRedimHoraire=function(){
-				$scope.colonneRedim($scope.colonneHoraire);
+				$scope.colonneRedim(planning.getColonneHoraire());
 		}
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
