@@ -226,6 +226,16 @@
 				border:black solid 2px;
 			}
 			
+			/*Legende Categorie*/
+			
+			.legendeCat {
+				text-align:left;
+			}
+			
+			.testcat {
+				float:left;
+			}
+			
 			/*Formulaire Evenement */
 			
 			.inputHeure{

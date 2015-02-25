@@ -22,6 +22,7 @@ mod.controller('planController', ['$scope',
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
+		var legendeCategorie = $scope.legendeCategorie = new Fenetre (false);
     $scope.largeurGrilleAvecHoraire=1090;
     
     $scope.getLargeurGrilleSansHoraire=function(){
