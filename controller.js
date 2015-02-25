@@ -199,8 +199,7 @@ mod.controller('planController', ['$scope',
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
 			if(nom != titreCat.val) {
-			
-				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
+				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val)) != null) {
 					titreCat.val = nom;
 					alert("Catégorie déjà existante");
 				} else {
@@ -221,8 +220,19 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
+		$scope.supprimerCategorie=function(){
+			var nom = form.categorie.getNom();
+			var couleur = form.categorie.getCouleur();
+			var catSup = planning.estCategorieExistante(new Categorie(couleur,nom));
+			if (catSup != null) {
+				planning.supprimerCategorie(catSup);
+			}
+			form.categorie = '';
+			titreCat.val = '';
+		}
+		
 		$scope.ajoutCategorie=function() {
-			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val))) {
+			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val)) != null) {
 				alert("Catégorie déjà existante");
 			} else {
 				planning.ajouterCategories(couleurCat.val,titreCat.val);

@@ -23,11 +23,15 @@ var Planning = Class.create({
 		this._categories.push(cat);
 		return cat;
 	},
+	supprimerCategorie:function(categorie){
+		var index =this._categories.indexOf(categorie);
+		this._categories.splice(index,1);
+	},
 	estCategorieExistante:function(categorie){
-		var res = false;
+		var res = null;
 		this._categories.forEach (function(cat) {
 			if (cat.getNom() == categorie.getNom() && cat.getCouleur() == categorie.getCouleur()) {
-				res = true;
+				res = cat;
 			}
 		})
 		return res;
@@ -42,6 +46,4 @@ var Planning = Class.create({
 		}
 	}
 })
-addGSet(Planning,["mode"])
-addGSet(Planning,["categories","colonnes"],"get")
-addGSet(Planning,["categories","colonnes"],"set")
+addGSet(Planning,["mode","categories","colonnes"])
