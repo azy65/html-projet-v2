@@ -319,7 +319,7 @@ mod.controller('planController', ['$scope',
 		}
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
-		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
+		$scope.ligne=[8,9,10,11,12,13,14,15,16];
 		$scope.alert=function(width){
 			alert(width );				
 		};	
