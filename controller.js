@@ -22,11 +22,11 @@ mod.controller('planController', ['$scope',
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
-    $scope.largeurGrilleAvecHoraire=1090;
-    
+	//	$scope.largeurGrilleAvecHoraire=1090;
+    /*
     $scope.getLargeurGrilleSansHoraire=function(){
        return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
-    }
+    }*/
 		var titreCat = $scope.titreCat={val:""};
 		var couleurCat = $scope.couleurCat={val:""};
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
@@ -36,10 +36,11 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		/******** Initialisation *******/
 		/*******************************/
-    $scope.largeurMaxTab=1024;
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
+		/*	planning.addPage();*/
+			planning.addPage()
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
 			}
@@ -49,6 +50,7 @@ mod.controller('planController', ['$scope',
 			planning.ajouterCategories("green","ceuillete");
 			planning.ajouterCategories("cyan","avion");
 			planning.ajouterCategories("yellow","bronzette au soleil");
+      planning.repartirColonnes();
 		}
 		
 		function initialiserPlanningHebdo() {
@@ -107,12 +109,10 @@ mod.controller('planController', ['$scope',
 		
 		$scope.modifEvmt=function(){
 				var colonnes = planning.getColonnes();
-				var indexColonne = colonnes.indexOf(form.col);
-				var evenements = colonnes[indexColonne].getTaches();
-				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
-				var evenementPrincipal = evenements[indexEvenementPrinc];
+				var evenements = form.col.getTaches();
+				var evenementPrincipal = form.evnmt;
 				var per= new Periode(form);	
-				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+				var tabEvenementSecondaire = evenementPrincipal.getTabEvenementAutreCol();
 				
 				var nbEvenementSecondaireAvantModif = evenements.length;
 				var cpt = 0;
@@ -123,8 +123,8 @@ mod.controller('planController', ['$scope',
 				
 				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
 				
-				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
-					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
+				if (form.nbCol != evenementPrincipal.getNbCol()) {
+					if (form.nbCol > evenementPrincipal.getNbCol()) {
 					
 						var temp = [];
 						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol-1; i++) {
@@ -141,15 +141,15 @@ mod.controller('planController', ['$scope',
 							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
 							fg++;
 						}
-						evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-						evenements[indexEvenementPrinc].setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
+						evenementPrincipal.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+						evenementPrincipal.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						colonnes[indexColonne].setTaches(evenements);
 					}
 					
-					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
+					if(form.nbCol < evenementPrincipal.getNbCol()) {
 						
-						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
-						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
+						var indexColASupp = indexColonne + evenementPrincipal.getNbCol() - 1;
+						for (var i = form.nbCol; i < evenementPrincipal.getNbCol(); i++) { 
 							evenementPrincipal.supprimerDernierEvenementSecondaire();
 							colonnes[indexColASupp].getTaches().pop();
 							indexColASupp--;
@@ -157,8 +157,8 @@ mod.controller('planController', ['$scope',
 					}
 				} 
 			
-				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-				planning.setColonnes(colonnes);
+				evenementPrincipal.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+				//page.setColonnes(colonnes);
 		}
 		
 		$scope.suppEvmt=function(){
@@ -170,9 +170,9 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
-		$scope.suppEvenementCommun=function() {
+		$scope.suppEvenementCommun=function(page) {
 			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-			var tabColonne = planning.getColonnes();
+			var tabColonne = page.getColonnes();
 			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
 			var cpt = 1;
 			tabEvenementSecondaire.forEach (function(evenementSecondaire) {
@@ -198,26 +198,23 @@ mod.controller('planController', ['$scope',
 			
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
-			if(nom != titreCat.val) {
-			
-				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
-					titreCat.val = nom;
-					alert("Catégorie déjà existante");
-				} else {
-					var listeCategories = planning.getCategories();
-					var res = new Categorie();
-					var indice;
-					listeCategories.forEach (function(cat) {
-						if (cat.getNom() == nom && cat.getCouleur() == couleur) {
-							indice = listeCategories.indexOf(cat);
-							res.setNom(titreCat.val);
-							res.setCouleur(couleur);
-							listeCategories[indice] = res;
-						}
-					})	
-					planning.setCategories(listeCategories);
-					form.categorie = res;
-				}
+			if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val))) {
+				titreCat.val = nom;
+				alert("Catégorie déjà existante");
+			} else {
+				var listeCategories = planning.getCategories();
+				var res = new Categorie();
+				var indice;
+				listeCategories.forEach (function(cat) {
+					if (cat.getNom() == nom && cat.getCouleur() == couleur) {
+						indice = listeCategories.indexOf(cat);
+						res.setNom(titreCat.val);
+						res.setCouleur(couleur);
+						listeCategories[indice] = res;
+					}
+				})	
+				planning.setCategories(listeCategories);
+				form.categorie = res;
 			}
 		}
 		
@@ -287,15 +284,18 @@ mod.controller('planController', ['$scope',
 			$scope.form.heureFin=hFin || 9;
 			$scope.form.minuteFin=mFin || 0;
 		}
-		$scope.colonneRedim=function(col){
+    
+		
+    $scope.colonneRedim=function(col){
       var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
       var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
-      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 1000 : largeurGauche;
+      var largeurFutureCol=( largeur>planning.getLargeurMax() ) ? planning.getLargeurMax() : largeurGauche;
       /*debut suppression de bug*/
     	col.setLargeur(largeurFutureCol+1); 
       $scope.$apply();
       /*fin suppression de bug*/
       col.setLargeur(largeurFutureCol);
+      planning.repartirColonnes();
      
 		}
     
@@ -305,7 +305,7 @@ mod.controller('planController', ['$scope',
 		}
 		
 		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
-		$scope.ligne=[8,9,10,11,12,13,14,15,16];
+		$scope.ligne=[8,9,10,11,12,13,14,15,16,17];
 		$scope.alert=function(width){
 			alert(width );				
 		};	
@@ -331,14 +331,14 @@ mod.controller('planController', ['$scope',
 		$scope.modifColonne=function(){
 			formCol.col.setTitre(formCol.titre);
 		}
-		$scope.supprColonne=function(){
+		$scope.supprColonne=function(page){
 			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
-			planning.supprimerColonne(formCol.col);
+			page.supprimerColonne(formCol.col);
 		}
 		
-		$scope.calculerLargeur=function(evenement, colonne) {
-			var tabColonnes = planning.getColonnes();
+		$scope.calculerLargeur=function(page,evenement, colonne) {
+			var tabColonnes = page.getColonnes();
 			var result = colonne.getLargeur();
 			if(evenement.getNbCol() > 1) {
 				var nbCol = evenement.getNbCol();
@@ -355,7 +355,7 @@ mod.controller('planController', ['$scope',
 			$scope.clicOnAimant=true;
 		}
 		
-		
+		/*
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
 				if ($index == 0) {
@@ -365,15 +365,15 @@ mod.controller('planController', ['$scope',
 			
         // si on clique sur recalculer affichage alors agrandir la colonne de 
         // droite pour occuper tout l'affichage 
-        if ($scope.clicOnAimant){
-					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
-					if ( distDroite > 0 && RC){
-						var widthDeb=col[$index-1].offsetWidth;
-						col[$index-1].style.width=widthDeb+distDroite+"px";
-					}
-				}					
+        if ($scope.clicOnAimant && RC){
+            var distDroite = $scope.largeurGrilleAvecHoraire - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
+            if ( distDroite > 0){
+              var widthDeb=col[$index-1].offsetWidth;
+              col[$index-1].style.width=widthDeb+distDroite+"px";
+            }
+        }
 			return RC;
-		}
+		}*/
 
 		/*Horaire*/
 		
