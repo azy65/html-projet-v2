@@ -67,7 +67,7 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		
 		$scope.validationFormulaireEvenement= function(){
-			if (isNaN(form.nbCol) || form.nbCol < 0) {
+			if (isNaN(form.nbCol) || form.nbCol < 0 || isNaN(form.heureDeb) || isNaN(form.minuteDeb) || isNaN(form.heureFin) || isNaN(form.minuteFin)) {
 				return false;
 			}
 			
