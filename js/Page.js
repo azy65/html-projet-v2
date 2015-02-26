@@ -15,6 +15,7 @@ var Page = Class.create({
 		this._colonnes.push(col2);
     col2.setPage(this);
 	},
+	
 	supprimerColonne:function(col){
 		this._colonnes.splice(this._colonnes.indexOf(col), 1);
 	},
