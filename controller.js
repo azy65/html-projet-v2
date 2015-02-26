@@ -328,19 +328,21 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.ajoutColonne = function() {
-			var col = new Colonne ($scope.formCol.titre);
-			planning.ajoutColonne (col);
-			fenetreAjoutColonne.afficher(false);
+			planning.ajoutColonne(new Colonne(formCol.titre));
       planning.repartirColonnes();
+			fenetreAjoutColonne.afficher(false);
 		}
+		
 		$scope.afficherModifColonne=function(colo){
 			formCol.titre = colo.getTitre();
 			fenetreModifSupprColonne.afficher(true);
 			formCol.col=colo;			
 		}
+		
 		$scope.modifColonne=function(){
 			formCol.col.setTitre(formCol.titre);
 		}
+		
 		$scope.supprColonne=function(page){
 			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
