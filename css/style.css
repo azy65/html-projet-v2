@@ -133,27 +133,26 @@
 			}
 			
 			#accueil{
-			top:0px;
-			bottom:0px;
+				top:0%;
+				bottom:0%;
 				position:absolute;
 				z-index:10;
 				background:url("postit.jpg");
 				background-repeat:no-repeat;
-				background-attachment: fixed; 
-				background-size: cover; 
+				background-size: cover;
 				width: 100%;
 				height:100%;
-			text-align: center;
+				text-align: center;
 			}
 			
 			.btnMode{
-			margin-top:10%;
-			margin:2px;
-			margin-left:50px;
+				margin-top:10%;
+				margin:2px; /*margin:20%;*/
+				margin-left:50px;
 			}
 			
 			.btnMode:hover{
-			color:rgb(0,199,19);
+				color:rgb(0,199,19);
 			}
 			
 			#slogan{
@@ -246,8 +245,8 @@
 				padding:30px;
 				margin-top:5%;
 				position:absolute;
-				top:300px;
-				left:400px;
+				/*top:300px;*/ top:38%;
+				/*left:400px;*/ left:28%;
 				font-family:"Monotype Corsiva",Georgia ,Serif;
 				font-size:50px;
 			}
@@ -271,10 +270,6 @@
 			
 			body{
 				background:url(bois.jpg);
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
 			}
 			
 			#AjoutH{
@@ -300,12 +295,12 @@
 			}
 			
 			#imgPostMode{
-			position:absolute;
-			width:400px;
-			height:300px;
-			z-index:-1;
-			left:-60px;
-			bottom:-45px;
+				position:absolute;
+				/*width:400px;*/ width:155%;
+				/*height:300px;*/ height:130%;
+				z-index:-1;
+				/*left:-60px;*/ left:-22%;
+				/*bottom:-45px;*/ bottom:-20%;
 			}
 			
 			.cellHoraire{
@@ -324,7 +319,7 @@
 			}
 			
 			#zoneBtn{
-			display:inline-block;
+				display:inline-block;
 			}
 			
 			#modeEmploiFont{
@@ -339,11 +334,9 @@
 			}
 			
 			#modeEmploi{
-			border:2px solid red;
 				position:absolute;
-				bottom:2px;
-				left:290px;
-				overflow:hidden;
+				/*top: 770px;*/ top:97%;
+				/*left:290px;*/ left:21%;
 				
 			}
 			

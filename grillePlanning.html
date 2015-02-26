@@ -1,5 +1,4 @@
 <div style="position:absolute;z-index:10;width:270mm;display:inline-block;" id="footer"  ng-include="'footer.html'"></div>
-
 <div id="tableau"  style="position:relative">
   <span class="rightCol" style="position:absolute;" ng-style="{'left':colonneHoraire.getLargeurPx(),'width': getLargeurGrilleSansHoraire()}" >
     <span class="bigCol" ng-repeat="sal in planning.getColonnes() track by $index">	
@@ -37,6 +36,5 @@
 		</div>
 	</div>
 </div>
-
 
 
