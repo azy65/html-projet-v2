@@ -124,36 +124,20 @@ mod.controller('planController', ['$scope',
 							tabEvenementSecondaire[cpt].setPeriode(per);
 							cpt++;
 				})
-				
 				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
-				
+				//Si on modifie le nombre de colonnes
 				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
 					//Si on augmente le nombre de colonnes
 					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
-					
-						var temp = [];
-						//On rajoute les évènements secondaires
-						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol-1; i++) {
-							var evnmt = new EvenementInvisible (per, 1);
-							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
-							temp.push(evenementPrincipal.getTabEvenementAutreCol().indexOf(evnmt));
-						};
-					
-						var fg = temp[0];
-						form.evnmt.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
+						var evnmt = new EvenementInvisible (per, 1);
 						tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
 						var nbEvenementSecondaireApresModif = form.nbCol-1;
 						for (var j = indexColonne+nbEvenementSecondaireAvantModif+1; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
-							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
-							fg++;
+							colonnes[j].ajouterEvenement(evnmt);
 						}
-						evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-						evenements[indexEvenementPrinc].setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
-						colonnes[indexColonne].setTaches(evenements);
-					} //
-					
+					}
+					//Si on diminue le nombre de colonnes
 					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
-						
 						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
 						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
 							evenementPrincipal.supprimerDernierEvenementSecondaire();
@@ -162,7 +146,6 @@ mod.controller('planController', ['$scope',
 						}
 					}
 				} 
-			
 				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 		}
 		
