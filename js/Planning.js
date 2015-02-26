@@ -105,7 +105,9 @@ var Planning = Class.create({
 	testDepassementNombreColonnes:function(colonne, nbColonnes){
 		var page = colonne.getPage();
 		var index = page.getColonnes().indexOf(colonne);
-		if (index+1+page.getColonnes.length < nbColonnes) {
+		alert(index+nbColonnes );
+		alert(page.getColonnes().length);
+		if (index+nbColonnes > page.getColonnes().length) {
 			return true;
 		}
 		return false;

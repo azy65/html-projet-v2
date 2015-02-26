@@ -86,7 +86,7 @@ mod.controller('planController', ['$scope',
 				var per= new Periode(form);	
 				if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
 						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
-						return false;
+						return;
 				}
 				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
@@ -118,7 +118,7 @@ mod.controller('planController', ['$scope',
 		
 				if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
 						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
-						return false;
+						return;
 				}
 				var colonnes = planning.getColonnes();
 				var indexColonne = colonnes.indexOf(form.col);
