@@ -67,7 +67,7 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		
 		$scope.validationFormulaireEvenement= function(){
-			if (isNaN(form.nbCol) || form.nbCol < 0) {
+			if (isNaN(form.nbCol) || form.nbCol < 0 || isNaN(form.heureDeb) || isNaN(form.minuteDeb) || isNaN(form.heureFin) || isNaN(form.minuteFin)) {
 				return false;
 			}
 			
@@ -116,9 +116,10 @@ mod.controller('planController', ['$scope',
 				var evenementPrincipal = form.evnmt;
 				var per= new Periode(form);	
 				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
-				
-				var nbEvenementSecondaireAvantModif = evenements.length;
+				var nbEvenementSecondaireAvantModif = tabEvenementSecondaire.length;
 				var cpt = 0;
+				
+				//Modification horaire des évènement secondaires déjà existant
 				tabEvenementSecondaire.forEach(function(evenementSecondaire) {
 							tabEvenementSecondaire[cpt].setPeriode(per);
 							cpt++;
@@ -127,9 +128,11 @@ mod.controller('planController', ['$scope',
 				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
 				
 				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
+					//Si on augmente le nombre de colonnes
 					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
 					
 						var temp = [];
+						//On rajoute les évènements secondaires
 						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol-1; i++) {
 							var evnmt = new EvenementInvisible (per, 1);
 							evenementPrincipal.ajoutEvenementSecondaire(evnmt);
@@ -147,7 +150,7 @@ mod.controller('planController', ['$scope',
 						evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 						evenements[indexEvenementPrinc].setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						colonnes[indexColonne].setTaches(evenements);
-					}
+					} //
 					
 					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
 						
@@ -172,9 +175,9 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
-		$scope.suppEvenementCommun=function(page) {
+		$scope.suppEvenementCommun=function() {
 			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-			var tabColonne = page.getColonnes();
+			var tabColonne = planning.getColonnes();
 			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
 			var cpt = 1;
 			tabEvenementSecondaire.forEach (function(evenementSecondaire) {

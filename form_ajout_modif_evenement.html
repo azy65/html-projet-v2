@@ -24,9 +24,9 @@
 				 <span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
 			</span>
 				<div class="form_bouton">
-					<input type="submit" value="Ajouter" ng-model="form.submit" ng-click="validationFormulaireEvenement()" ng-if="mode=='ajout'" />
-					<input type="submit" value="Modifier" ng-model="form.submit" ng-click="validationFormulaireEvenement()" ng-if="mode !='ajout'"/>
-					<input type="submit" value="Supprimer" ng-model="form.submit"  ng-click="suppEvmt()" ng-if="mode!='ajout'"/>
+					<input type="submit" value="Ajouter" ng-click="validationFormulaireEvenement()" ng-if="mode=='ajout'" />
+					<input type="submit" value="Modifier" ng-click="validationFormulaireEvenement()" ng-if="mode !='ajout'"/>
+					<input type="submit" value="Supprimer" ng-click="suppEvmt();fenetreEditEvnt.afficher(false);" ng-if="mode!='ajout'"/>
 					<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button>
 				</div>
 		</form>
