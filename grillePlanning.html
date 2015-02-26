@@ -1,7 +1,7 @@
 <div style="position:absolute;z-index:10;width:270mm;display:inline-block;" id="footer"  ng-include="'footer.html'"></div>
 
 <div id="tableau"  >
-	<div id="A4" style="display:block;width:29.7cm; background:red"  ng-repeat="page in planning.getPages()" >
+	<div id="A4" style="display:block;width:29.7cm;"  ng-repeat="page in planning.getPages()" >
 		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPrcnt()}" onresize="colonneRedimHoraire()" resizable   class="col pasMoi"  >
 				<div class="coins cell" >Planning {{ouille($index)}}</div>
 				<div class="cellHoraire"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
