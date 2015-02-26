@@ -2,27 +2,27 @@
 <html>
   <head>
 		<title>Planificat'heure</title>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/printable.css"> 
-		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+		<meta 	charset="UTF-8">
+		<link 	rel="stylesheet" type="text/css" href="css/printable.css"> 
+		<link 	rel="stylesheet" type="text/css" href="css/style.css"> 
 		<script type='text/javascript' src="lib/jquery.js"></script>
-		<script type="text/javascript" src="lib/prototype.js"> </script>
-		<link rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css">
-		<script type='text/javascript' src="lib/ui.js"  data-cover></script>
-		<script type='text/javascript' src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
+		<script	src="lib/prototype.js"> </script>
+		<link	rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css">
+		<script	src="lib/ui.js"  data-cover></script>
+		<script src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
 		<script src="js/fastSetterAndGetter.js"></script>
-		<script type="text/javascript" src="js/Planning.js"> </script>
-		<script type="text/javascript" src="js/Colonne.js"> </script>
-		<script type="text/javascript" src="js/Donnee.js"> </script>
-		<script type="text/javascript" src="js/Evenement.js"> </script>
-		<script type="text/javascript" src="js/Periode.js"> </script>
-		<script type="text/javascript" src="js/Graphique.js"> </script>
-		<script type="text/javascript" src="js/Categorie.js"> </script>
-    <script type="text/javascript" src="js/ElementGraphique.js"> </script>
+		<script src="js/ElementGraphique.js"> </script>
+		<script src="js/Planning.js"> </script>
+		<script src="js/Colonne.js"> </script>
+		<script src="js/Donnee.js"> </script>
+		<script src="js/Evenement.js"> </script>
+		<script src="js/Periode.js"> </script>
+		<script src="js/Graphique.js"> </script>
+		<script src="js/Categorie.js"> </script>
+		<script src="js/Page.js"> </script>
 		<script src="controller.js"></script>
   </head>
   <body>  
-  <!--accueil-->
 	<div ng-controller="planController" ng-app="planning">
 		<div ng-include="'accueil.html'"></div>
 		<div id="grillePlanning" ng-include="'grillePlanning.html'"></div>

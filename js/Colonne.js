@@ -6,7 +6,7 @@ var Colonne = Class.create({
 	initialize: function(titre,largeur){
 		this._taches=[],
 		this._titre=titre,
-		this._largeur=178
+		this._largeur=16.66
 	},
 	ajouterEvenement:function(evmt){
 		this._taches.push(evmt);
@@ -17,9 +17,21 @@ var Colonne = Class.create({
 	reinitialiserEvenement:function(){
 		this._taches=[];
 	},
-  getLargeurPx: function(){
-    return this._largeur+"px";
-  }
+	setLargeurPx: function(largeurCol,largeurPlanning){
+		var max=this.getPage().getPlanning().getLargeurMax();
+		this._largeur = 100*largeurCol / largeurPlanning;
+		if ( this._largeur > max ){
+			this._largeur=max;
+		}		
+	},
+	getLargeurPrcnt: function(largeur){
+		return this._largeur + "%";
+	},
+	multLargeurPar:function(coef){
+		this._largeur *= coef;
+	}
 })
 
-addGSet(Colonne,["taches","titre",'largeur']);
+addGSet(Colonne,["taches","titre", "page"]);
+addGSet(Colonne,['largeur'],"get");
+
