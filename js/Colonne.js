@@ -17,9 +17,18 @@ var Colonne = Class.create({
 	reinitialiserEvenement:function(){
 		this._taches=[];
 	},
-  getLargeurPx: function(){
-    return this._largeur+"px";
-  }
+	getLargeurPx: function(){
+		return this._largeur+"px";
+	},
+  setLargeur: function(l){
+    var max=this.getPage().getPlanning().getLargeurMax();
+    if ( l > max ){
+      l=max
+    }
+    this._largeur=l;
+	}  
 })
 
-addGSet(Colonne,["taches","titre",'largeur']);
+addGSet(Colonne,["taches","titre", "page"]);
+addGSet(Colonne,['largeur'],"get");
+

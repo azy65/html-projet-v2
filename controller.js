@@ -25,9 +25,10 @@ mod.controller('planController', ['$scope',
 		var legendeCategorie = $scope.legendeCategorie = new Fenetre (false);
     $scope.largeurGrilleAvecHoraire=1090;
     
+    /*
     $scope.getLargeurGrilleSansHoraire=function(){
        return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
-    }
+    }*/
 		var titreCat = $scope.titreCat={val:""};
 		var couleurCat = $scope.couleurCat={val:""};
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
@@ -37,10 +38,11 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		/******** Initialisation *******/
 		/*******************************/
-    $scope.largeurMaxTab=1024;
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
+		/*	planning.addPage();*/
+			planning.addPage()
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
 			}
@@ -50,6 +52,7 @@ mod.controller('planController', ['$scope',
 			planning.ajouterCategories("green","ceuillete");
 			planning.ajouterCategories("cyan","avion");
 			planning.ajouterCategories("yellow","bronzette au soleil");
+      planning.repartirColonnes();
 		}
 		
 		function initialiserPlanningHebdo() {
@@ -111,7 +114,7 @@ mod.controller('planController', ['$scope',
 				var indexColonne = colonnes.indexOf(form.col);
 				var evenements = colonnes[indexColonne].getTaches();
 				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
-				var evenementPrincipal = evenements[indexEvenementPrinc];
+				var evenementPrincipal = form.evnmt;
 				var per= new Periode(form);	
 				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
 				
@@ -159,7 +162,6 @@ mod.controller('planController', ['$scope',
 				} 
 			
 				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-				planning.setColonnes(colonnes);
 		}
 		
 		$scope.suppEvmt=function(){
@@ -171,9 +173,9 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
-		$scope.suppEvenementCommun=function() {
+		$scope.suppEvenementCommun=function(page) {
 			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-			var tabColonne = planning.getColonnes();
+			var tabColonne = page.getColonnes();
 			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
 			var cpt = 1;
 			tabEvenementSecondaire.forEach (function(evenementSecondaire) {
@@ -199,6 +201,7 @@ mod.controller('planController', ['$scope',
 			
 			var nom = form.categorie.getNom();
 			var couleur = form.categorie.getCouleur();
+
 			if(nom != titreCat.val) {
 				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val)) != null) {
 					titreCat.val = nom;
@@ -298,19 +301,22 @@ mod.controller('planController', ['$scope',
 			$scope.form.heureFin=hFin || 9;
 			$scope.form.minuteFin=mFin || 0;
 		}
-		$scope.colonneRedim=function(col){
+    
+		
+    $scope.colonneRedim=function(col){
       var largeurGauche=$scope.accessToResizableElmt.offsetWidth;
       var largeur = largeurGauche+$scope.colonneHoraire.getLargeur();
-      var largeurFutureCol=(largeur>$scope.largeurMaxTab) ? 1000 : largeurGauche;
+      var largeurFutureCol=( largeur>planning.getLargeurMax() ) ? planning.getLargeurMax() : largeurGauche;
       /*debut suppression de bug*/
     	col.setLargeur(largeurFutureCol+1); 
       $scope.$apply();
       /*fin suppression de bug*/
       col.setLargeur(largeurFutureCol);
+      planning.repartirColonnes();
      
 		}
     
-    $scope.colonneHoraire=new ElementGraphique(200);
+    $scope.colonneHoraire=new ElementGraphique(195);
     $scope.colonneRedimHoraire=function(){
 				$scope.colonneRedim($scope.colonneHoraire);
 		}
@@ -327,12 +333,14 @@ mod.controller('planController', ['$scope',
 		$scope.afficherModifierColonne = function() {
 			formCol.titre = "";
 			fenetreAjoutColonne.afficher(true);
+
 		}
 		
 		$scope.ajoutColonne = function() {
 			var col = new Colonne ($scope.formCol.titre);
 			planning.ajoutColonne (col);
 			fenetreAjoutColonne.afficher(false);
+      planning.repartirColonnes();
 		}
 		$scope.afficherModifColonne=function(colo){
 			formCol.titre = colo.getTitre();
@@ -342,14 +350,14 @@ mod.controller('planController', ['$scope',
 		$scope.modifColonne=function(){
 			formCol.col.setTitre(formCol.titre);
 		}
-		$scope.supprColonne=function(){
+		$scope.supprColonne=function(page){
 			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
-			planning.supprimerColonne(formCol.col);
+			page.supprimerColonne(formCol.col);
 		}
 		
-		$scope.calculerLargeur=function(evenement, colonne) {
-			var tabColonnes = planning.getColonnes();
+		$scope.calculerLargeur=function(page,evenement, colonne) {
+			var tabColonnes = page.getColonnes();
 			var result = colonne.getLargeur();
 			if(evenement.getNbCol() > 1) {
 				var nbCol = evenement.getNbCol();
@@ -366,7 +374,7 @@ mod.controller('planController', ['$scope',
 			$scope.clicOnAimant=true;
 		}
 		
-		
+		/*
 			$scope.retourChariot=function($index){
 			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
 				if ($index == 0) {
@@ -376,25 +384,24 @@ mod.controller('planController', ['$scope',
 			
         // si on clique sur recalculer affichage alors agrandir la colonne de 
         // droite pour occuper tout l'affichage 
-        if ($scope.clicOnAimant){
-					var distDroite=1024 - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
-					if ( distDroite > 0 && RC){
-						var widthDeb=col[$index-1].offsetWidth;
-						col[$index-1].style.width=widthDeb+distDroite+"px";
-					}
-				}					
+        if ($scope.clicOnAimant && RC){
+            var distDroite = $scope.largeurGrilleAvecHoraire - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
+            if ( distDroite > 0){
+              var widthDeb=col[$index-1].offsetWidth;
+              col[$index-1].style.width=widthDeb+distDroite+"px";
+            }
+        }
 			return RC;
-		}
+		}*/
 
-		/*Horaire*/
 		
-		$scope.modifHeure=function(){
-			$scope.ligne=[];
+		/* Horaire */
 		
-			while(horaire.debut<horaire.fin){
-				$scope.ligne.push(horaire.debut);
-				horaire.debut++;
-			}	
+		$scope.modifHeure = function() {
+			$scope.ligne = [];
+			for (var h = horaire.debut; h < horaire.fin; h++) {
+				$scope.ligne.push(h);
+			}
 			fenetreModifHoraire.afficher(false);
 		}
 		
