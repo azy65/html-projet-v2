@@ -6,7 +6,7 @@
 var Page = Class.create({
 
 	//constructeur
-	initialize:function (mode){
+	initialize:function (){
 		//attribut protected
 		this._colonnes=[];
 	},

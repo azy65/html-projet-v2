@@ -76,12 +76,14 @@ var Planning = Class.create({
 	
 	ajoutColonne:function(col){
 		var page=this._page[this._page.length-1];
-		if ( page.getLargeur() > this._largeurMax){
+		if (!page || page.getLargeur() > this._largeurMax  ){
 			page=this.addPage();
 		}
 		page.ajoutColonne(col);		
 	},
-	
+	supprimerColonne:function(col){
+		this._colonnes.splice(this._colonnes.indexOf(col), 1);
+	},
 	ajouterCategories:function(couleur,categorieNom){
 		var cat =new Categorie(couleur,categorieNom);
 		this._categories.push(cat);
