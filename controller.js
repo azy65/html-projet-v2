@@ -22,7 +22,9 @@ mod.controller('planController', ['$scope',
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
 		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
-	//	$scope.largeurGrilleAvecHoraire=1090;
+		var legendeCategorie = $scope.legendeCategorie = new Fenetre (false);
+    $scope.largeurGrilleAvecHoraire=1090;
+    
     /*
     $scope.getLargeurGrilleSansHoraire=function(){
        return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
@@ -108,10 +110,12 @@ mod.controller('planController', ['$scope',
 		
 		$scope.modifEvmt=function(){
 				var colonnes = planning.getColonnes();
-				var evenements = form.col.getTaches();
+				var indexColonne = colonnes.indexOf(form.col);
+				var evenements = colonnes[indexColonne].getTaches();
+				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
 				var evenementPrincipal = form.evnmt;
 				var per= new Periode(form);	
-				var tabEvenementSecondaire = evenementPrincipal.getTabEvenementAutreCol();
+				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
 				
 				var nbEvenementSecondaireAvantModif = evenements.length;
 				var cpt = 0;
@@ -122,8 +126,8 @@ mod.controller('planController', ['$scope',
 				
 				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
 				
-				if (form.nbCol != evenementPrincipal.getNbCol()) {
-					if (form.nbCol > evenementPrincipal.getNbCol()) {
+				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
+					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
 					
 						var temp = [];
 						for (var i = nbEvenementSecondaireAvantModif; i < form.nbCol-1; i++) {
@@ -140,15 +144,15 @@ mod.controller('planController', ['$scope',
 							colonnes[j].ajouterEvenement(tabEvenementSecondaire[fg]);
 							fg++;
 						}
-						evenementPrincipal.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-						evenementPrincipal.setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
+						evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+						evenements[indexEvenementPrinc].setTabEvenementAutreCol(evenementPrincipal.getTabEvenementAutreCol());
 						colonnes[indexColonne].setTaches(evenements);
 					}
 					
-					if(form.nbCol < evenementPrincipal.getNbCol()) {
+					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
 						
-						var indexColASupp = indexColonne + evenementPrincipal.getNbCol() - 1;
-						for (var i = form.nbCol; i < evenementPrincipal.getNbCol(); i++) { 
+						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
+						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
 							evenementPrincipal.supprimerDernierEvenementSecondaire();
 							colonnes[indexColASupp].getTaches().pop();
 							indexColASupp--;
@@ -156,8 +160,7 @@ mod.controller('planController', ['$scope',
 					}
 				} 
 			
-				evenementPrincipal.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
-				//page.setColonnes(colonnes);
+				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 		}
 		
 		$scope.suppEvmt=function(){
