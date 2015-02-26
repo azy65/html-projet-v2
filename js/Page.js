@@ -33,6 +33,10 @@ var Page = Class.create({
 		this._colonnes.forEach( function(col){
 			largeur+=col.getLargeur();
 		})
+		var plan=this.getPlanning();
+		if (plan){
+			largeur+=plan.getColonneHoraire().getLargeur();
+		}
 		return largeur;
 	}
 	
