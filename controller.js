@@ -83,11 +83,17 @@ mod.controller('planController', ['$scope',
 			
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
-				var per= new Periode(form);			
+				var per= new Periode(form);	
+				if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
+						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
+						return false;
+				}
 				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
+					var colonnes = planning.getColonnes();
+					var indexColonne = colonnes.indexOf(form.col);
 					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
 				} 					
 		}
@@ -109,6 +115,11 @@ mod.controller('planController', ['$scope',
 		
 		
 		$scope.modifEvmt=function(){
+		
+				if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
+						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
+						return false;
+				}
 				var colonnes = planning.getColonnes();
 				var indexColonne = colonnes.indexOf(form.col);
 				var evenements = colonnes[indexColonne].getTaches();

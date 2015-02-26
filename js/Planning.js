@@ -102,6 +102,14 @@ var Planning = Class.create({
 		})
 		return res;
 	},
+	testDepassementNombreColonnes:function(colonne, nbColonnes){
+		var page = colonne.getPage();
+		var index = page.getColonnes().indexOf(colonne);
+		if (index+1+page.getColonnes.length < nbColonnes) {
+			return true;
+		}
+		return false;
+	},
   reinitialiser:function(){
     var col=this.getColonnes();
 		if(this._mode=="journalier"){
