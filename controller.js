@@ -172,9 +172,9 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
-		$scope.suppEvenementCommun=function(page) {
+		$scope.suppEvenementCommun=function() {
 			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-			var tabColonne = page.getColonnes();
+			var tabColonne = planning.getColonnes();
 			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
 			var cpt = 1;
 			tabEvenementSecondaire.forEach (function(evenementSecondaire) {
