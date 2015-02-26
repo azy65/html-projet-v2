@@ -67,26 +67,30 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		
 		$scope.validationFormulaireEvenement= function(){
+			var res = true;
 			if (isNaN(form.nbCol) || form.nbCol < 0 || isNaN(form.heureDeb) || isNaN(form.minuteDeb) || isNaN(form.heureFin) || isNaN(form.minuteFin)) {
 				return false;
 			}
 			
 			if($scope.mode =="ajout") {
-				$scope.ajoutEvmt();
+				res = $scope.ajoutEvmt();
 			}
 			
 			if ($scope.mode == "modif") {
-				$scope.modifEvmt()
+				res = $scope.modifEvmt()
 			}
-			fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
+			
+			if(res != false) {
+				fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
+			}
 		}
 			
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);	
 				if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
-						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
-						return;
+						alert("Impossible d'ajouter l'évènement : débordement de la page");
+						return false;
 				}
 				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
 				colonne.ajouterEvenement(evnmt);
@@ -117,8 +121,8 @@ mod.controller('planController', ['$scope',
 		$scope.modifEvmt=function(){
 		
 				if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
-						alert("Impossible d'ajouter l'évènement : dépassement des colonnes");
-						return;
+						alert("Impossible de modifier l'évènement : débordement de la page");
+						return false;
 				}
 				var colonnes = planning.getColonnes();
 				var indexColonne = colonnes.indexOf(form.col);
@@ -361,7 +365,7 @@ mod.controller('planController', ['$scope',
 					result += tabColonnes[i].getLargeur();
 				}
 			}
-			return result+"px";
+			return result+"%";
 		}
 		$scope.activerAiment=function(){
 			planning.optimiserLargeurColonnes();
