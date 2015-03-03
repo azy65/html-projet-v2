@@ -1,5 +1,5 @@
 ﻿'use strict';
-var jquery=$;
+var $$=$;
 
 var publicAccessToScope;
 angular.module('planning', ['mod']);
@@ -135,10 +135,9 @@ mod.controller('planController', ['$scope',
 				var colonnes = planning.getColonnes();
 				var indexColonne = colonnes.indexOf(form.col);
 				var evenements = colonnes[indexColonne].getTaches();
-				var indexEvenementPrinc = evenements.indexOf(form.evnmt);
 				var evenementPrincipal = form.evnmt;
 				var per= new Periode(form);	
-				var tabEvenementSecondaire = evenements[indexEvenementPrinc].getTabEvenementAutreCol();
+				var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
 				var nbEvenementSecondaireAvantModif = tabEvenementSecondaire.length;
 				var cpt = 0;
 				
@@ -149,27 +148,25 @@ mod.controller('planController', ['$scope',
 				})
 				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
 				//Si on modifie le nombre de colonnes
-				if (form.nbCol != evenements[indexEvenementPrinc].getNbCol()) {
+				if (form.nbCol != form.evnmt.getNbCol()) {
 					//Si on augmente le nombre de colonnes
-					if (form.nbCol > evenements[indexEvenementPrinc].getNbCol()) {
+					if (form.nbCol > form.evnmt.getNbCol()) {
 						var evnmt = new EvenementInvisible (per, 1);
-						tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-						var nbEvenementSecondaireApresModif = form.nbCol-1;
-						for (var j = indexColonne+nbEvenementSecondaireAvantModif+1; j < indexColonne+nbEvenementSecondaireApresModif+1; j++) {
-							colonnes[j].ajouterEvenement(evnmt);
+						for (var j = nbEvenementSecondaireAvantModif; j <= form.nbCol; j++) {
+							colonnes[j+indexColonne+1].ajouterEvenement(evnmt);
 						}
 					}
 					//Si on diminue le nombre de colonnes
-					if(form.nbCol < evenements[indexEvenementPrinc].getNbCol()) {
-						var indexColASupp = indexColonne + evenements[indexEvenementPrinc].getNbCol() - 1;
-						for (var i = form.nbCol; i < evenements[indexEvenementPrinc].getNbCol(); i++) { 
+					if(form.nbCol < form.evnmt.getNbCol()) {
+						var indexColASupp = indexColonne + form.evnmt.getNbCol() - 1;
+						for (var i = form.nbCol; i < form.evnmt.getNbCol(); i++) { 
 							evenementPrincipal.supprimerDernierEvenementSecondaire();
 							colonnes[indexColASupp].getTaches().pop();
 							indexColASupp--;
 						}
 					}
 				} 
-				evenements[indexEvenementPrinc].initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+				form.evnmt.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
 		}
 		
 		$scope.suppEvmt=function(){
@@ -313,7 +310,7 @@ mod.controller('planController', ['$scope',
 		
     $scope.colonneRedim=function(col){
 		var largeurElm=$scope.accessToResizableElmt.offsetWidth;
-		var largeurPlanning=document.getElementById("A4").offsetWidth;
+		var largeurPlanning=$$("A4")[0].offsetWidth;
 		/*debut suppression de bug*/
 		col.setLargeurPx(largeurElm+1,largeurPlanning); 
 		$scope.$apply();
