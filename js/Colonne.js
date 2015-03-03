@@ -10,6 +10,7 @@ var Colonne = Class.create({
 	},
 	ajouterEvenement:function(evmt){
 		this._taches.push(evmt);
+    evmt.setColonne(this);
 	},
 	supprimerEvenement:function(evmt){
 		this._taches.splice(this._taches.indexOf(evmt), 1);
@@ -32,6 +33,6 @@ var Colonne = Class.create({
 	}
 })
 
-addGSet(Colonne,["taches","titre", "page"]);
+addGSet(Colonne,["taches","titre", "page","colonne"]);
 addGSet(Colonne,['largeur'],"get");
 

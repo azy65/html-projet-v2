@@ -14,7 +14,9 @@ var Planning = Class.create({
 		this._page=[];
 		this._largeurMax=100;
 	},
-
+	getNbCelluleHauteur: function(){
+		return this.getHoraire().getHeureFin() - this.getHoraire().getHeureDebut() + 1;
+	},
 	addPage:function(unePage){
 		if (!unePage){
 			unePage=new Page();
@@ -34,6 +36,14 @@ var Planning = Class.create({
 			})
 		})
 	},	
+		testDepassementNombreColonnes:function(colonne, nbColonnes){
+		var page = colonne.getPage();
+		var index = page.getColonnes().indexOf(colonne);
+		if (index+nbColonnes > page.getColonnes().length) {
+			return true;
+		}
+		return false;
+	},
 	getPage:function(num){
 		return this._page[num];
 	},
@@ -121,4 +131,4 @@ var Planning = Class.create({
 		}
 	}
 })
-addGSet(Planning,["mode","categories","largeurMax","colonneHoraire"]);
+addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire"]);

@@ -1,5 +1,5 @@
 ﻿'use strict';
-
+var jquery=$;
 
 var publicAccessToScope;
 angular.module('planning', ['mod']);
@@ -8,6 +8,7 @@ mod.controller('planController', ['$scope',
     function ($scope){
 		publicAccessToScope=$scope;
 		var poubelle=[];
+		$scope.formPage = {nbParPage : 1};
 		$scope.clicOnAimant=false;
 		//initialisation//
 		var planning;
@@ -20,11 +21,14 @@ mod.controller('planController', ['$scope',
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
 		var fenetreModifHoraire = $scope.fenetreModifHoraire = new Fenetre (false);
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
-		var horaire = $scope.horaire={debut:8,fin:17};
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		var legendeCategorie = $scope.legendeCategorie = new Fenetre (false);
-    $scope.largeurGrilleAvecHoraire=1090;
-    
+		$scope.largeurGrilleAvecHoraire=1090;
+		$scope.ligne=[8,9,10,11,12,13,14,15,16];
+		$scope.horaire = {heureDeb:8, heureFin:17, minDeb:0,minFin:0};
+		$scope.cellStyle ={}
+	
+
     /*
     $scope.getLargeurGrilleSansHoraire=function(){
        return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
@@ -41,10 +45,15 @@ mod.controller('planController', ['$scope',
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
 			planning = $scope.planning = new Planning(mode);
-			planning.addPage()
+			planning.addPage();
+			$scope.cellStyle={};
+			$scope.getHauteurCell=function(){
+				return $scope.cellStyle.height = 100 / (planning.getHoraire().getIntervalle()/60+1)+'%';
+			}
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
 			}
+			planning.setHoraire(new Periode($scope.horaire));
 			planning.ajouterCategories("red","sport");
 			planning.ajouterCategories("orange","foot");
 			planning.ajouterCategories("white","sieste");
@@ -62,7 +71,7 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		
-		/*******************************/
+		//*******************************/
 		/********formulaire*************/
 		/*******************************/
 		
@@ -101,7 +110,6 @@ mod.controller('planController', ['$scope',
 					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
 				} 					
 		}
-	
 		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
 			var tabColonne = planning.getColonnes();
 			var i = tabColonne.indexOf(form.col) + 1;
@@ -315,9 +323,7 @@ mod.controller('planController', ['$scope',
 	}
     
 
-		
-		//tableau vide c'est juste pour le ngrepeat qui doit faire 10 lignes
-		$scope.ligne=[8,9,10,11,12,13,14,15,16];
+
 		$scope.alert=function(width){
 			alert(width );				
 		};	
@@ -371,32 +377,12 @@ mod.controller('planController', ['$scope',
 			planning.optimiserLargeurColonnes();
 		}
 		
-		/*
-			$scope.retourChariot=function($index){
-			var col= jQuery(".bigCol > div ").not(document.getElementsByClassName("pasMoi"))
-				if ($index == 0) {
-					return true;
-				}				
-				var RC= col[$index-1].offsetTop !=  col[$index].offsetTop ;
-			
-        // si on clique sur recalculer affichage alors agrandir la colonne de 
-        // droite pour occuper tout l'affichage 
-        if ($scope.clicOnAimant && RC){
-            var distDroite = $scope.largeurGrilleAvecHoraire - col[$index-1].offsetLeft-col[$index-1].offsetWidth;			
-            if ( distDroite > 0){
-              var widthDeb=col[$index-1].offsetWidth;
-              col[$index-1].style.width=widthDeb+distDroite+"px";
-            }
-        }
-			return RC;
-		}*/
 
 		
-		/* Horaire */
-		
 		$scope.modifHeure = function() {
+			planning.getHoraire().initialize($scope.horaire);
 			$scope.ligne = [];
-			for (var h = horaire.debut; h < horaire.fin; h++) {
+			for (var h = planning.getHoraire().getHeureDebut() ; h < planning.getHoraire().getHeureFin(); h++) {
 				$scope.ligne.push(h);
 			}
 			fenetreModifHoraire.afficher(false);

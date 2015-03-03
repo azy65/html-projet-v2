@@ -5,11 +5,11 @@
 				word-wrap: break-word;
 			}
 			
-		/*	#tableau{
-				width:270mm;
-        width:1200px;
-			}*/
+		html, body, div[ng-app="planning"]{
+			height:100%;
 			
+		}
+
 			.radio{
 				width:20px !important;
 				height:20px !important;
@@ -39,21 +39,26 @@
 				display:inline-block;
 				float:left;
 				position:relative;
-				margin-top:40px;
 			}
+		
+
 			.col+.col{
 				margin-left:-1px;
 			}			
 			.cell{
 				border:solid 1px #C2C2C2;
 				padding:5px;
-				height:50px;
+				height:100%;
 				width:100%;	
 				overflow: hidden;
 				background:#F9F9F9; 	
 		}
 			.cell+.cell{
 				border-top:solid 0px gray;
+			}
+      			
+			.cellHoraire{
+				background:lightblue;
 			}
 			.titre{
 				color:white;
@@ -64,13 +69,13 @@
 				text-transform:capitalize;
 			}
 			.tache{
-				position:absolute;
-				top:70px;
+				top:-100%;
 				border:none;
 				background:transparent;
 				height:auto;
 				overflow: visible;
 				width:100%;
+        height:0%;
 			}
 			.laTache{
 				border:1px rgb(203, 203, 203) solid;	
@@ -178,6 +183,7 @@
 				color:white;
 				text-align:center;
 				font-size:30px;
+				border: 1px solid black;
 			}
 			
 			
@@ -314,15 +320,7 @@
 				/*left:-60px;*/ left:-22%;
 				/*bottom:-45px;*/ bottom:-20%;
 			}
-			
-			.cellHoraire{
-				border:solid 1px #C2C2C2;
-				padding:5px;
-				height:50px;
-				width:100%;	
-				overflow: hidden;
-				background:lightblue;
-			}
+
 			
 			#footer {
 				position: absolute;
@@ -357,19 +355,90 @@
 				margin-right:20px;
 			}
 
-			
-			
-			/* Impression */
-			
-			@media print {
-        #zoneBtn{
-           display:none;
-        }				
-				.col {
-					margin-top: 0px;
-				}
-        #grillePlanning{
-          padding: 0px;
-        }
-			}
+		.A4 ,#tableau,#grillePlanning{
+              width:100%;
+              height: calc(98% - 2px);
+		}
+		#tableau{
+			margin-top:40px;
+		}
 
+		.A4{
+			  display:block;
+			  width:290mm;
+			  height:190mm;
+			  margin-bottom:50px;
+		}
+			/* Impression */
+		#footer{
+			position:initial;z-index:10;width:270mm;display:inline-block;
+		}	
+		
+		#ErrorMessage{
+			width:50%;
+		}
+		.containerForm {
+		  z-index: 3;
+		  position: fixed;
+		  width: 100%;
+		  height: 100%;
+		  background: rgba(255,255,255,0.5);
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+
+		.centrer_form {
+		  position: relative;
+		  margin: 20% auto;
+		  display: inline-block;
+		  border-radius: 15px;
+		  box-shadow: 5px 5px 5px #888888;
+		  background-color: #DAD8D8;
+		  padding: 5px 15px 5px 15px;
+		}
+
+		.legendeCat{
+			display : inline-block;
+			margin-left:20px;
+		}
+		
+		.legendeCatToolbar{
+			display: block;
+		}
+		
+	
+		
+		
+		@media print {
+			.A4{
+			  display:block;
+			  width:100%;
+			  height:100%;
+			}
+			body{
+				background:white;
+			}
+			#zoneBtn,#footer{
+			   display:none;
+			}
+			#footer{
+				display:none;
+			}			
+			#tableau{
+				margin-top:0px;
+			}
+			#grillePlanning{
+			  padding: 0px;
+			  padding-top: 0px;
+
+			}
+			
+			.ui-resizable-e, .ui-resizable-handle {
+				display:none !important;
+			}
+			input{
+				display:none;
+			}
+		}
+		
+		

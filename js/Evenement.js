@@ -12,18 +12,18 @@ var Evenement= Class.create({
 			this._nbCol=nbCol;
 			this._visibility = visibility;
 	},
-
-	hauteur : function(){
-		var posHaut=-19;
-		posHaut+=(this._periode.getEnMinDebut()/60-8)*50;
-		return ""+posHaut+"px";
+	//margin-top
+	hauteurEnPrcnt : function(){
+		var plan=this.getColonne().getPage().getPlanning()
+		var nbCelluleAvant = (this._periode.getEnMinDebut() - plan.getHoraire().getEnMinDebut())/60 + 1;
+		return 100 * (nbCelluleAvant / plan.getNbCelluleHauteur() );
 	},
+	//height
 	posEnPx:function(){
-		var t=this._periode.getIntervalle()*0.82;
-		return (t+"px")
+		var plan=this.getColonne().getPage().getPlanning()
+		return ( 100/60 * this.getPeriode().getIntervalle()/ plan.getNbCelluleHauteur()+"%")
 	},
 	largeur : function() {
-		
 		return this._nbCol+"00%";
 	}
 })
@@ -33,7 +33,7 @@ Evenement.setLastID = function(id){
 	Evenement.lastID=id;	
 }
 //getter setter
-addGSet(Evenement,["id","periode",'nbCol']);
+addGSet(Evenement,["id","periode",'nbCol','colonne']);
 addGSet(Evenement,["visibility"],"get");
 
 var EvenementClassique = Class.create(Evenement,{
@@ -52,7 +52,7 @@ var EvenementClassique = Class.create(Evenement,{
 		this._tabEvenementAutreCol.pop();
 	}
 })
-addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie']);
+addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie','colonne']);
 
 var EvenementInvisible = Class.create(Evenement,{
 	initialize: function($super,periode,nbCol){
