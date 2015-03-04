@@ -1,5 +1,4 @@
 ﻿'use strict';
-var $$=$;
 
 var publicAccessToScope;
 angular.module('planning', ['mod']);
@@ -101,29 +100,16 @@ mod.controller('planController', ['$scope',
 						alert("Impossible d'ajouter l'évènement : débordement de la page");
 						return false;
 				}
-				var evnmt=new EvenementClassique (form.titre,form.description,per,form.nbCol,form.categorie);
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
 					var colonnes = planning.getColonnes();
 					var indexColonne = colonnes.indexOf(form.col);
-					$scope.ajoutEvmtCommun(per, indexEvenementPrin);
+          evnmt.setNbEvenementSecondaire(form.nbCol)
 				} 					
 		}
-		$scope.ajoutEvmtCommun=function(per, indexEvenementPrin){
-			var tabColonne = planning.getColonnes();
-			var i = tabColonne.indexOf(form.col) + 1;
-			var j = i+form.nbCol - 1;
-			var ind = tabColonne.indexOf(form.col);
-			var tabEvenements = form.col.getTaches();
-			var evenementPrincipal = tabEvenements[indexEvenementPrin];
-			for (i; i < j; i++) { 
-				var evnmt=new EvenementInvisible (per, 1);
-				tabColonne [i].ajouterEvenement(evnmt);
-				evenementPrincipal.ajoutEvenementSecondaire(evnmt);
-			};
-			
-		}
+	
 		
 		
 		$scope.modifEvmt=function(){
@@ -132,41 +118,8 @@ mod.controller('planController', ['$scope',
 						alert("Impossible de modifier l'évènement : débordement de la page");
 						return false;
 				}
-				var colonnes = planning.getColonnes();
-				var indexColonne = colonnes.indexOf(form.col);
-				var evenements = colonnes[indexColonne].getTaches();
-				var evenementPrincipal = form.evnmt;
-				var per= new Periode(form);	
-				var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-				var nbEvenementSecondaireAvantModif = tabEvenementSecondaire.length;
-				var cpt = 0;
-				
-				//Modification horaire des évènement secondaires déjà existant
-				tabEvenementSecondaire.forEach(function(evenementSecondaire) {
-							tabEvenementSecondaire[cpt].setPeriode(per);
-							cpt++;
-				})
-				evenementPrincipal.setTabEvenementAutreCol(tabEvenementSecondaire);
-				//Si on modifie le nombre de colonnes
-				if (form.nbCol != form.evnmt.getNbCol()) {
-					//Si on augmente le nombre de colonnes
-					if (form.nbCol > form.evnmt.getNbCol()) {
-						var evnmt = new EvenementInvisible (per, 1);
-						for (var j = nbEvenementSecondaireAvantModif; j <= form.nbCol; j++) {
-							colonnes[j+indexColonne+1].ajouterEvenement(evnmt);
-						}
-					}
-					//Si on diminue le nombre de colonnes
-					if(form.nbCol < form.evnmt.getNbCol()) {
-						var indexColASupp = indexColonne + form.evnmt.getNbCol() - 1;
-						for (var i = form.nbCol; i < form.evnmt.getNbCol(); i++) { 
-							evenementPrincipal.supprimerDernierEvenementSecondaire();
-							colonnes[indexColASupp].getTaches().pop();
-							indexColASupp--;
-						}
-					}
-				} 
-				form.evnmt.initialize(form.titre,form.description, per, form.nbCol,form.categorie);
+        form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie);
+        form.evnmt.setNbEvenementSecondaire(form.nbCol)
 		}
 		
 		$scope.suppEvmt=function(){
@@ -310,7 +263,7 @@ mod.controller('planController', ['$scope',
 		
     $scope.colonneRedim=function(col){
 		var largeurElm=$scope.accessToResizableElmt.offsetWidth;
-		var largeurPlanning=$$("A4")[0].offsetWidth;
+		var largeurPlanning=$$(".A4")[0].offsetWidth;
 		/*debut suppression de bug*/
 		col.setLargeurPx(largeurElm+1,largeurPlanning); 
 		$scope.$apply();

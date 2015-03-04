@@ -1,4 +1,10 @@
 'use scrict';
+Array.prototype.suppElmt=function(elmt){
+  var indiceMonEvnmt = this.indexOf(elmt);
+  this.splice(indiceMonEvnmt,1);
+}
+
+
 /***************************
 ***** Classe planning ******
 ****************************/
@@ -36,14 +42,6 @@ var Planning = Class.create({
 			})
 		})
 	},	
-		testDepassementNombreColonnes:function(colonne, nbColonnes){
-		var page = colonne.getPage();
-		var index = page.getColonnes().indexOf(colonne);
-		if (index+nbColonnes > page.getColonnes().length) {
-			return true;
-		}
-		return false;
-	},
 	getPage:function(num){
 		return this._page[num];
 	},
@@ -92,7 +90,7 @@ var Planning = Class.create({
 		page.ajoutColonne(col);		
 	},
 	supprimerColonne:function(col){
-		this._colonnes.splice(this._colonnes.indexOf(col), 1);
+		this._colonnes.suppElmt(col);
 	},
 	ajouterCategories:function(couleur,categorieNom){
 		var cat =new Categorie(couleur,categorieNom);
@@ -100,8 +98,7 @@ var Planning = Class.create({
 		return cat;
 	},
 	supprimerCategorie:function(categorie){
-		var index =this._categories.indexOf(categorie);
-		this._categories.splice(index,1);
+      this._categories.suppElmt(categorie);
 	},
 	estCategorieExistante:function(categorie){
 		var res = null;
@@ -113,12 +110,9 @@ var Planning = Class.create({
 		return res;
 	},
 	testDepassementNombreColonnes:function(colonne, nbColonnes){
-		var page = colonne.getPage();
-		var index = page.getColonnes().indexOf(colonne);
-		if (index+nbColonnes > page.getColonnes().length) {
-			return true;
-		}
-		return false;
+		var colonnes = colonne.getPage().getColonnes();
+		var index = colonnes.indexOf(colonne);
+		return (index+nbColonnes > colonnes.length);		
 	},
   reinitialiser:function(){
     var col=this.getColonnes();

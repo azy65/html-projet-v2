@@ -17,7 +17,7 @@ var Page = Class.create({
 	},
 	
 	supprimerColonne:function(col){
-		this._colonnes.splice(this._colonnes.indexOf(col), 1);
+		this._colonnes.suppElmt(col);
 	},
 	
 	reinitialiser:function(){
