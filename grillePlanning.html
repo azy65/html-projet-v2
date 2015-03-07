@@ -2,19 +2,19 @@
 <input style = "position:initial; right:0" ng-model="formPage.nbParPage" type="number" />
 <div id="tableau"  >
 	<div class="A4"  ng-repeat="page in planning.getPages()" >
-		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPrcnt(),'height':'100%'}" onresize="colonneRedim(planning.getColonneHoraire())" resizable   class="col pasMoi">
-				<div class="coins cell" ng-style="{'height':getHauteurCell()}" >Planning</div>
+		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPrcnt(),'height':'100%'}"  resizableDroite="colonneRedim(planning.getColonneHoraire())" class="col pasMoi">
+				<div class="coins cell" resizableBas="setLigne1Hauteur()"  ng-style="{'height':planning.getHauteurLigne1()}" >Planning</div>
 				<div class="cellHoraire cell"  ng-style="{'height':getHauteurCell()}"  ng-repeat="lig in ligne track by $index">{{lig + "h00 - "+(lig+1) +"h00"}}</div>
 		</div>
-		<div style="width:100%;height:100%" ng-style="{'width':sal.getLargeurPrcnt()}" resizable onresize="colonneRedim(sal)"   class="bigCol" ng-repeat="sal in page.getColonnes() track by $index">
-		  	<div class=" bordPlanningDroite cell"    ng-style="cellStyle"  ng-click="afficherModifColonne(sal)"> {{sal.getTitre()}}</div>
+ 		<div style="width:100%;height:100%" ng-style="{'width':sal.getLargeurPrcnt()}" resizabledroite="colonneRedim(sal)" class="bigCol" ng-repeat="sal in page.getColonnes() track by $index">
+		  
+	<div class=" bordPlanningDroite cell"  resizableBas="setLigne1Hauteur()"  ng-style="{'height':planning.getHauteurLigne1() }"  ng-click="afficherModifColonne(sal)"> {{sal.getTitre()}}</div>
 			<div id="cellEvenement"   ng-style="cellStyle"  class="cell"  deposer="deposer(sal,lig)" ng-repeat="lig in ligne" ng-click="afficherAjouterEvenement(sal,lig)">
 			</div>
-			<div  class="tache">
-			  <div  class="laTache" draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" 
-			  ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.posEnPx(),'top':tache.hauteurEnPrcnt() + '%','background':tache.getCategorie().getCouleur(),
+			<div  style="height:100%" class="tache">
+			  <div resizablebas="tacheRedim(tache)" class="laTache" draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.hauteur(true),'top':tache.margeHaut(true) ,'background':tache.getCategorie().getCouleur(),
 			  'width': tache.largeur()}">
-				<h3 class="titre">{{tache.getNom()}}</h3><p class="tacheTexte">{{tache.getDescription()}}</p>
+				<span class="tacheTexte"><h3 class="titre">{{tache.getNom()}}</h3>{{tache.getDescription()}}</span>
 			</div>
 		  </div>
 		</div>
@@ -23,7 +23,9 @@
 					<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}"></span>
 					{{categorie.getNom()}}
 			</div>	
-		</div>		
+		</div>	
+    </div>
+			
 	</div>
 	<div class="col" ng-if="planning.getMode() === 'journalier'">
 		<div id="AjoutC"   ng-style="cellStyle"  class="cell" >
@@ -38,6 +40,8 @@
 	.bigCol{
 		display:inline-block;
 	}
-
+  .laTache{
+    position:absolute !important;
+  }
 </style>
 

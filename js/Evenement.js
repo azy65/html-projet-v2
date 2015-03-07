@@ -12,15 +12,24 @@ var Evenement= Class.create({
 			this._visibility = visibility;
 	},
 	//margin-top
-	hauteurEnPrcnt : function(){
+	margeHaut : function(calc){
 		var plan=this.getColonne().getPage().getPlanning()
-		var nbCelluleAvant = (this._periode.getEnMinDebut() - plan.getHoraire().getEnMinDebut())/60 + 1;
-		return 100 * (nbCelluleAvant / plan.getNbCelluleHauteur() );
+		var nbCelluleAvant = (this._periode.getEnMinDebut() - plan.getHoraire().getEnMinDebut())/60 ;
+		var res="("+plan.getHauteurCell() + " * " + nbCelluleAvant + " + " + plan.getHauteurLigne1() + "px)"
+		if (calc){
+			res="calc"+res;
+		}
+		return res;
 	},
 	//height
-	posEnPx:function(){
-		var plan=this.getColonne().getPage().getPlanning()
-		return ( 100/60 * this.getPeriode().getIntervalle()/ plan.getNbCelluleHauteur()+"%")
+	hauteur:function(calc){
+		var plan=this.getColonne().getPage().getPlanning();
+		var nbcell = this.getPeriode().getIntervalle()/60
+		var res = "("+plan.getHauteurCell() +" * " +nbcell+")"
+		if (calc){
+			res="calc"+res;
+		}
+		return res;
 	},
 	largeur : function() {
 		return 0+"%";

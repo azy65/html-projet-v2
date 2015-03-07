@@ -43,12 +43,18 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		$scope.creerPlanning = function(mode) {
 			accueilVisible.afficher(false);
-			planning = $scope.planning = new Planning(mode);
+			//ne pas effacer le planning si le mode est le même
+			if (planning && planning.getMode() == mode){
+				return ;
+			}
+			planning = $scope.planning = new Planning(mode)	;
 			planning.addPage();
 			$scope.cellStyle={};
 			$scope.getHauteurCell=function(){
-				return $scope.cellStyle.height = 100 / (planning.getHoraire().getIntervalle()/60+1)+'%';
+				$scope.cellStyle.height="calc("+planning.getHauteurCell()+")";
+				return $scope.cellStyle.height;
 			}
+			
 			if (planning.getMode() === 'hebdomadaire') {
 				initialiserPlanningHebdo();
 			}
@@ -265,11 +271,20 @@ mod.controller('planController', ['$scope',
 		var largeurElm=$scope.accessToResizableElmt.offsetWidth;
 		var largeurPlanning=$$(".A4")[0].offsetWidth;
 		/*debut suppression de bug*/
-		col.setLargeurPx(largeurElm+1,largeurPlanning); 
+		col.setLargeurPx(largeurElm+1, largeurPlanning); 
 		$scope.$apply();
 		/*fin suppression de bug*/
-		col.setLargeurPx(largeurElm,largeurPlanning)
+		col.setLargeurPx(largeurElm, largeurPlanning)
 		planning.repartirColonnes();
+	}
+	$scope.setLigne1Hauteur=function(){
+		planning.setHauteurLigne1($scope.accessToResizableElmt.offsetHeight);
+	}
+	$scope.tacheRedim=function(tache){
+		var htrEnMinCoinsHG=60;
+		var htrTacPrcnt	= $scope.accessToResizableElmt.offsetHeight / $$(".A4")[0].offsetHeight;
+		var htrTacMin 	= htrTacPrcnt * (planning.getHoraire().getIntervalle() + htrEnMinCoinsHG);
+		tache.getPeriode().setIntervalle(parseInt(htrTacMin));	
 	}
     
 
@@ -395,15 +410,33 @@ mod.directive('deposer', [function(){
 	}	
 }])
 
-mod.directive('resizable', function () {
+mod.directive('resizabledroite', function () {
     return {
         link: function (scope, elem, attr) {
-            elem.resizable();
+            elem.resizable({
+              handles: 'e'
+            });
             elem.on('resizestop', function (evt, ui) {	
 				//on rajoute l'accès à l'element
 				publicAccessToScope['accessToResizableElmt']=elem[0];
 				publicAccessToScope.clicOnAimant=false;
-                scope.$eval(attr.onresize)
+                scope.$eval(attr.resizabledroite)
+				scope.$apply();
+            });
+        }
+    };
+});
+mod.directive('resizablebas', function () {
+    return {
+        link: function (scope, elem, attr) {
+            elem.resizable({
+              handles: 's'
+            });
+            elem.on('resizestop', function (evt, ui) {	
+				//on rajoute l'accès à l'element
+				publicAccessToScope['accessToResizableElmt']=elem[0];
+				publicAccessToScope.clicOnAimant=false;
+                scope.$eval(attr.resizablebas)
 				scope.$apply();
             });
         }
@@ -413,6 +446,7 @@ mod.directive('resizable', function () {
 
 mod.directive('showFocus', function($timeout) {
   return function(scope, element, attrs) {
+  
     scope.$watch(attrs.showFocus, 
       function (newValue) { 
         $timeout(function() {

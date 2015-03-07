@@ -37,6 +37,9 @@ var Periode=Class.create({
 	getIntervalle:function(){
 		return this._FinEnMin - this._debutEnMin ;
 	},
+	setIntervalle:function(tps){
+		this._FinEnMin = this._debutEnMin + tps ;
+	},
 	decallerA:function(P){
 		var delta=P.heure*60 - this._debutEnMin;
 		this._debutEnMin += delta;

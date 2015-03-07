@@ -19,9 +19,14 @@ var Planning = Class.create({
 		this._categories=[];
 		this._page=[];
 		this._largeurMax=100;
+		this._hauteurLigne1=50;
 	},
 	getNbCelluleHauteur: function(){
 		return this.getHoraire().getHeureFin() - this.getHoraire().getHeureDebut() + 1;
+	},
+	//ni px ni % c'est une formule à utiliser pour la propriété calc de css 
+	getHauteurCell:function(){
+		return "( 100% - "+this.getHauteurLigne1()+"px ) * 60 / "+this.getHoraire().getIntervalle(); 
 	},
 	addPage:function(unePage){
 		if (!unePage){
@@ -125,4 +130,4 @@ var Planning = Class.create({
 		}
 	}
 })
-addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire"]);
+addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1"]);
