@@ -268,7 +268,7 @@ mod.controller('planController', ['$scope',
     
 		
     $scope.colonneRedim=function(col){
-		var largeurElm=$scope.accessToResizableElmt.offsetWidth;
+		var largeurElm = $scope.accessToResizableElmt.offsetWidth;
 		var largeurPlanning=$$(".A4")[0].offsetWidth;
 		/*debut suppression de bug*/
 		col.setLargeurPx(largeurElm+1, largeurPlanning); 
@@ -281,11 +281,11 @@ mod.controller('planController', ['$scope',
 		planning.setHauteurLigne1($scope.accessToResizableElmt.offsetHeight);
 	}
 	$scope.tacheRedim=function(tache){
-		var htrEnMinCoinsHG=60;
-		var htrTacPrcnt	= $scope.accessToResizableElmt.offsetHeight / $$(".A4")[0].offsetHeight;
-		var htrTacMin 	= htrTacPrcnt * (planning.getHoraire().getIntervalle() + htrEnMinCoinsHG);
-		tache.getPeriode().setIntervalle(parseInt(htrTacMin));	
-	}
+		var uneHeureEnpx = $$(".cellHoraire")[0].offsetHeight;
+    var htrTacEnPx = $scope.accessToResizableElmt.offsetHeight;
+		var ratioTacheHeure = htrTacEnPx / uneHeureEnpx;
+		tache.getPeriode().setIntervalle(parseInt(ratioTacheHeure * 60));	
+  }
     
 
 
