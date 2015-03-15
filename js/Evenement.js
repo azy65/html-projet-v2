@@ -35,17 +35,14 @@ var Evenement= Class.create({
 		return 0+"%";
 	}
 })
-/*statique*/
-Evenement.lastID= 0;
-Evenement.setLastID = function(id){
-	Evenement.lastID=id;	
-}
+
 //getter setter
 addGSet(Evenement,["id","periode",'nbCol','colonne']);
 addGSet(Evenement,["visibility"],"get");
 
-var EvenementClassique = Class.create(Evenement,{
-	initialize:function($super,nom,description,periode,categorie){
+var EvenementClassique = Class.create({
+	extend: Evenement,
+	initialize:function(nom,description,periode,categorie){
 		$super(periode,true);
 		this._nom=nom;
 		this._description=description;
@@ -81,8 +78,9 @@ var EvenementClassique = Class.create(Evenement,{
 })
 addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie','colonne']);
 
-var EvenementInvisible = Class.create(Evenement,{
-	initialize: function($super,periode){
+var EvenementInvisible = Class.create({
+	extend: Evenement,
+	initialize: function(periode){
 		$super(periode,false);
 	},  
   

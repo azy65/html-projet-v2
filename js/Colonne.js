@@ -13,7 +13,7 @@ var Colonne = Class.create({
     evmt.setColonne(this);
 	},
 	supprimerEvenement:function(evmt){
-		this._taches.splice(this._taches.indexOf(evmt), 1);
+		this._taches.suppElmt(evmt);
 	},
 	reinitialiserEvenement:function(){
 		this._taches=[];

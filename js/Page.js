@@ -13,7 +13,7 @@ var Page = Class.create({
 	//ne pas utiliser
 	ajoutColonne:function(col2){
 		this._colonnes.push(col2);
-    col2.setPage(this);
+		col2.setPage(this);
 	},
 	
 	supprimerColonne:function(col){
@@ -21,9 +21,9 @@ var Page = Class.create({
 	},
 	
 	reinitialiser:function(){
-		if(this._mode=="journalier")
+		if(this._mode=="journalier"){
 			this._colonnes=[];
-		else{	
+		}else{	
 			this._colonnes.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
 			})					

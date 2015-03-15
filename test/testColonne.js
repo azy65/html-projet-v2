@@ -28,7 +28,7 @@ QUnit.test( "testColonneSetTaches", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
 	Evenement.setLastID(0);
-	var evenementTest = new EvenementClassique("TD","UML",periodeTest,1,"conception informatique");
+	var evenementTest = new EvenementClassique("TD","UML",periodeTest,"conception informatique");
 	colonneTest.ajouterEvenement(evenementTest);
 	var tabEvmt = new Array(evenementTest);
 	colonneTest.setTaches(tabEvmt);
@@ -36,7 +36,7 @@ QUnit.test( "testColonneSetTaches", function( assert ) {
 	assert.equal(  colonneTest.getTaches()[0].getNom() , "TD", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut() , 8, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription() , "UML", "Passed!" );
-	assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
+	//assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getCategorie() , "conception informatique", "Passed!" );
 });
 
@@ -44,13 +44,13 @@ QUnit.test( "testColonneajouterEvenement", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
 	Evenement.setLastID(0);
-	var evmt=new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	colonneTest.ajouterEvenement(evmt);
 	assert.equal( colonneTest.getTaches()[0].getId(), 0, "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );
-	assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
+	//assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getCategorie() , "Informatique", "Passed!" );
 });
 
@@ -59,7 +59,7 @@ QUnit.test( "testColonneSupprimerEvenement", function( assert ) {
 	var evenementTest= new Evenement();
 	var periodeTest = new Periode({heureDeb:8});
 	Evenement.setLastID(0);
-	var evmt=new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	colonneTest.ajouterEvenement(evmt);
 	colonneTest.ajouterEvenement(evmt);
 
@@ -68,7 +68,7 @@ QUnit.test( "testColonneSupprimerEvenement", function( assert ) {
 	assert.equal(  colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );
-	assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
+	//assert.equal(  colonneTest.getTaches()[0].getNbCol() , 1, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getCategorie() , "Informatique", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[1], undefined, "Passed!" );
 });
@@ -76,7 +76,7 @@ QUnit.test( "testColonneSupprimerEvenement", function( assert ) {
 QUnit.test( "testtColonneReinitialiserEvenement", function( assert ) {
 	var colonneTest = new Colonne("colonne1", 150);
 	var periodeTest = new Periode({heureDeb:8});
-	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	
 	colonneTest.reinitialiserEvenement();
 	assert.equal(colonneTest.getTaches()[0], undefined, "Passed!" );

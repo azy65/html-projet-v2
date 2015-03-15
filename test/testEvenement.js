@@ -79,7 +79,7 @@ QUnit.test( "testEvenementGetCategorie", function( assert ) {
 		heureFin : 9,
 		minuteFin: 30});
 		Evenement.setLastID(0);
-	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	assert.equal(  evenementTest.getCategorie(), "Informatique", "Passed!" );
 });
 
@@ -89,7 +89,7 @@ QUnit.test( "testEvenementSetCategorie", function( assert ) {
 		heureFin : 9,
 		minuteFin: 30});
 	Evenement.setLastID(0);
-	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evenementTest = new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	evenementTest.setCategorie("Qualite"); 
 	assert.equal(  evenementTest.getCategorie(), "Qualite", "Passed!" );
 });
@@ -105,7 +105,7 @@ QUnit.test( "testEvenementIncrementationId", function( assert ) {
 	var evenementTest = new Evenement("TP3",periodeTest,"refactoring","salle Rubis");
 	assert.equal(evenementTest.getId(), 2, "Passed!" );
 });
-
+/*
 QUnit.test( "testEvenementgetNbCol", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
@@ -113,8 +113,8 @@ QUnit.test( "testEvenementgetNbCol", function( assert ) {
 		minuteFin: 30});
 	var evmt=new EvenementClassique("TP","refactoring",periodeTest,5,"Informatique");
 	assert.equal(evmt.getNbCol(),5,"Passed");
-});
-
+});*/
+/*
 QUnit.test( "testEvenementSetNbCol", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
@@ -123,14 +123,14 @@ QUnit.test( "testEvenementSetNbCol", function( assert ) {
 	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",2);
 	evmt.setNbCol(5);
 	assert.equal(evmt.getNbCol(),5,"Passed");
-});
+});*/
 
 QUnit.test( "testEvenementGetVisibility", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
 		heureFin : 9,
 		minuteFin: 30});
-	var evmt=new EvenementClassique("TP","refactoring",periodeTest,1,"Informatique");
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	
 	assert.equal(evmt.getVisibility(),true,"Passed");
 });

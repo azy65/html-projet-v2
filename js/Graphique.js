@@ -12,7 +12,8 @@ var Fenetre=Class.create({
 })
 
 
-var FenetreAvecTransition=Class.create(Fenetre,{
+var FenetreAvecTransition=Class.create({
+	extend: Fenetre,
 	getClasse:function(){
 		return (this._visible) ? "optionVisible" : "optionInvisible";
 	}
