@@ -177,3 +177,13 @@ QUnit.test( "super", function( assert ) {
 	assert.equal( petitPetitFils._b, 101, "Passed!" );
 });
 
+QUnit.test( "super", function( assert ) {
+	var e = Class.create({
+		extend : Array	
+	})	
+	var a = new e();
+	a.push(0);
+	assert.equal( a[0], 0, "Passed!" );
+	assert.equal( a.length, 1, "Passed!" );
+});
+

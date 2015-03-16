@@ -27,12 +27,10 @@ QUnit.test( "testColonneGetLargeur", function( assert ) {
 QUnit.test( "testColonneSetTaches", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
-	Evenement.setLastID(0);
 	var evenementTest = new EvenementClassique("TD","UML",periodeTest,"conception informatique");
 	colonneTest.ajouterEvenement(evenementTest);
 	var tabEvmt = new Array(evenementTest);
 	colonneTest.setTaches(tabEvmt);
-	assert.equal(  colonneTest.getTaches()[0].getId() , 0, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getNom() , "TD", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut() , 8, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription() , "UML", "Passed!" );
@@ -43,10 +41,8 @@ QUnit.test( "testColonneSetTaches", function( assert ) {
 QUnit.test( "testColonneajouterEvenement", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);
 	var periodeTest = new Periode({heureDeb:8});
-	Evenement.setLastID(0);
 	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	colonneTest.ajouterEvenement(evmt);
-	assert.equal( colonneTest.getTaches()[0].getId(), 0, "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal( colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );
@@ -58,13 +54,11 @@ QUnit.test( "testColonneSupprimerEvenement", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);
 	var evenementTest= new Evenement();
 	var periodeTest = new Periode({heureDeb:8});
-	Evenement.setLastID(0);
 	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	colonneTest.ajouterEvenement(evmt);
 	colonneTest.ajouterEvenement(evmt);
 
 	colonneTest.supprimerEvenement(colonneTest.getTaches()[1]);
-	assert.equal(  colonneTest.getTaches()[0].getId(), 0, "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getNom(), "TP", "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getPeriode().getHeureDebut(),8 , "Passed!" );
 	assert.equal(  colonneTest.getTaches()[0].getDescription(), "refactoring", "Passed!" );

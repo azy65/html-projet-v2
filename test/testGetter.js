@@ -64,8 +64,6 @@ QUnit.test( "testGetterDetableau", function( assert ) {
 	assert.equal(  instance.getAs().length, 5, "Passed!" );
 	instance.supA(3);
 	assert.equal(  instance.getAs().length, 4, "Passed!" );
-	assert.equal(  instance.getA(2), 4, "Passed!" );
-
-	
+	assert.equal(  instance.getA(2), 4, "Passed!" );	
 })
 

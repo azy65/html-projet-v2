@@ -2,9 +2,10 @@ var t=function(u){
 	this.t=u
 }
 
-var tu = Class.create(t, {
+var tu = Class.create({
+	extend:t,
 	//constructeur
-	initialize:function ($super, u){
+	initialize:function (u){
 		$super(u);
 	}	
 	
@@ -12,7 +13,7 @@ var tu = Class.create(t, {
 
 var Tab = Class.create(Array, {
 	//constructeur
-	initialize:function ($super, tab){
+	initialize:function (tab){
 		//attribut protected
 		this._tab = tab || [];
 	}	

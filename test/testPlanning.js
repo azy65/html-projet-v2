@@ -30,7 +30,7 @@ QUnit.test( "testPlanningAddPages", function( assert ) {
 	var planningTest = new Planning("journalier");
 	var pageTest = new Page();
 	planningTest.addPage(pageTest);
-	assert.equal(  planningTest.getPages().size(), 1, "Passed!" );
+	assert.equal(  planningTest.getPages().length, 1, "Passed!" );
 });
 
 QUnit.test( "testPlanningOptimerLargeurColonne", function( assert ) {
@@ -72,7 +72,7 @@ QUnit.test( "testPlanningGetColonnes", function( assert ) {
 	var planningTest = new Planning("journalier");
 	var colonneTest = new Colonne("salle Rubis",10);
 	planningTest.ajoutColonne(colonneTest);
-	assert.equal(  planningTest.getColonnes(0).size(), 1, "Passed!" );
+	assert.equal(  planningTest.getColonnes(0).length, 1, "Passed!" );
 });
 
 QUnit.test( "testPlanningRepartirColonnes", function( assert ) {
@@ -84,7 +84,7 @@ QUnit.test( "testPlanningRepartirColonnes", function( assert ) {
 	planningTest.addPage(pageTestNumeroDeux);
 	pageTestNumeroDeux.ajoutColonne(colonneTest);
 	planningTest.repartirColonnes();
-	assert.equal(  planningTest.getPage(0).getColonnes().size(),1, "Passed!" );
+	assert.equal(  planningTest.getPage(0).getColonnes().length,1, "Passed!" );
 	assert.equal(  planningTest.getPage(1), undefined, "Passed!" );
 });
 
@@ -111,7 +111,7 @@ QUnit.test( "testPlanningAjouterCategories", function( assert ) {
 	planningTest.ajouterCategories(categoriesTest);
 
 	var cat = planningTest.getCategories();
-	assert.equal( cat.size(),1,"Passed!");
+	assert.equal( cat.length,1,"Passed!");
 	
 });
 
@@ -123,7 +123,7 @@ QUnit.test( "testPlanningSupprimerCategories", function( assert ) {
 	planningTest.supprimerCategorie();
 	var cat = planningTest.getCategories();
 	
-	assert.equal( cat.size(),0,"Passed!");
+	assert.equal( cat.length,0,"Passed!");
 	
 });
 

@@ -11,18 +11,23 @@ var addGSet=function(obj,param,gset){
 	param.forEach(function(prop){
 			var propMaj=prop.charAt(0).toUpperCase()+prop.substr(1,prop.length-1);
 			if (gset!="set"){
-				methods["get"+propMaj] = stringToFunct('return function(){ return this._'+prop+'}');
+				methods["get"+propMaj] =function(){
+					return this['_'+prop]
+				};
 			}
 			if (gset!="get"){
-				methods["set"+propMaj] = stringToFunct('return function(o){ this._'+prop+'=o; return this}')
+				methods["set"+propMaj] = function(o){ 
+					this['_'+prop]=o; 
+					return this;
+				}
 			}
 	})
 	Class.addMethods(obj,methods);
 }
 
-var addGetterDetableau = function(obj,param){
-	var methods={};
-	param.forEach(function(prop){
+var addGetterDetableau = function(obj,methods){
+	var methods=methods ||{};
+	methods.forEach(function(prop){
 		var propPluriel = "_"+prop+"s";
 		var propMaj = prop.charAt(0).toUpperCase() + prop.substr(1);
 		var propMajPluriel = propMaj+"s";
@@ -41,7 +46,7 @@ var addGetterDetableau = function(obj,param){
 		};	
 		
 	})
-	Class.addMethods(methods);
+	Class.addMethods(obj, methods);
 }
 
 
