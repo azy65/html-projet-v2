@@ -13,15 +13,13 @@ function getClass(superName){
 		methodes.getteur = methodes.getteur || {};
 		methodes.setteur = methodes.setteur || {};
 		for( var o=0; o<2;o++){
-			for ( var i in methodes.getteur){
-				prop = methodes.getteur[i];
+			for ( var prop in methodes.getteur){
 				var propMaj = prop.charAt(0).toUpperCase()+prop.substr(1,prop.length-1);
 				proto["get"+propMaj] = function(){
 					return this['_'+prop]
 				}
 			}
-			for ( var i in methodes.setteur){
-				prop = methodes.setteur[i];
+			for ( var prop in methodes.setteur){
 				var propMaj = prop.charAt(0).toUpperCase()+prop.substr(1,prop.length-1);
 				proto["set"+propMaj] = function(o){ 
 					this['_'+prop]=o; 
@@ -54,9 +52,14 @@ function getClass(superName){
 		var parent = methodes.extend || f;
 		parent.prototype.initialize=parent.prototype.initialize || parent;
 		var enfant = function(){
-			enfant.prototype.initialize.apply(this, arguments);
+            var toReturn = this;
+            if (proto.extend && proto.extend.prototype instanceof Array || proto.extend == Array){
+               toReturn = [];
+               toReturn.__proto__=this.__proto__;
+            }
+            return  proto.initialize.apply(toReturn, arguments) || toReturn;
 		}
-		var proto = enfant.prototype = Object.create(parent.prototype);
+		var proto = enfant.prototype = { __proto__ : parent.prototype } ;
 		this.addMethods(enfant, methodes)
 		proto.initialize =  proto.initialize || methodes.initialize || parent;
 		return enfant;

@@ -3,6 +3,5 @@ var Categorie=Class.create({
 		this._nom=nom;
 		this._couleur=couleur2;
 	},
-	
+    getteurEtSetteur:["nom","couleur",'nbCol']
 })
-addGSet(Categorie,["nom","couleur",'nbCol']);
