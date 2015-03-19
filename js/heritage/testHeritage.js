@@ -177,65 +177,13 @@ QUnit.test( "super", function( assert ) {
 	assert.equal( petitPetitFils._b, 101, "Passed!" );
 });
 
-QUnit.test( "heritageTableau", function( assert ) {
-	var SousTab = Class.create({
-		extend : Array,
-        initialize : function(){}
+QUnit.test( "super", function( assert ) {
+	var e = Class.create({
+		extend : Array	
 	})	
-	var a = new SousTab();
+	var a = new e();
 	a.push(0);
 	assert.equal( a[0], 0, "Passed!" );
 	assert.equal( a.length, 1, "Passed!" );
-    a[50]="test";
-	assert.equal( a.length, 51, "Passed!" );
-	assert.equal( (a instanceof SousTab), true, "Passed!" );
-	assert.equal( (a instanceof Array), true, "Passed!" );
-    var sousTabdeE = Class.create({
-		extend : SousTab	
-	})	
-    b = new sousTabdeE();
-    assert.equal( (b instanceof SousTab), true, "Passed!" );
-    assert.equal( (b instanceof sousTabdeE), true, "Passed!" );
-    assert.equal( (b instanceof Array), true, "Passed!" );
-    b[52]="test";
-	assert.equal( b.length, 53, "Passed!" );
-    var SousTab2 = Class.create({
-		extend : Array,
-        initialize : function(){
-            this.push(5,6);
-        }
-	})
-    var a = new SousTab2();
-    assert.equal( a.length, 2, "Passed!" );
-    a.push(0);
-    assert.equal( a.length, 3, "Passed!" );
-    a[50]="test";
-	assert.equal( a.length, 51, "Passed!" );
 });
-
-QUnit.test( "tableau constructeur", function( assert ) {
-	var SousTab = Class.create({
-		extend : Array,
-        initialize : function(tab){
-            tab.__proto__ = SousTab.prototype;
-            return tab;
-        }
-	})	
-    var c=[5,4,3]
-	var a = new SousTab(c);
-    assert.equal( a.length, 3, "Passed!" );
-    a[50]=0;
-    assert.equal( a.length, 51, "Passed!" );
-    assert.equal( a instanceof SousTab, true, "Passed!" );
-
-    var d=[8,9,10,11];
-    SousTab(d);
-    assert.equal( d.length, 4, "Passed!" );
-    assert.equal( d instanceof SousTab, true, "Passed!" );
-
-    
-    
-});
-
-
 
