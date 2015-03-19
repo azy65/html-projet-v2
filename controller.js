@@ -299,7 +299,6 @@ mod.controller('planController', ['$scope',
 		$scope.afficherModifierColonne = function() {
 			formCol.titre = "";
 			fenetreAjoutColonne.afficher(true);
-
 		}
 		
 		$scope.ajoutColonne = function() {
@@ -319,14 +318,13 @@ mod.controller('planController', ['$scope',
       fenetreModifSupprColonne.afficher(false);
 		}
 		
-		$scope.supprColonne=function(page){
-			poubelle.push(formCol.col);
-			poubelle.push(formCol.col);
-			page.supprimerColonne(formCol.col);
-      fenetreModifSupprColonne.afficher(false);
+		$scope.supprColonne=function(){
+			//poubelle.push(formCol.col);
+			planning.supprimerColonne(formCol.col);
+			fenetreModifSupprColonne.afficher(false);
 		}
 		
-		$scope.calculerLargeur=function(page,evenement, colonne) {
+		/*$scope.calculerLargeur=function(page,evenement, colonne) {
 			var tabColonnes = page.getColonnes();
 			var result = colonne.getLargeur();
 			if(evenement.getNbCol() > 1) {
@@ -343,7 +341,7 @@ mod.controller('planController', ['$scope',
 		$scope.activerAiment=function(){
 			planning.optimiserLargeurColonnes();
 		}
-		
+		*/
 
 		
 		$scope.modifHeure = function() {

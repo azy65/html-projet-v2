@@ -61,8 +61,8 @@ var Planning = Class.create({
 		return this._page;
 	},
 	
-	repartirColonnes:function(){
-		var colonnes = this.getColonnes();
+	repartirColonnes:function(colonnes){
+		var colonnes = colonnes || this.getColonnes();
 		var largeur=this._colonneHoraire.getLargeur();
 		var indicePage=0;
 		this._page[0].setColonnes([]);
@@ -95,7 +95,9 @@ var Planning = Class.create({
 		page.ajoutColonne(col);		
 	},
 	supprimerColonne:function(col){
-		this._colonnes.suppElmt(col);
+		var cols=this.getColonnes();
+		cols.suppElmt(col);
+		this.repartirColonnes(cols);
 	},
 	ajouterCategories:function(couleur,categorieNom){
 		var cat =new Categorie(couleur,categorieNom);
