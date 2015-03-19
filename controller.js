@@ -317,12 +317,14 @@ mod.controller('planController', ['$scope',
 			formCol.col.setTitre(formCol.titre);
 		}
 		
-		$scope.supprColonne=function(page){
-			poubelle.push(formCol.col);
-			page.supprimerColonne(formCol.col);
+		$scope.supprColonne=function(){
+			
+			//poubelle.push(formCol.col);
+			planning.supprimerColonne(formCol.col);
+			
 		}
 		
-		$scope.calculerLargeur=function(page,evenement, colonne) {
+		/*$scope.calculerLargeur=function(page,evenement, colonne) {
 			var tabColonnes = page.getColonnes();
 			var result = colonne.getLargeur();
 			if(evenement.getNbCol() > 1) {
@@ -339,7 +341,7 @@ mod.controller('planController', ['$scope',
 		$scope.activerAiment=function(){
 			planning.optimiserLargeurColonnes();
 		}
-		
+		*/
 
 		
 		$scope.modifHeure = function() {
