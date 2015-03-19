@@ -299,7 +299,6 @@ mod.controller('planController', ['$scope',
 		$scope.afficherModifierColonne = function() {
 			formCol.titre = "";
 			fenetreAjoutColonne.afficher(true);
-
 		}
 		
 		$scope.ajoutColonne = function() {
@@ -319,7 +318,6 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.supprColonne=function(page){
-			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
 			page.supprimerColonne(formCol.col);
 		}
