@@ -106,13 +106,13 @@ mod.controller('planController', ['$scope',
 						alert("Impossible d'ajouter l'évènement : débordement de la page");
 						return false;
 				}
-				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie);
+				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie, form.nbCol);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
 				if (form.nbCol > 1) {
 					var colonnes = planning.getColonnes();
 					var indexColonne = colonnes.indexOf(form.col);
-          evnmt.setNbEvenementSecondaire(form.nbCol)
+					evnmt.setNbEvenementSecondaire(form.nbCol)
 				} 					
 		}
 	
@@ -124,7 +124,7 @@ mod.controller('planController', ['$scope',
 						alert("Impossible de modifier l'évènement : débordement de la page");
 						return false;
 				}
-        form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie);
+        form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie, form.nbCol);
         form.evnmt.setNbEvenementSecondaire(form.nbCol)
 		}
 		
@@ -366,9 +366,11 @@ mod.controller('planController', ['$scope',
 			}
 			$scope.deposer=function(colonneFinal,lig){
 				var per=tacheQuiBouge.getPeriode();
-				per.decallerA({heure:lig});
-				colonneFinal.ajouterEvenement(tacheQuiBouge);
-				colonneDepart.supprimerEvenement(tacheQuiBouge);	
+				if (!planning.testDepassementNombreColonnes(colonneFinal, tacheQuiBouge.getNbCol())) {
+					per.decallerA({heure:lig});
+					colonneFinal.ajouterEvenement(tacheQuiBouge);
+					colonneDepart.supprimerEvenement(tacheQuiBouge);	
+				}
 			}
 		})()
  

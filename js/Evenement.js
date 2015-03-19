@@ -3,7 +3,7 @@
 ***** classe evenement ******
 ****************************/
 var Evenement= Class.create({
-	initialize:function(periode, visibility){
+	initialize:function(periode, visibility, nbCol){
 			if (!this._id){
 				this._id=Evenement.lastID;
 				Evenement.lastID++;
@@ -37,17 +37,18 @@ var Evenement= Class.create({
 })
 
 //getter setter
-addGSet(Evenement,["id","periode",'nbCol','colonne']);
+addGSet(Evenement,["id","periode",'colonne']);
 addGSet(Evenement,["visibility"],"get");
 
 var EvenementClassique = Class.create({
 	extend: Evenement,
-	initialize:function(nom,description,periode,categorie){
+	initialize:function(nom,description,periode,categorie, nbCol){
 		$super(periode,true);
 		this._nom=nom;
 		this._description=description;
 		this._tabEvenementAutreCol = this._tabEvenementAutreCol || [];
 		this._categorie=categorie;
+		this._nbCol = nbCol;;
 	},
 	
 	setNbEvenementSecondaire:function(nb){
@@ -76,7 +77,7 @@ var EvenementClassique = Class.create({
 		return 100 * (maLarg + largeur)/maLarg + "%"
 	}
 })
-addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie','colonne']);
+addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie','colonne','nbCol']);
 
 var EvenementInvisible = Class.create({
 	extend: Evenement,
