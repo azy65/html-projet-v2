@@ -136,6 +136,7 @@ mod.controller('planController', ['$scope',
 			if (form.evnmt.getNbCol() > 1 ){
 				$scope.suppEvenementCommun();
 			}
+      fenetreEditEvnt.afficher(false);
 		}
 		
 		$scope.suppEvenementCommun=function() {

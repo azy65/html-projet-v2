@@ -1,9 +1,9 @@
 ﻿<div class="containerForm" ng-if="fenetreEditEvnt.isAfficher()">
-	<form id="editEvnt" class="form_evenement centrer_form" ng-if="fenetreEditEvnt.isAfficher()" >
+	<form id="editEvnt" class="form_evenement centrer_form" ng-submit="validationFormulaireEvenement()">
 				<table>
 					<tr>
 						<td style="width:100px">Titre:</td>
-						<td><input type="text" ng-model="form.titre" show-focus="fenetreEditEvnt.isAfficher()"/></td>
+						<td><input type="text" ng-model="form.titre" show-focus="fenetreEditEvnt.isAfficher()" required /></td>
 					</tr>
 					<tr>
 						<td style="width:100px">Heure début:</td>
@@ -30,10 +30,10 @@
 			</table>
 			<br />
 				<div class="form_bouton">
-					<input type="submit" value="Ajouter" ng-click="validationFormulaireEvenement()" ng-if="mode=='ajout'" />
-					<input type="submit" value="Modifier" ng-click="validationFormulaireEvenement()" ng-if="mode !='ajout'"/>
-					<input type="submit" value="Supprimer" ng-click="suppEvmt();fenetreEditEvnt.afficher(false);" ng-if="mode!='ajout'"/>
-					<button ng-click="fenetreEditEvnt.afficher(false)">Annuler</button>
+					<input type="submit" value="Ajouter"  ng-if="mode == 'ajout'" />
+					<input type="submit" value="Modifier" ng-if="mode != 'ajout'" />
+					<input type="button" value="Supprimer" ng-click="suppEvmt();" ng-if="mode!='ajout'" />
+					<input type="button" value="Annuler"   ng-click="fenetreEditEvnt.afficher(false);" />
 				</div>
 		</form>
 </div>
