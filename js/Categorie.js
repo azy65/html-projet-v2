@@ -5,4 +5,4 @@ var Categorie=Class.create({
 	},
 	
 })
-addGSet(Categorie,["nom","couleur",'nbCol']);
+addGSet(Categorie,["nom","couleur"]);

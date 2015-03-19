@@ -132,4 +132,4 @@ var Planning = Class.create({
 		}
 	}
 })
-addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1"]);
+addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1", "page"]);

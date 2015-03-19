@@ -236,6 +236,24 @@ mod.controller('planController', ['$scope',
 			form.categorie = '';
 		}
 		
+		$scope.getCategoriesUtilises = function() {
+			var resListeCat = [];
+			var pages = planning.getPage();
+			pages.forEach (function(page) {
+				var colonnes = page.getColonnes();
+				colonnes.forEach (function(colonne) {
+					var taches = colonne.getTaches();
+					taches.forEach (function(evnmt) {
+						var cat = evnmt.getCategorie();				
+						if(resListeCat.indexOf(cat) == -1){
+							resListeCat.push(cat);
+						}
+					});
+				});
+			});
+			return resListeCat;
+		}
+		
 		/*******************************/
 		/********Afficher formulaire*************/
 		/*******************************/

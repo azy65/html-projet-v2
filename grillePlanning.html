@@ -23,7 +23,7 @@
      </div>
 		</div>
 		<div class="legendeCatToolbar">
-			<div class="legendeCat" ng-repeat="categorie in planning.getCategories()" >
+			<div class="legendeCat" ng-repeat="categorie in getCategoriesUtilises()" >
 					<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}"></span>
 					{{categorie.getNom()}}
 			</div>	

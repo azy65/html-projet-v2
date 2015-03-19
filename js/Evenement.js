@@ -48,7 +48,7 @@ var EvenementClassique = Class.create({
 		this._description=description;
 		this._tabEvenementAutreCol = this._tabEvenementAutreCol || [];
 		this._categorie=categorie;
-		this._nbCol = nbCol;;
+		this._nbCol = nbCol;
 	},
 	
 	setNbEvenementSecondaire:function(nb){
