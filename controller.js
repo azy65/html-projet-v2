@@ -316,12 +316,14 @@ mod.controller('planController', ['$scope',
 		
 		$scope.modifColonne=function(){
 			formCol.col.setTitre(formCol.titre);
+      fenetreModifSupprColonne.afficher(false);
 		}
 		
 		$scope.supprColonne=function(page){
 			poubelle.push(formCol.col);
 			poubelle.push(formCol.col);
 			page.supprimerColonne(formCol.col);
+      fenetreModifSupprColonne.afficher(false);
 		}
 		
 		$scope.calculerLargeur=function(page,evenement, colonne) {
