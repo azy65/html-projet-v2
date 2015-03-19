@@ -307,7 +307,6 @@
 			}
       .bigCol + .AjoutCol{
        margin-left: -55px; 
-       
       }
             .AjoutCo{
           margin-left:50px;
@@ -423,6 +422,7 @@ margin-left: 6px;
 		.legendeCatToolbar{
 			display: block;
 			margin-top:	5px;
+			margin-left:-20px;
 		}
 		
 	
@@ -494,5 +494,3 @@ margin-left: 6px;
 				border-radius:10px;
 				opacity:0.8;
 			}
-		
-		
