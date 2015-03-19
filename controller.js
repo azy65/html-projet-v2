@@ -245,7 +245,7 @@ mod.controller('planController', ['$scope',
 					var taches = colonne.getTaches();
 					taches.forEach (function(evnmt) {
 						var cat = evnmt.getCategorie();				
-						if(resListeCat.indexOf(cat) == -1){
+						if(resListeCat.indexOf(cat) == -1 && cat != planning._categories[0]){
 							resListeCat.push(cat);
 						}
 					});
