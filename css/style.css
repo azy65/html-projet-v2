@@ -478,7 +478,7 @@ margin-left: 6px;
 			}
  
 			.info span{
-				display: none
+				display: none;
 			}
  
 			.info:hover span{
@@ -492,6 +492,7 @@ margin-left: 6px;
 				font-weight:none;
 				padding:5px;
 				border-radius:10px;
+				opacity:0.8;
 			}
 		
 		
