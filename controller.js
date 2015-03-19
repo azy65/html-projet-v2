@@ -59,6 +59,7 @@ mod.controller('planController', ['$scope',
 				initialiserPlanningHebdo();
 			}
 			planning.setHoraire(new Periode($scope.horaire));
+			planning.ajouterCategories("#ccb800","Default");
 			planning.ajouterCategories("red","sport");
 			planning.ajouterCategories("orange","foot");
 			planning.ajouterCategories("white","sieste");
@@ -203,11 +204,15 @@ mod.controller('planController', ['$scope',
 			if(planning.estCategorieExistante(new Categorie(couleurCat.val,titreCat.val)) != null) {
 				alert("Catégorie déjà existante");
 			} else {
-				planning.ajouterCategories(couleurCat.val,titreCat.val);
-				fenetreAjoutCategorie.afficher(false);
-				titreCat.val ="";
-				form.categorie="";
-				fenCategorie.afficher(true);
+				if (planning.getCategories().length >= 10) {
+					alert("Vous ne pouvez ajouter que 10 catégories");
+				} else {
+					planning.ajouterCategories(couleurCat.val,titreCat.val);
+					fenetreAjoutCategorie.afficher(false);
+					titreCat.val ="";
+					form.categorie="";
+					fenCategorie.afficher(true);
+				}
 			}
 		}
 		
@@ -236,6 +241,8 @@ mod.controller('planController', ['$scope',
 		$scope.afficherAjouterEvenement=function(col,ligneDeb){
 			viderInput();
 			$scope.mode="ajout";
+			form.categorie = planning._categories[0];
+			titreCat.val = planning._categories[0].getNom();
 			form.nbCol = 1;
 			fenetreEditEvnt.afficher(true);
 			initHeureEvmt(ligneDeb,ligneDeb+1);	
@@ -245,6 +252,7 @@ mod.controller('planController', ['$scope',
 		$scope.afficherModifierEvenement=function(evmt,col){
 			$scope.mode="modif";
 			form.categorie = evmt.getCategorie();
+			titreCat.val = form.categorie.getNom();
 			var p=evmt.getPeriode();
 			var hDeb=p.getHeureDebut();
 			var hFin=p.getHeureFin();
