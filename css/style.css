@@ -301,13 +301,29 @@
 				color:rgb(190,110,0);
 			}
 			
-			#AjoutC{
-				color:rgb(199,140,54);
-				width:50px;
+			.AjoutCol{
+          margin-left:-50px;
+          width:0;
 			}
-			
+      .bigCol + .AjoutCol{
+       margin-left: -55px; 
+       
+      }
+            .AjoutCo{
+          margin-left:50px;
+          background:	#ADD8E6;
+         /* border:solid red 2px;*/
+          width:50px;
+          			border:solid 1px #C2C2C2;
+
+
+			}
 			.imgAjout{
+      position :absolute;
 			height:40px;
+  margin-top: 6px;
+margin-left: 6px;
+
 			}
 			
 			.imgAjout:hover{
@@ -364,7 +380,7 @@
 		#tableau{
 			margin-top:40px;
 		}
-
+ 
 		.A4{
 			  display:block;
 			  width:290mm;
@@ -413,6 +429,9 @@
 		
 		
 		@media print {
+      .AjoutCol{
+          display:none !important;
+			}
 			.A4{
 			  display:block;
 			  width:100%;
