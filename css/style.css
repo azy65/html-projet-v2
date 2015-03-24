@@ -29,13 +29,6 @@
 				padding: 10px;
 			}
 		
-			.bordPlanningDroite {
-				color:black;
-				font-weight:bold;
-				text-transform:capitalize;
-				background:lightblue!important;
-			}
-		
 			.col{
 				display:inline-block;
 				float:left;
@@ -52,7 +45,7 @@
 				height:100%;
 				width:100%;	
 				overflow: hidden;
-				background:#F9F9F9; 	
+				background:#F9F9F9; 				
 		}
 			.cell+.cell{
 				border-top:solid 0px gray;
@@ -60,6 +53,7 @@
       			
 			.cellHoraire{
 				background:lightblue;
+				border:2px solid black;
 			}
 			.titre{
 				color:white;
@@ -76,7 +70,7 @@
 				height:auto;
 				overflow: visible;
 				width:100%;
-        height:0%;
+				height:0%;
 			}
 			.laTache{
 				border:1px rgb(203, 203, 203) solid;	
@@ -131,8 +125,6 @@
 			h1
 			{
 			text-align: center;
-			
-		
 			color: rgba(255,255,255,0.8);
 			font-family: "MV Boli", Georgia, Serif;
 			font-size:50px;
@@ -509,4 +501,14 @@ margin-left: 6px;
 				padding:5px;
 				border-radius:10px;
 				opacity:0.8;
+			}
+
+			.bordPlanningDroite {
+				color:black;
+				font-weight:bold;
+				text-transform:capitalize;
+				background:lightblue!important;
+				border-right:2px solid black;
+				border-top:2px solid black;
+				border-bottom:2px solid black;
 			}
