@@ -87,17 +87,21 @@ mod.controller('planController', ['$scope',
 				return false;
 			}
 			
-			if($scope.mode =="ajout") {
-				res = $scope.ajoutEvmt();
-			}
+			if (!form.titre) {
+        alert('Veuillez saisir un titre valide.');
+      } else {
+        if($scope.mode =="ajout") {
+          res = $scope.ajoutEvmt();
+        }
+        
+        if ($scope.mode == "modif") {
+          res = $scope.modifEvmt()
+        }
 			
-			if ($scope.mode == "modif") {
-				res = $scope.modifEvmt()
-			}
-			
-			if(res != false) {
-				fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
-			}
+        if(res != false) {
+          fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
+        }
+      }
 		}
 			
 		$scope.ajoutEvmt=function(){
@@ -329,9 +333,13 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.ajoutColonne = function() {
-			planning.ajoutColonne(new Colonne(formCol.titre));
-      planning.repartirColonnes();
-			fenetreAjoutColonne.afficher(false);
+			if (!formCol.titre) {
+        alert('Veuillez saisir un titre valide.');
+      } else {
+        planning.ajoutColonne(new Colonne(formCol.titre));
+        planning.repartirColonnes();
+        fenetreAjoutColonne.afficher(false);
+      }
 		}
 		
 		$scope.afficherModifColonne=function(colo){
@@ -341,8 +349,12 @@ mod.controller('planController', ['$scope',
 		}
 		
 		$scope.modifColonne=function(){
-			formCol.col.setTitre(formCol.titre);
-      fenetreModifSupprColonne.afficher(false);
+			if (!formCol.titre) {
+        alert('Veuillez saisir un titre valide.');
+      } else {
+        formCol.col.setTitre(formCol.titre);
+        fenetreModifSupprColonne.afficher(false);
+      }
 		}
 		
 		$scope.supprColonne=function(){
