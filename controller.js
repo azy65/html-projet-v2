@@ -262,7 +262,7 @@ mod.controller('planController', ['$scope',
 		
 		$scope.getCategoriesUtilises = function() {
 			var resListeCat = [];
-			var pages = planning.getPage();
+			var pages = planning.getTabPage();
 			pages.forEach (function(page) {
 				var colonnes = page.getColonnes();
 				colonnes.forEach (function(colonne) {

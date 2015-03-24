@@ -46,9 +46,10 @@ QUnit.test( "testPlanningGetPage", function( assert ) {
 	var pageTestNumeroUn = new Page();
 	var pageTestNumeroDeux = new Page();
 	var colonneTest = new Colonne();
+	pageTestNumeroDeux.ajoutColonne(colonneTest);
 	planningTest.addPage(pageTestNumeroUn);
 	planningTest.addPage(pageTestNumeroDeux);
-	pageTestNumeroDeux.ajoutColonne(colonneTest);
+	
 	
 	assert.equal(  planningTest.getPage(0),pageTestNumeroUn, "Passed!" );
 	assert.equal(  planningTest.getPage(1), pageTestNumeroDeux, "Passed!" );

@@ -18,11 +18,7 @@ QUnit.test( "testColonneGetLargeur", function( assert ) {
 	assert.equal(  colonneTest.getLargeur() , 16.66, "Passed!" );
 });
 
-/*QUnit.test( "testColonneSetLargeur", function( assert ) {
-	var colonneTest = new Colonne("salle Rubis",10);
-	colonneTest.setLargeur(20);
-	assert.equal(  colonneTest.getLargeur() , 20, "Passed!" );
-});*/
+
 
 QUnit.test( "testColonneSetTaches", function( assert ) {
 	var colonneTest = new Colonne("salle Rubis",10);

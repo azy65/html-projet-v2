@@ -50,6 +50,9 @@ var Planning = Class.create({
 	getPage:function(num){
 		return this._page[num];
 	},
+	getTabPage:function(){
+		return this._page;
+	},
 	getColonnes:function(num){
 		var tab=new Array();
 		for (var i =0; i < this._page.length; i++){
@@ -132,4 +135,4 @@ var Planning = Class.create({
 		}
 	}
 })
-addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1", "page"]);
+addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1"]);
