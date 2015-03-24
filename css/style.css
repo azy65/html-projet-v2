@@ -348,22 +348,16 @@ margin-left: 6px;
 			#zoneBtn{
 				display:inline-block;
 				position:fixed;
-				background: rgb(179,220,237);
-				background: -moz-linear-gradient(-45deg,  rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
-				background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(179,220,237,1)), color-stop(50%,rgba(41,184,229,1)), color-stop(100%,rgba(188,224,238,1)));
-				background: -webkit-linear-gradient(-45deg,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
-				background: -o-linear-gradient(-45deg,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
-				background: -ms-linear-gradient(-45deg,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
-				background: linear-gradient(135deg,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee',GradientType=1 );
+				background-color:#4077AF;
 				z-index:100;
 				height:45px;
 				width:auto;
 				text-align:center;
-				border-radius: 50px;
+				border-radius:5px;
 				top:0px;
-				padding-left:30px;
-				padding-right:30px;
+				right:0px;
+				padding-left:20px;
+				padding-right:20px;
 			}
 			
 			#zoneBtn button.info {
@@ -506,7 +500,7 @@ margin-left: 6px;
 			.info:hover span{
 				display:block;
 				position:absolute;
-				top:2em; left:2em;
+				top:2em; right:2em;
 				border:1px solid #000;
 				background-color:#FFF;
 				color:#000;
