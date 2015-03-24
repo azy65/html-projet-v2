@@ -176,7 +176,9 @@
 				color:white;
 				text-align:center;
 				font-size:30px;
-				border: 1px solid black;
+				border-left: 1px solid black;
+				border-top:1px solid black;
+				border-bottom:1px solid black;
 			}
 			
 			
@@ -294,27 +296,27 @@
 			}
 			
 			.AjoutCol{
-          margin-left:-50px;
-          width:0;
+				margin-left:-50px;
+				width:0;
 			}
-      .bigCol + .AjoutCol{
-       margin-left: -55px; 
-      }
+			
+			.bigCol + .AjoutCol{
+				margin-left: -55px; 
+			}
+			
             .AjoutCo{
-          margin-left:50px;
-          background:	#ADD8E6;
-         /* border:solid red 2px;*/
-          width:50px;
-          			border:solid 1px #C2C2C2;
-
-
+				margin-left:50px;
+				background:	#ADD8E6;
+				width:50px;
+          		border:solid 1px #C2C2C2;
+				border:1px solid black;
 			}
+			
 			.imgAjout{
-      position :absolute;
-			height:40px;
-  margin-top: 6px;
-margin-left: 6px;
-
+				position :absolute;
+				height:40px;
+				margin-top: 6px;
+				margin-left: 6px;
 			}
 			
 			.imgAjout:hover{
