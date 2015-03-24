@@ -7,18 +7,20 @@
 					</tr>
 					<tr>
 						<td style="width:100px">Heure début:</td>
-						<td><input class="inputHeure" type="number" ng-model="form.heureDeb"/>h <input type="number" class="inputHeure" ng-model="form.minuteDeb"/>m</td>
+						<td><input class="inputHeure" type="number" ng-model="form.heureDeb" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}" />h
+                <input type="number" class="inputHeure" ng-model="form.minuteDeb" min="0" max="59" />m</td>
 					</tr>
 					<tr>
 						<td>Heure fin:</td>
-						<td><input type="number" class="inputHeure" ng-model="form.heureFin" />h <input type="number" class="inputHeure" ng-model="form.minuteFin"/>m<br /></td>
+						<td><input type="number" class="inputHeure" ng-model="form.heureFin" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}"  />h
+                <input type="number" class="inputHeure" ng-model="form.minuteFin" min="0" max="59" />m<br /></td>
 					</tr>
 					<tr>
 						<td style="vertical-align:top;">Description:</td>
 						<td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
 					</tr>
 					<tr>
-						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" min="1" max="99" /> </td>
+						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" min="1" max="10" /> </td>
 					</tr>
 					<tr><td></td>
 						<td><span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
