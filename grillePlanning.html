@@ -1,5 +1,5 @@
 <div style="" id="footer"  ng-include="'footer.html'"></div>
-<input style = "position:initial; right:0" ng-model="formPage.nbParPage" type="number" />
+
 <div id="tableau"  >
 	<div class="A4"  ng-repeat="page in planning.getPages()" >
 		<div   ng-style="{'width':planning.getColonneHoraire().getLargeurPrcnt(),'height':'100%'}"  resizableDroite="colonneRedim(planning.getColonneHoraire())" class="col pasMoi">
