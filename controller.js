@@ -25,7 +25,8 @@ mod.controller('planController', ['$scope',
 		$scope.largeurGrilleAvecHoraire=1090;
 		$scope.ligne=[8,9,10,11,12,13,14,15,16];
 		$scope.horaire = {heureDeb:8, heureFin:17, minDeb:0,minFin:0};
-		$scope.cellStyle ={}
+		$scope.cellStyle ={};
+		var evenementCopie = $scope.evenementCopie = undefined;
 	
 
     /*
@@ -154,6 +155,25 @@ mod.controller('planController', ['$scope',
 			})
 		}
 		
+		$scope.copierEvenement=function() {
+			$scope.evenementCopie = evenementCopie = new EvenementClassique (form.titre,form.description,0,form.categorie, form.nbCol);
+			fenetreEditEvnt.afficher(false);
+		}
+		
+		$scope.collerEvenement=function() {
+			var colonne = form.col;
+			var per= new Periode(form);	
+			if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
+					alert("Impossible d'ajouter l'évènement : débordement de la page");
+					return false;
+			}
+			form.titre=evenementCopie.getNom();
+			form.description=evenementCopie.getDescription();
+			form.categorie=evenementCopie.getCategorie();
+			form.nbCol=evenementCopie.getNbCol();
+			evenementCopie.setPeriode(per);
+		}
+		
 		$scope.reinitialiser=function(){
 			if(confirm('Vous êtes sur le point de réinitialiser votre planning.\n\n'
 					+ 'Attention, cette action est irréversible !') && planning.getColonnes().length>0){
@@ -248,9 +268,11 @@ mod.controller('planController', ['$scope',
 				colonnes.forEach (function(colonne) {
 					var taches = colonne.getTaches();
 					taches.forEach (function(evnmt) {
-						var cat = evnmt.getCategorie();				
-						if(resListeCat.indexOf(cat) == -1 && cat != planning._categories[0]){
-							resListeCat.push(cat);
+						if(evnmt instanceof EvenementClassique) {
+							var cat = evnmt.getCategorie();				
+							if(resListeCat.indexOf(cat) == -1 && cat != planning._categories[0]){
+								resListeCat.push(cat);
+							}
 						}
 					});
 				});

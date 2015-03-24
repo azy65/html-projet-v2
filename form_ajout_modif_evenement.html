@@ -30,6 +30,8 @@
 			</table>
 			<br />
 				<div class="form_bouton">
+					<input type="button" value="Coller" ng-click="collerEvenement()" ng-if="evenementCopie" />
+					<input type="button" value="Copier" ng-click="copierEvenement()" />
 					<input type="submit" value="Ajouter"  ng-if="mode == 'ajout'" />
 					<input type="submit" value="Modifier" ng-if="mode != 'ajout'" />
 					<input type="button" value="Supprimer" ng-click="suppEvmt();" ng-if="mode!='ajout'" />
