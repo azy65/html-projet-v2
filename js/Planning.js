@@ -9,7 +9,7 @@ Array.prototype.suppElmt=function(elmt){
 ***** Classe planning ******
 ****************************/
 
-var Planning = Class.create({
+Class.create("Planning", {
 	
 	//constructeur
 	initialize:function (mode){

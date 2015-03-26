@@ -3,7 +3,7 @@
 ***** Classe planning ******
 ****************************/
 
-var Page = Class.create({
+Class.create("Page",{
 
 	//constructeur
 	initialize:function (){

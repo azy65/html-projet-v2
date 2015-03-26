@@ -2,7 +2,7 @@
 ***** Classe colonne ******
 ****************************/
 
-var Colonne = Class.create({
+Class.create("Colonne",{
 	initialize: function(titre,largeur){
 		this._taches=[],
 		this._titre=titre,
