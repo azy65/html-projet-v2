@@ -2,12 +2,8 @@
 /***************************
 ***** classe evenement ******
 ****************************/
-var Evenement= Class.create({
+Class.create("Evenement",{
 	initialize:function(periode, visibility, nbCol){
-			if (!this._id){
-				this._id=Evenement.lastID;
-				Evenement.lastID++;
-			} 
 			this._periode=periode;
 			this._visibility = visibility;
 	},
@@ -40,14 +36,17 @@ var Evenement= Class.create({
 addGSet(Evenement,["id","periode",'colonne']);
 addGSet(Evenement,["visibility"],"get");
 
-var EvenementClassique = Class.create({
+Class.create("EvenementClassique",{
 	extend: Evenement,
 	initialize:function(nom,description,periode,categorie, nbCol){
+		if(nbCol){
+			alert("priviligier les setteur au initialize à rallonge illisible");
+		}
 		$super(periode,true);
 		this._nom=nom;
 		this._description=description;
-		this._tabEvenementAutreCol = this._tabEvenementAutreCol || [];
-		this._categorie=categorie;
+		this._tabEvenementAutreCol = this._tabEvenementAutreCol || new Tab();
+		this.setCategorie(categorie);
 		this._nbCol = nbCol;
 	},
 	
@@ -59,6 +58,7 @@ var EvenementClassique = Class.create({
 		for( var i= 1 ; i < nb-indMax; i++){
 		  var evnmt = new EvenementInvisible(this._periode);
 		  evnmt.setEvenementClassique(this);
+		  this._tabEvenementAutreCol.push(this)
 		  colonnes[indiceMaCol + i].ajouterEvenement(evnmt)
 		}
 		//suppression si necessaire
@@ -67,7 +67,9 @@ var EvenementClassique = Class.create({
 			this._tabEvenementAutreCol[indMax].supprimer();
 		}
 	},
-
+	getNbCol:function(){
+		return this._tabEvenementAutreCol.length;
+	},
 	largeur : function() {
 		var largeur=0;
 		for( var i=0; i < this._tabEvenementAutreCol.length; i++){
@@ -77,9 +79,9 @@ var EvenementClassique = Class.create({
 		return 100 * (maLarg + largeur)/maLarg + "%"
 	}
 })
-addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','categorie','colonne','nbCol']);
+addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','colonne','categorie']);
 
-var EvenementInvisible = Class.create({
+Class.create("EvenementInvisible",{
 	extend: Evenement,
 	initialize: function(periode){
 		$super(periode,false);
@@ -90,13 +92,9 @@ var EvenementInvisible = Class.create({
         var tabTaches  =  this.getColonne().getTaches().suppElmt(this)     
         var tabTaches2 =  this.getEvenementClassique().getTabEvenementAutreCol().suppElmt(this);
 	},
-	setEvenementClassique: function(evenementClassique){
-		this._evenementClassique = evenementClassique;
-		this._evenementClassique.getTabEvenementAutreCol().push(this)
-	}
   
 })
-addGSet(EvenementInvisible,["evenementClassique"],"get");
+addGSet(EvenementInvisible,["evenementClassique"]);
 
 
 

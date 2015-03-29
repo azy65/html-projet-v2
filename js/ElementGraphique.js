@@ -2,7 +2,7 @@
 ***** Classe colonne ******
 ****************************/
 
-var ElementGraphique = Class.create({
+Class.create("ElementGraphique",{
 	initialize: function(largeur){
 		this._largeur=largeur;
 	},

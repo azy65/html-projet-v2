@@ -2,9 +2,9 @@
 ***** Classe colonne ******
 ****************************/
 
-var Colonne = Class.create({
+Class.create("Colonne",{
 	initialize: function(titre,largeur){
-		this._taches=[],
+		this._taches=new Tab(),
 		this._titre=titre,
 		this._largeur=16.66
 	},
@@ -16,7 +16,7 @@ var Colonne = Class.create({
 		this._taches.suppElmt(evmt);
 	},
 	reinitialiserEvenement:function(){
-		this._taches=[];
+		this._taches=new Tab();
 	},
 	setLargeurPx: function(largeurCol,largeurPlanning){
 		var max=this.getPage().getPlanning().getLargeurMax();

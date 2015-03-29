@@ -11,7 +11,7 @@
 		return ((tps % 1440) - _toMin(tps))/60;
 	};
 
-var Periode=Class.create({	
+Class.create("Periode", {	
 	initialize:function(P){
 		this._debutEnMin = (P.heureDeb || 0) * 60 + (P.minuteDeb || 0);
 		this._FinEnMin	 = (P.heureFin || 0) * 60 + (P.minuteFin || 0);

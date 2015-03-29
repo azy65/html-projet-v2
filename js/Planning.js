@@ -3,21 +3,63 @@ Array.prototype.suppElmt=function(elmt){
   var indiceMonEvnmt = this.indexOf(elmt);
   this.splice(indiceMonEvnmt,1);
 }
-
+Object.defineProperty(Array.prototype, "suppElmt", {
+  enumerable: false,
+});
 
 /***************************
 ***** Classe planning ******
 ****************************/
+//Obligation de passer par un objet tab pour une serialisation plus simple,
+//length ne se calcule plus tout seul une foix hérité de tableau il faut le reprogrammer
+//notation en crochet pour l'ajout(push) prohibé car on ne peux recaculé length;
+//reste possible les modification est accès en lecture via crochets
+Class.create("Tab", {
+	extend:Array,
+	initialize : function(){
+		this.length=0;
+		Object.defineProperties(this, {
+			"length": {
+				enumerable: false
+			},
+		});
+	},
+	push : function(elem){
+		this[this.length] = elem;
+		this.length++;
+		return this.length;
+	},
+	last:function(){
+		return(this[this.length-1])
+	},
+	suppElmt: function(elmt){
+		var indiceMonEvnmt = this.indexOf(elmt);
+		return this.splice(indiceMonEvnmt,1);//don't care about length Array are dynamics
+	}
+})
 
-var Planning = Class.create({
+for( var prop in Tab.prototype ){
+	Object.defineProperty(Tab.prototype, ""+prop, {
+		enumerable: false, //exlu des for in;
+	});
+}
+
+for( var prop in Tab.prototype.__proto__ ){
+	Object.defineProperty(Tab.prototype.__proto__, prop, {
+		enumerable: false, //exlu des for in;
+	});
+}
+
+
+Class.create("Planning", {
 	
 	//constructeur
 	initialize:function (mode){
 		this._colonneHoraire=new ElementGraphique(16.66);
 		this._colonneHoraire.setPlanning(this);
 		this._mode=mode,
-		this._categories=[];
-		this._page=[];
+		this._categories = new Tab();
+		this._page = new Tab();
 		this._largeurMax=100;
 		this._hauteurLigne1=50;
 	},
@@ -29,9 +71,7 @@ var Planning = Class.create({
 		return "( 100% - "+this.getHauteurLigne1()+"px ) * 60 / "+this.getHoraire().getIntervalle(); 
 	},
 	addPage:function(unePage){
-		if (!unePage){
-			unePage=new Page();
-		}
+		unePage= unePage || new Page();
 		unePage.setPlanning(this);
 		this._page.push(unePage);
 		return unePage;
@@ -54,9 +94,12 @@ var Planning = Class.create({
 		return this._page;
 	},
 	getColonnes:function(num){
-		var tab=new Array();
+		var tab=new Tab();
 		for (var i =0; i < this._page.length; i++){
-			tab=tab.concat(this._page[i].getColonnes())
+			var listeCol = this._page[i].getColonnes()
+			for (var j in listeCol){
+				tab.push(listeCol[j])
+			}
 		}
 		return tab;
 	},	
@@ -68,7 +111,7 @@ var Planning = Class.create({
 		var colonnes = colonnes || this.getColonnes();
 		var largeur=this._colonneHoraire.getLargeur();
 		var indicePage=0;
-		this._page[0].setColonnes([]);
+		this._page[0].setColonnes(new Tab());
 		for (var i=0; i<colonnes.length; i++){
 			var col=colonnes[i];
 			largeur+=col.getLargeur();
@@ -77,7 +120,7 @@ var Planning = Class.create({
 			}else{
 				indicePage++;
 				try{
-					this._page[indicePage].setColonnes([]);
+					this._page[indicePage].setColonnes(new Tab());
 				}catch(e){
 					this.addPage();
 				}
@@ -103,9 +146,8 @@ var Planning = Class.create({
 		this.repartirColonnes(cols);
 	},
 	ajouterCategories:function(couleur,categorieNom){
-		var cat =new Categorie(couleur,categorieNom);
-		this._categories.push(cat);
-		return cat;
+		this._categories.push(new Categorie(couleur,categorieNom));
+		return this._categories.last();
 	},
 	supprimerCategorie:function(categorie){
       this._categories.suppElmt(categorie);

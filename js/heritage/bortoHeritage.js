@@ -48,19 +48,59 @@ function getClass(superName){
 	}
 	
 	var Class = function(){}
-	
-	Class.create=function(methodes){
+	Class.serial = function(){
+		seen = []
+		var obj=JSON.stringify(publicAccessToScope.planning, function(key, val) {
+		   if (val != null && typeof val == "object") {
+				val.serializationName= val.serializationName;
+				if (seen.indexOf(val) >= 0)
+					return;
+				seen.push(val)
+			}
+			return val
+		})
+		var plan = obj;
+		plan.getColonneHoraire().setPlanning(plan);
+		plan.getPages().forEach(function(page){
+			page.setPlanning(plan);
+			page.getColonnes().forEach(function(colonne){
+				colonne.setPage(page);
+				colonne.getTaches().forEach(function(tache){
+					tache.setColonne(colonne)
+				})
+			})
+		})
+		return obj
+	}
+	Class.parse=function(nom){
+		var obj=JSON.parse(nom, function (k, v) {
+			if (v && v.serializationName){
+				v.__proto__ = eval(v.serializationName).prototype;
+			}
+			return v;                
+		});
+		return obj;
+	}
+	Class.create=function(nom, methodes){
 		methodes = methodes || {};
 		var parent = methodes.extend || f;
 		parent.prototype.initialize=parent.prototype.initialize || parent;
 		var enfant = function(){
-			enfant.prototype.initialize.apply(this, arguments);
+			proto.initialize.apply(this, arguments);
 		}
 		var proto = enfant.prototype = Object.create(parent.prototype);
 		this.addMethods(enfant, methodes)
 		proto.initialize =  proto.initialize || methodes.initialize || parent;
-		return enfant;
+		//return enfant;
+		window[nom]=enfant;
+		proto.serializationName = nom;
+		for( var prop in enfant ){
+			Object.defineProperty(enfant, prop, {
+				enumerable: false, //exlu des for in;
+			});
+		}
 	}
+	
 	
 	Class.addMethods = function(laClass, methodes){
 		var proto = laClass.prototype;
@@ -72,9 +112,9 @@ function getClass(superName){
 			? methodes[prop]
 			:getMethod(methodes, prop, parent);
 		}
-	}
-	
+	}	
 	return Class;
+	
 }
 //choisir le nom de la variable globale contenant le super ici _super super tout court sera un mot clef dans Ecma 6 donc déconseillé
 var Class = getClass("$super");

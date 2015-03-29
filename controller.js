@@ -70,12 +70,10 @@ mod.controller('planController', ['$scope',
 			planning.repartirColonnes();
 		}
 		
-		function initialiserPlanningHebdo() {
-			var joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-			
-			for (var jour = 0, nbJours = joursSemaine.length; jour < nbJours; jour++) {
-				planning.ajoutColonne(new Colonne(joursSemaine[jour]));
-			}
+		function initialiserPlanningHebdo() {			
+			['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].forEach(function(jour){
+				planning.ajoutColonne(new Colonne(jour));
+			})
 		}
 		
 		//*******************************/
@@ -108,10 +106,10 @@ mod.controller('planController', ['$scope',
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);	
-				if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
+				/*if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
 						alert("Impossible d'ajouter l'évènement : débordement de la page");
 						return false;
-				}
+				}*/
 				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie, form.nbCol);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
@@ -124,14 +122,13 @@ mod.controller('planController', ['$scope',
 	
 		
 		
-		$scope.modifEvmt=function(){
-		
-				if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
-						alert("Impossible de modifier l'évènement : débordement de la page");
-						return false;
-				}
-        form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie, form.nbCol);
-        form.evnmt.setNbEvenementSecondaire(form.nbCol)
+		$scope.modifEvmt=function(){		
+			if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
+					alert("Impossible de modifier l'évènement : débordement de la page");
+					return false;
+			}
+			form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie, form.nbCol);
+			form.evnmt.setNbEvenementSecondaire(form.nbCol)
 		}
 		
 		$scope.suppEvmt=function(){
@@ -385,26 +382,7 @@ mod.controller('planController', ['$scope',
 			fenetreModifSupprColonne.afficher(false);
 		}
 		
-		/*$scope.calculerLargeur=function(page,evenement, colonne) {
-			var tabColonnes = page.getColonnes();
-			var result = colonne.getLargeur();
-			if(evenement.getNbCol() > 1) {
-				var nbCol = evenement.getNbCol();
-				var tabEvenementSecondaire = evenement.getTabEvenementAutreCol();
-				var cpt = 1;
-				var indexCol = tabColonnes.indexOf(colonne);
-				for(var i = indexCol+1; i < indexCol+nbCol; i++) {
-					result += tabColonnes[i].getLargeur();
-				}
-			}
-			return result+"%";
-		}
-		$scope.activerAiment=function(){
-			planning.optimiserLargeurColonnes();
-		}
-		*/
-
-		
+	
 		$scope.modifHeure = function() {
 			planning.getHoraire().initialize($scope.horaire);
 			$scope.ligne = [];
@@ -434,8 +412,18 @@ mod.controller('planController', ['$scope',
 				}
 			}
 		})()
- 
-    
+	
+	
+	/*open source @autor Bortolaso*/
+	$scope.serializePlanning = function(){
+		return serializeObjet(planning);
+	}
+
+
+	
+	$scope.parsePlanning = function(chaine){
+		$scope.planning = planning = parseChaine(chaine);
+	}
 }]);
 
 // directive de drag and drop attribut glisser et deposer dans la html

@@ -3,12 +3,12 @@
 ***** Classe planning ******
 ****************************/
 
-var Page = Class.create({
+Class.create("Page",{
 
 	//constructeur
 	initialize:function (){
 		//attribut protected
-		this._colonnes=[];
+		this._colonnes = new Tab();
 	},
 	//ne pas utiliser
 	ajoutColonne:function(col2){
@@ -22,7 +22,7 @@ var Page = Class.create({
 	
 	reinitialiser:function(){
 		if(this._mode=="journalier"){
-			this._colonnes=[];
+			this._colonnes=new Tab();
 		}else{	
 			this._colonnes.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
