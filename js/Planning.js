@@ -38,7 +38,7 @@ Class.create("Tab", {
 	}
 })
 
-<<<<<<< HEAD
+
 for( var prop in Tab.prototype ){
 	Object.defineProperty(Tab.prototype, ""+prop, {
 		enumerable: false, //exlu des for in;
@@ -52,8 +52,6 @@ for( var prop in Tab.prototype.__proto__ ){
 }
 
 
-=======
->>>>>>> origin/master
 Class.create("Planning", {
 	
 	//constructeur

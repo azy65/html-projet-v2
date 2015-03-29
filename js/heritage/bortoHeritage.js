@@ -94,14 +94,11 @@ function getClass(superName){
 		//return enfant;
 		window[nom]=enfant;
 		proto.serializationName = nom;
-<<<<<<< HEAD
 		for( var prop in enfant ){
 			Object.defineProperty(enfant, prop, {
 				enumerable: false, //exlu des for in;
 			});
 		}
-=======
->>>>>>> origin/master
 	}
 	
 	
