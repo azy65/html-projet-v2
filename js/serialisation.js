@@ -67,7 +67,7 @@
 		//function principal
 		function parse(chaine){
 			eval("tab="+chaine);
-			genererHeritage2()
+			genererHeritage()
 			for( var i in tab){ 
 				var obj=tab[i];
 				for( var prop in obj){				
@@ -88,23 +88,21 @@
 		}
 		
 		function genererHeritage2(obj){
-			for( var i in tab){ 
-				var theClass = window[tab[i].serializationName] || {};
-				theClass.prototype = theClass.prototype || {};
-				var obj = Object.create(theClass.prototype) // bonne classe
-				// on remmet les infos
-				for (var j in tab[i]){
-					obj[j] = tab[i][j];
+			var theClass = window[tab[i].serializationName] || {};
+			theClass.prototype = theClass.prototype || {};
+			if( obj.__proto__){//navigateur recent ie11 chrome firefox
+				return obj.__proto__ = theClass.prototype;
+			}else{//vieux IE
+				for( var i in tab){ 
+					var obj = Object.create(theClass.prototype) // bonne classe
+					for (var j in tab[i]){
+						obj[j] = tab[i][j];
+					}
+					tab[i] = obj 
 				}
-				tab[i] = obj 
 			}
 		}	
 		
-		function genererHeritage(obj){
-			if(obj.serializationName){
-				obj.__proto__ = window[obj.serializationName].prototype; /*bien sur ça marche que si vous avez le nom de la classe dans cette attribut(à metre dans le prototype de la classe)*/
-			}
-		}		
 		function nettoyage(){
 			for(var i in tab){
 				delete tab[i].serializationName;

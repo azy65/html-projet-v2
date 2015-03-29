@@ -4,5 +4,6 @@ Class.create("Categorie",{
 		this._couleur=couleur2;
 	},
 	
+	
 })
 addGSet(Categorie,["nom","couleur"]);

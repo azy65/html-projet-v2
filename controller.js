@@ -412,6 +412,7 @@ mod.controller('planController', ['$scope',
 				}
 			}
 		})()
+<<<<<<< HEAD
 	
 	
 	/*open source @autor Bortolaso*/
@@ -423,6 +424,40 @@ mod.controller('planController', ['$scope',
 	
 	$scope.parsePlanning = function(chaine){
 		$scope.planning = planning = parseChaine(chaine);
+=======
+		
+	$scope.serializePlanning = function(){
+		var seen = []
+		return JSON.stringify(publicAccessToScope.planning, function(key, val) {
+		   if (val != null && typeof val == "object") {
+				val.serializationName= val.serializationName;
+				if (seen.indexOf(val) >= 0)
+					return;
+				seen.push(val)
+			}
+			return val
+		})
+	} 
+	$scope.parsePlanning = function(chaine){
+		planning = $scope.planning = JSON.parse(chaine, function (k, v){
+			if (v && v.serializationName){
+				v.__proto__ = eval(v.serializationName).prototype;
+			}
+			return v;                
+		});
+		
+		// on remet les liasons opposés cad l'attribut contenant le parent 
+		planning.getColonneHoraire().setPlanning(planning);
+		planning.getPages().forEach(function(page){
+			page.setPlanning(planning);
+			page.getColonnes().forEach(function(colonne){
+				colonne.setPage(page);
+				colonne.getTaches().forEach(function(tache){
+					tache.setColonne(colonne)
+				})
+			})
+		})
+>>>>>>> origin/master
 	}
 }]);
 
