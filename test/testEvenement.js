@@ -54,7 +54,7 @@ QUnit.test( "testEvenementGetPeriode", function( assert ) {
 	assert.equal(  evenementTest.getPeriode().getIntervalle(), 60, "Passed!" );
 });
 
-QUnit.test( "testEvenementSetPeriodeMemeVariable", function( assert ) {
+QUnit.test( "testEvenementSetPeriode", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
 		heureFin : 9,
@@ -105,25 +105,25 @@ QUnit.test( "testEvenementIncrementationId", function( assert ) {
 	var evenementTest = new Evenement("TP3",periodeTest,"refactoring","salle Rubis");
 	//assert.equal(evenementTest.getId(), 2, "Passed!" );
 });*/
-/*
+
 QUnit.test( "testEvenementgetNbCol", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
 		heureFin : 9,
 		minuteFin: 30});
-	var evmt=new EvenementClassique("TP","refactoring",periodeTest,5,"Informatique");
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique",5);
 	assert.equal(evmt.getNbCol(),5,"Passed");
-});*/
-/*
+});
+
 QUnit.test( "testEvenementSetNbCol", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30,
 		heureFin : 9,
 		minuteFin: 30});
-	var evmt=new Evenement("TP",periodeTest,"refactoring","salle Rubis",2);
+	var evmt=new EvenementClassique("TP",periodeTest,"refactoring","salle Rubis",2);
 	evmt.setNbCol(5);
 	assert.equal(evmt.getNbCol(),5,"Passed");
-});*/
+});
 
 QUnit.test( "testEvenementGetVisibility", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
@@ -133,4 +133,16 @@ QUnit.test( "testEvenementGetVisibility", function( assert ) {
 	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
 	
 	assert.equal(evmt.getVisibility(),true,"Passed");
+});
+
+QUnit.test( "testEvenementGetColonne", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique");
+	var col = new Colonne("blabla");
+	col.ajouterEvenement(evmt);
+	
+	assert.equal(evmt.getColonne(),col,"Passed");
 });

@@ -30,7 +30,32 @@ mod.controller('planController', ['$scope',
 		$scope.horaire = {heureDeb:8, heureFin:17, minDeb:0,minFin:0};
 		$scope.cellStyle ={};
 		var evenementCopie = $scope.evenementCopie = undefined;
-	
+		var changerPoliceEcriture = $scope.changerPoliceEcriture = new Fenetre (false);
+		$scope.polStyle = {value:""};
+		$scope.font=[
+            'Arial, Helvetica, sans-serif',
+			'Arial Black, Gadget, sans-serif',
+			'Comic Sans MS, cursive',
+			'Courier, monospace',
+			'Courier New, Courier, monospace',
+			'Garamond, serif',
+			'Georgia, serif',
+			'Gill Sans,Geneva,sans-serif',
+			'Impact, Charcoal, sans-serif',
+			'Lucida Console, Monaco, monospace',
+			'Lucida Sans Unicode, Lucida Grande, sans-serif',
+			'MS Sans Serif, Geneva, sans-serif',
+			'MS Serif, New York, sans-serif',
+			'Palatino Linotype,Book Antiqua,Palatino,serif',
+			'Symbol, sans-serif',
+			'Tahoma, Geneva, sans-serif',
+			'Times New Roman, Times, serif',
+			'Trebuchet MS, Helvetica, sans-serif',
+			'Verdana, Geneva, sans-serif',
+			'Webdings, sans-serif',
+			'Wingdings, Zapf Dingbats, sans-serif',
+            ];
+
 		var titreCat = $scope.titreCat={val:""};
 		var couleurCat = $scope.couleurCat={val:""};
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
@@ -383,12 +408,16 @@ mod.controller('planController', ['$scope',
 		
 	
 		$scope.modifHeure = function() {
-			planning.getHoraire().initialize($scope.horaire);
-			$scope.ligne = [];
-			for (var h = planning.getHoraire().getHeureDebut() ; h < planning.getHoraire().getHeureFin(); h++) {
-				$scope.ligne.push(h);
-			}
-			fenetreModifHoraire.afficher(false);
+			if ($scope.horaire.heureDeb >= $scope.horaire.heureFin) {
+        alert('Veuillez saisir un créneau horaire valide.');
+      } else {
+        planning.getHoraire().initialize($scope.horaire);
+        $scope.ligne = [];
+        for (var h = $scope.horaire.heureDeb ; h < $scope.horaire.heureFin; h++) {
+          $scope.ligne.push(h);
+        }
+        fenetreModifHoraire.afficher(false);
+      }
 		}
 		
 		function viderInput(){
@@ -428,6 +457,30 @@ mod.controller('planController', ['$scope',
 		$scope.fenImport.afficher(false);
 	}
 	
+	
+	
+	/*******************************/
+		/********Changement police*************/
+		/*******************************/
+		$scope.changerPolice=function(){
+			
+			var check =" ";
+			var classCss=" ";
+			check = document.getElementById("rd_int").checked;
+			
+			if (!check){
+				classCss='cell';
+			} else {
+				classCss='changeTexte';
+			}
+			
+			var polTaille = document.getElementById("policeTaille").value;
+			var polColor = document.getElementById("policeCouleur").value;
+			 var stylePol = $scope.polStyle.value;
+			
+			
+			document.getElementById("changeStyle"+classCss).innerHTML="       ."+classCss+"{color:"+polColor+";font-size:"+polTaille+"px;font-family:"+stylePol+";}";
+		}
 }]);
 
 // directive de drag and drop attribut glisser et deposer dans la html
