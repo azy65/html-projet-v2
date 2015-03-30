@@ -3,7 +3,7 @@
 ***** classe evenement ******
 ****************************/
 Class.create("Evenement",{
-	initialize:function(periode, visibility, nbCol){
+	initialize:function(periode, visibility){
 			this._periode=periode;
 			this._visibility = visibility;
 	},
@@ -39,9 +39,6 @@ addGSet(Evenement,["visibility"],"get");
 Class.create("EvenementClassique",{
 	extend: Evenement,
 	initialize:function(nom,description,periode,categorie, nbCol){
-		if(nbCol){
-			alert("priviligier les setteur au initialize à rallonge illisible");
-		}
 		$super(periode,true);
 		this._nom=nom;
 		this._description=description;
@@ -79,7 +76,7 @@ Class.create("EvenementClassique",{
 		return 100 * (maLarg + largeur)/maLarg + "%"
 	}
 })
-addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','colonne','categorie']);
+addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','colonne','categorie','nbCol']);
 
 Class.create("EvenementInvisible",{
 	extend: Evenement,
