@@ -384,12 +384,16 @@ mod.controller('planController', ['$scope',
 		
 	
 		$scope.modifHeure = function() {
-			planning.getHoraire().initialize($scope.horaire);
-			$scope.ligne = [];
-			for (var h = planning.getHoraire().getHeureDebut() ; h < planning.getHoraire().getHeureFin(); h++) {
-				$scope.ligne.push(h);
-			}
-			fenetreModifHoraire.afficher(false);
+			if ($scope.horaire.heureDeb >= $scope.horaire.heureFin) {
+        alert('Veuillez saisir un créneau horaire valide.');
+      } else {
+        planning.getHoraire().initialize($scope.horaire);
+        $scope.ligne = [];
+        for (var h = $scope.horaire.heureDeb ; h < $scope.horaire.heureFin; h++) {
+          $scope.ligne.push(h);
+        }
+        fenetreModifHoraire.afficher(false);
+      }
 		}
 		
 		function viderInput(){
