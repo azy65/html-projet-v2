@@ -21,6 +21,19 @@ QUnit.test( "testPeriodeGetIntervalle", function( assert ) {
 	assert.equal(  periodeTest.getIntervalle(), 60, "Passed!" );
 });
 
+QUnit.test( "testPeriodeSetIntervalle", function( assert ) {
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	
+	assert.equal(  periodeTest.getIntervalle(), 60, "Passed!" );
+	
+	periodeTest.setIntervalle(30);
+	
+	assert.equal(  periodeTest.getIntervalle(), 30, "Passed!" );
+});
+
 QUnit.test( "testPeriodeGetHeureDebut", function( assert ) {
 	var periodeTest = new Periode({heureDeb:8,
 		minuteDeb : 30});

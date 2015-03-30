@@ -14,6 +14,61 @@ QUnit.test( "testPlanningSetMode", function( assert ) {
 	assert.equal(  planningTest.getMode(), "hebdomadaire", "Passed!" );
 });
 
+QUnit.test( "testPlanningGetCategories", function( assert ) {
+	var planningTest = new Planning("journalier");
+	planningTest.ajouterCategories("#ccb800","Default");
+	planningTest.ajouterCategories("red","sport");
+	planningTest.ajouterCategories("orange","foot");
+	planningTest.ajouterCategories("white","sieste");
+			
+	assert.equal(  planningTest.getCategories().length, 4, "Passed!" );
+	assert.equal( planningTest._categories, planningTest.getCategories(), "Passed");
+});
+
+QUnit.test( "testPlanningSetCategories", function( assert ) {
+	var planningTest = new Planning("journalier");
+	var tabCat2=[];
+	tabCat2.push(new Categorie("orange","foot"));
+	tabCat2.push(new Categorie("white","sieste"));
+	tabCat2.push(new Categorie("#ccb800","Default"));
+	tabCat2.push(new Categorie("red","sport"));
+	planningTest.setCategories(tabCat2);
+	assert.equal(  planningTest.getCategories().length, 4, "Passed!" );
+	assert.equal( planningTest.getCategories(), tabCat2 , "Passed");
+});
+
+QUnit.test( "testPlanningGetLargeurMax", function( assert ) {
+	var planningTest = new Planning("journalier");
+	assert.equal(  planningTest.getLargeurMax(), 100, "Passed!" );
+});
+
+QUnit.test( "testPlanningSetLargeurMax", function( assert ) {
+	var planningTest = new Planning("journalier");
+	planningTest.setLargeurMax(666);
+	assert.equal(  planningTest.getLargeurMax(), 666, "Passed!" );
+});
+
+QUnit.test( "testPlanningGetHauteurLigne1", function( assert ) {
+	var planningTest = new Planning("journalier");
+	assert.equal(  planningTest.getHauteurLigne1(), 50, "Passed!" );
+});
+
+QUnit.test( "testPlanningSetHauteurLigne1", function( assert ) {
+	var planningTest = new Planning("journalier");
+	planningTest.setHauteurLigne1(666);
+	assert.equal(  planningTest.getHauteurLigne1(), 666, "Passed!" );
+});
+
+QUnit.test( "testPlanningGetNbCelluleHauteur", function( assert ) {
+	var planningTest = new Planning("journalier");
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 10,
+		minuteFin: 30});
+	planningTest.setHoraire(periodeTest);
+	assert.equal(  planningTest.getNbCelluleHauteur(), 3, "Passed!" );
+});
+
 QUnit.test( "testPlanningGetColonneHoraire", function( assert ) {
 	var planningTest = new Planning("journalier");
 	assert.equal(  planningTest.getColonneHoraire().getLargeur(), 16.66, "Passed!" );
@@ -26,7 +81,7 @@ QUnit.test( "testPlanningSetColonneHoraire", function( assert ) {
 	assert.equal(  planningTest.getColonneHoraire().getLargeur(), 20, "Passed!" );
 });
 
-QUnit.test( "testPlanningAddPages", function( assert ) {
+QUnit.test( "testPlanningAddPage", function( assert ) {
 	var planningTest = new Planning("journalier");
 	var pageTest = new Page();
 	planningTest.addPage(pageTest);
@@ -69,6 +124,18 @@ QUnit.test( "testPlanningAjoutColonne", function( assert ) {
 	
 });
 
+QUnit.test( "testPlanningSupprimerColonne", function( assert ) {
+	var planningTest = new Planning("journalier");
+	
+	var colonneTest = new Colonne("salle Rubis",10);
+	
+	planningTest.ajoutColonne(colonneTest);
+	planningTest.supprimerColonne(colonneTest);
+	
+	assert.equal(  planningTest.getColonnes().indexOf(colonneTest), -1, "Passed!" );
+	
+});
+
 QUnit.test( "testPlanningGetColonnes", function( assert ) {
 	var planningTest = new Planning("journalier");
 	var colonneTest = new Colonne("salle Rubis",10);
@@ -89,19 +156,40 @@ QUnit.test( "testPlanningRepartirColonnes", function( assert ) {
 	assert.equal(  planningTest.getPage(1), undefined, "Passed!" );
 });
 
-//supprimer colonne ne fonctionne plus pour l'instant
-/*QUnit.test( "testPlanningSupprimerColonne", function( assert ) {
+QUnit.test( "testPlanningEstCategorieExistante", function( assert ) {
 	var planningTest = new Planning("journalier");
+	var tabCat2=[];
+	tabCat2.push(new Categorie("orange","foot"));
+	tabCat2.push(new Categorie("white","sieste"));
+	tabCat2.push(new Categorie("#ccb800","Default"));
+	tabCat2.push(new Categorie("red","sport"));
+	planningTest.setCategories(tabCat2);
 	
-	var colonneTest = new Colonne("salle Rubis",10);
+	assert.equal(  planningTest.estCategorieExistante(new Categorie("red","sport")),tabCat2[3], "Passed!" );
+	assert.equal(  planningTest.estCategorieExistante(new Categorie("green","sport")),null, "Passed!" );
+});
+
+QUnit.test( "testPlanningTestDepassementColonne", function( assert ) {
+	var planningTest = new Planning("journalier");
+	var periodeTest = new Periode({heureDeb:8,
+		minuteDeb : 30,
+		heureFin : 9,
+		minuteFin: 30});
+	var evmt=new EvenementClassique("TP","refactoring",periodeTest,"Informatique",4);
+
+	var col = new Colonne("blabla");
+	var col2 = new Colonne("col2");
+	var col3 = new Colonne ("col3");
+	col.ajouterEvenement(evmt);
+	var planning = new Planning();
+	var page = new Page();
+	page.ajoutColonne(col);
+	page.ajoutColonne(col2);
+	page.ajoutColonne(col3);
+	planningTest._page.push(page);
 	
-	planningTest.ajoutColonne(colonneTest);
-	planningTest.supprimerColonne(colonneTest);
-	
-	assert.equal(  planningTest.getColonnes()[0], undefined
-	, "Passed!" );
-	
-});*/
+	assert.equal(  planningTest.testDepassementNombreColonnes(col,evmt.getNbCol()), true, "Passed!" );
+});
 
 
 QUnit.test( "testPlanningAjouterCategories", function( assert ) {
@@ -128,17 +216,6 @@ QUnit.test( "testPlanningSupprimerCategories", function( assert ) {
 	
 });
 
-/*QUnit.test( "testPlanningEstCategoriesExistante", function( assert ) {
-	var planningTest = new Planning("journalier");
-	var categoriesTestExistante = new Categorie("jaune","Informatique");
-	var categoriesTestNonExistante = new Categorie("rouge","Pause");
-	
-	planningTest.ajouterCategories(categoriesTestExistante);
-	
-	assert.equal( planningTest.estCategorieExistante(categoriesTestExistante),true,"Passed!");
-	assert.equal( planningTest.estCategorieExistante(categoriesTestNonExistante),false,"Passed!");
-	
-});*/
 
 QUnit.test( "testPlanningReinitialiserJournalier", function( assert ) {
 	var planningTest = new Planning("journalier");
