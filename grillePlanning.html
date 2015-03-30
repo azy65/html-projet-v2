@@ -13,7 +13,7 @@
         <div  style="height:100%" class="tache">
           <div resizablebas="tacheRedim(tache)" class="laTache" draggable="true"  glisser="glisser(tache,sal)" ng-click="afficherModifierEvenement(tache,sal)" ng-show="tache.getVisibility()" ng-repeat="tache in sal.getTaches()"  ng-style="{'height':tache.hauteur(true),'top':tache.margeHaut(true) ,'background':tache.getCategorie().getCouleur(),
           'width': tache.largeur()}">
-          <span class="tacheTexte"><h3 class="titre">{{tache.getNom()}}</h3>{{tache.getDescription()}}</span>
+          <span class="tacheTexte changeTexte"><h3 class="titre changeTexte">{{tache.getNom()}}</h3>{{tache.getDescription()}}</span>
         </div>
         </div>
 		</div>
