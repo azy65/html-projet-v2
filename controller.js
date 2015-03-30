@@ -20,24 +20,23 @@ mod.controller('planController', ['$scope',
 		var fenetreAjoutColonne = $scope.fenetreAjoutColonne = new Fenetre (false);
 		var fenetreModifHoraire = $scope.fenetreModifHoraire = new Fenetre (false);
 		var fenCategorie = $scope.fenCategorie = new Fenetre (false);
+		var fenExport = $scope.fenExport = new Fenetre (false);
 		var fenetreModifSupprColonne = $scope.fenetreModifSupprColonne = new Fenetre (false);
 		var legendeCategorie = $scope.legendeCategorie = new Fenetre (false);
+		var fenImport = $scope.fenImport = new Fenetre (false);
+
 		$scope.largeurGrilleAvecHoraire=1090;
 		$scope.ligne=[8,9,10,11,12,13,14,15,16];
 		$scope.horaire = {heureDeb:8, heureFin:17, minDeb:0,minFin:0};
 		$scope.cellStyle ={};
 		var evenementCopie = $scope.evenementCopie = undefined;
 	
-
-    /*
-    $scope.getLargeurGrilleSansHoraire=function(){
-       return $scope.largeurGrilleAvecHoraire - $scope.colonneHoraire.getLargeur()+"px";
-    }*/
 		var titreCat = $scope.titreCat={val:""};
 		var couleurCat = $scope.couleurCat={val:""};
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
-		//fin initialisation//
+		
 
+	
 		
 		/*******************************/
 		/******** Initialisation *******/
@@ -416,13 +415,17 @@ mod.controller('planController', ['$scope',
 	
 	/*open source @autor Bortolaso*/
 	$scope.serializePlanning = function(){
-		return serializeObjet(planning);
+		
+		$scope.export = serializeObjet(planning);
+		$scope.fenExport.afficher(true);
+		return $scope.export;
 	}
 
 
 	
 	$scope.parsePlanning = function(chaine){
-		$scope.planning = planning = parseChaine(chaine);
+		$scope.planning = planning = parseChaine($scope.form.import);
+		$scope.fenImport.afficher(false);
 	}
 	
 }]);

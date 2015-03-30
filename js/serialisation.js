@@ -6,25 +6,20 @@
 		if(!(theMainObject instanceof Object)){
 			throw "veuillez passer un objet et non un type primitif"
 		}
+		
 		var tab=[];
 		function genererTableauDeChaine(obj){
-			var chaine = ["{"];
 			if(obj.serializationName){
 				obj.serializationName = obj.serializationName;// ceci n'est pas inutile __proto__ vers objet
 			}
-			Object.defineProperties(obj,{
-				"myid": {
-					enumerable: false,
-					value: tab.push(obj) - 1,
-					writable:true,
-					configurable:true,
-				},
-			});
+			
+			obj.myid = tab.push(obj) - 1;
+			var chaine = ["{"];
 			for(var i in obj){
-				if (obj.hasOwnProperty(i)){
-					chaine.push(i + ":");
+				if (i != "myid" && obj.hasOwnProperty(i)){
+					chaine.push(i + ":");					
 					if ( obj[i] instanceof Object){
-						if (tab.indexOf(obj[i])== -1){
+						if (obj[i].myid == undefined){
 							genererTableauDeChaine(obj[i]);
 						}
 						chaine.push("'tab["+obj[i].myid+"]'");
@@ -35,25 +30,18 @@
 							chaine.push("'"+obj[i]+"'");
 						}
 					}
+					
 					chaine.push(",");
 				}
 			}
 			chaine[chaine.length-1] = "}";
-			tab[obj.myid] = chaine.join("");	
+			tab[obj.myid] = chaine.join("");
+		}		
+		genererTableauDeChaine(theMainObject);
+		for(var i in tab){
+				delete tab[i].myid;
 		}
-		
-		function StringifyObjetDeDepart(obj){
-			var chaine = ["{"];
-			genererTableauDeChaine(obj);
-			for ( var i in tab){
-				chaine.push(i + ":" + tab[i]);
-				chaine.push(",");
-				delete tab[i].myid;//si on veut refaire une génération plus tard
-			}
-			chaine[chaine.length-1] = "}";			
-			return chaine.join("")
-		}	
-		return StringifyObjetDeDepart(theMainObject);
+		return "[" + tab.join(",") +"]"
 	}
 
 
