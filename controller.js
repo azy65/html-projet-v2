@@ -130,10 +130,10 @@ mod.controller('planController', ['$scope',
 		$scope.ajoutEvmt=function(){
 				var colonne = form.col;
 				var per= new Periode(form);	
-				/*if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
+				if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
 						alert("Impossible d'ajouter l'évènement : débordement de la page");
 						return false;
-				}*/
+				}
 				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie, form.nbCol);
 				colonne.ajouterEvenement(evnmt);
 				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
